@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+html { font-feature-settings: "tnum" 1; }
+body { @apply bg-harbor-50 text-ink-900 antialiased; }
+h1 { @apply text-2xl font-semibold tracking-tight; }
+.card { @apply bg-white rounded-lg border border-harbor-100; }
+.btn { @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-buoy-500 disabled:opacity-50 disabled:cursor-not-allowed; }
+.btn-primary { @apply btn bg-buoy-500 text-white hover:bg-buoy-600; }
+.btn-ghost { @apply btn border border-harbor-100 bg-white text-ink-900 hover:bg-harbor-50; }
+.btn-dark { @apply btn bg-harbor-900 text-white hover:bg-harbor-800; }
+.input { @apply w-full rounded-md border border-harbor-100 bg-white px-3 py-2 text-sm focus:border-buoy-500 focus:outline-none focus:ring-1 focus:ring-buoy-500; }
+.label { @apply mb-1 block text-sm text-ink-600; }
+.tbl { @apply w-full text-sm; }
+.tbl th { @apply bg-harbor-50 px-3 py-2 text-left font-medium text-ink-600 border-b border-harbor-100; }
+.tbl td { @apply px-3 py-2 border-b border-harbor-100 align-top; }
+.tbl tr:last-child td { @apply border-b-0; }
+.pill { @apply inline-block rounded-full px-2 py-0.5 text-xs font-medium; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

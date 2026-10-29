@@ -1,6 +1,6 @@
 # Phạm vi prototype LAB-2 so với LAB-1
 
-Prototype dựng **9 màn hình nhóm / 17 route** phủ các luồng cốt lõi của đề: nhập hàng → thẩm định → thỏa thuận (luồng chính) → đấu giá (ghi kết quả) → hóa đơn → tiền về → thưởng → công bố; kèm phân quyền 5 vai trò / 2 cấp quyền mua.
+Prototype dựng **10 nhóm màn hình / 15 màn hình** (14 trang sau đăng nhập + trang đăng nhập) phủ các luồng cốt lõi của đề: nhập hàng → thẩm định → thỏa thuận (luồng chính) → đấu giá (ghi kết quả) → hóa đơn → tiền về → thưởng → công bố; kèm phân quyền 5 vai trò / 2 cấp quyền mua.
 
 ## 1. Màn hình & tính năng đã dựng (chạy thật, đọc/ghi Supabase)
 
@@ -17,7 +17,9 @@ Prototype dựng **9 màn hình nhóm / 17 route** phủ các luồng cốt lõi
 | Thưởng thanh toán đúng hạn (完納奨励金) | `/incentives` | FT-31, FT-32 | US-14, US-15 | Tính theo kỳ (đủ & trước hạn) → admin duyệt → kỳ sau tự trừ vào hóa đơn |
 | Công bố kết quả (公表) | `/publication` | FT-33 | US-15 | Tổng hợp theo ngày / loại cá: SL, cao, thấp, bình quân |
 
-Backend: 11 API route (`app/api/**`), 13 bảng + 2 view trong Supabase, RLS bật.
+Backend: 9 API route (`app/api/**`, 12 handler POST/PATCH/DELETE) + route đăng xuất `/auth/signout`; 13 bảng + 2 view trong Supabase, RLS bật trên cả 13 bảng.
+
+**Bản chốt deploy:** https://sakura-bay-prototype.vercel.app (Supabase project `paqbrovunhxsnytqmncy`, Singapore).
 
 ## 2. Để ngoài phạm vi so với LAB-1 (và vì sao)
 

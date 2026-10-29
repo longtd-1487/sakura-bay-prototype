@@ -6,7 +6,7 @@ Stack: **Next.js 14 · Supabase · Vercel**.
 | | |
 |---|---|
 | **App (Vercel)** | https://sakura-bay-prototype.vercel.app ← *thay bằng URL sau khi deploy* |
-| **Repo** | https://github.com/<org>/sakura-bay-prototype ← *mời giảng viên quyền Read* |
+| **Repo** | https://github.com/longtd-1487/sakura-bay-prototype (private) ← *mời giảng viên quyền Read* |
 | **Supabase project** | https://supabase.com/dashboard/project/<project-ref> ← *dán link project* |
 | Phạm vi & phần mock | [`docs/SCOPE.md`](docs/SCOPE.md) |
 

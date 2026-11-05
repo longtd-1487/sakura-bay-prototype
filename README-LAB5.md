@@ -39,7 +39,7 @@
 | `AI-report.md` | Cách dùng AI: skill, prompt, review, điểm mạnh / yếu |
 | `reports/` | Báo cáo HTML của skill chấm SWP (`swp-estimate-sakura-bay-lab5.html`) và biểu đồ burndown Sprint 1 (`sprint1-burndown.svg`) |
 | `skills/` | Skill tự viết: `github-project-backlog-sync/` (tạo backlog, lập lịch sprint, ghi SWP / giờ / Iteration / Status lên Project) và `backlog-generator/` (sinh `backlog.json` + kiểm toàn vẹn) |
-| `backlog/` | Dữ liệu nguồn: `backlog.json`, bảng key → số issue (`backlog-map.json`), độ phủ spec (`backlog-coverage.md`), payload SWP đã hiệu chỉnh, kế hoạch sprint, giá trị field, kịch bản giả lập Sprint 1 |
+| `backlog/` | Dữ liệu nguồn: `backlog.json`, bảng key → số issue (`backlog-map.json`), độ phủ spec (`backlog-coverage.md`), SWP cuối theo issue (trích từ báo cáo skill), kế hoạch sprint, giá trị field, kịch bản giả lập Sprint 1 |
 | `README.md` | README của prototype LAB-2 (URL deploy, tài khoản demo, cách chạy local) |
 | `app/`, `components/`, `lib/`, `middleware.ts` | Mã nguồn prototype LAB-2 (Next.js 14) |
 | `supabase/`, `scripts/` | Schema, seed, cấu hình Supabase local; script tạo tài khoản demo (LAB-2) |

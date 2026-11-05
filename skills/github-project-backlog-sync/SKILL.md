@@ -20,8 +20,8 @@ Skill tự viết cho LAB-5. Skill `tkm:estimate-swp` **chỉ đọc**, không g
 
 ```bash
 node create-backlog.mjs <owner/repo> <projectNo> backlog/backlog.json backlog/backlog-map.json
-# chạy tkm:estimate-swp trên Project → lưu payload đã hiệu chỉnh vào backlog/swp-calibrated-payload.json
-node plan-sprints.mjs backlog/backlog.json backlog/backlog-map.json backlog/swp-calibrated-payload.json backlog/sprint-plan.json
+# chạy tkm:estimate-swp trên Project → lưu payload đã hiệu chỉnh vào backlog/swp-final-by-issue.json
+node plan-sprints.mjs backlog/backlog.json backlog/backlog-map.json backlog/swp-final-by-issue.json backlog/sprint-plan.json
 node set-project-fields.mjs <owner> <projectNo> backlog/backlog-map.json backlog/project-field-values.json --dry-run
 node set-project-fields.mjs <owner> <projectNo> backlog/backlog-map.json backlog/project-field-values.json
 ```

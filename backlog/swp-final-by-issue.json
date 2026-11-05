@@ -1,0 +1,706 @@
+{
+ "source": "tkm:estimate-swp (reports/swp-estimate-sakura-bay-lab5.html)",
+ "calibrationStatus": "calibrated",
+ "issues": [
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#15",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#16",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#17",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#18",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#19",
+   "initialSWP": 3,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#20",
+   "initialSWP": 1,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#21",
+   "initialSWP": 3,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#67",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#68",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#69",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#70",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#71",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#72",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#73",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#74",
+   "initialSWP": 12,
+   "finalSWP": 13
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#75",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#76",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#77",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#78",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#79",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#80",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#81",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#82",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#83",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#84",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#85",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#86",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#87",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#88",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#89",
+   "initialSWP": 5,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#90",
+   "initialSWP": 6,
+   "finalSWP": 9
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#91",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#92",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#93",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#94",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#95",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#96",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#97",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#98",
+   "initialSWP": 10,
+   "finalSWP": 15
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#99",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#100",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#101",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#102",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#103",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#104",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#105",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#106",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#107",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#108",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#109",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#110",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#111",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#112",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#113",
+   "initialSWP": 5,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#114",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#115",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#116",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#117",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#118",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#119",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#120",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#121",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#122",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#123",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#124",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#125",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#126",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#127",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#128",
+   "initialSWP": 6,
+   "finalSWP": 9
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#129",
+   "initialSWP": 3,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#130",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#131",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#132",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#133",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#134",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#135",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#136",
+   "initialSWP": 5,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#137",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#138",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#139",
+   "initialSWP": 5,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#140",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#141",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#142",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#143",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#144",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#145",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#146",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#147",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#148",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#149",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#150",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#151",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#152",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#153",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#154",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#155",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#156",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#157",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#158",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#159",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#160",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#161",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#162",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#163",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#164",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#165",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#166",
+   "initialSWP": 5,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#167",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#168",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#169",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#170",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#171",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#172",
+   "initialSWP": 6,
+   "finalSWP": 9
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#173",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#174",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#175",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#176",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#177",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#178",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#179",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#180",
+   "initialSWP": 5,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#181",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#182",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#183",
+   "initialSWP": 5,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#184",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#185",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#186",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#187",
+   "initialSWP": 6,
+   "finalSWP": 9
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#188",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#189",
+   "initialSWP": 3,
+   "finalSWP": 3
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#190",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#191",
+   "initialSWP": 3,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#192",
+   "initialSWP": 8,
+   "finalSWP": 8
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#193",
+   "initialSWP": 5,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#194",
+   "initialSWP": 6,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#195",
+   "initialSWP": 4,
+   "finalSWP": 4
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#196",
+   "initialSWP": 10,
+   "finalSWP": 10
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#197",
+   "initialSWP": 5,
+   "finalSWP": 5
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#198",
+   "initialSWP": 5,
+   "finalSWP": 6
+  },
+  {
+   "issueRef": "longtd-1487/sakura-bay-prototype#199",
+   "initialSWP": 8,
+   "finalSWP": 8
+  }
+ ]
+}

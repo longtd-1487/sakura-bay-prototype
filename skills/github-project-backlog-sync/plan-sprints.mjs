@@ -1,7 +1,7 @@
 // Converts reviewed SWP to hours (1 SWP = 3h) and schedules leaves into 2-week sprints by
 // phase → dependency (a task may share its dependency's sprint) → capacity of the role pool
 // (BE-1/BE-2, FE-1/FE-2, QA, PM; 60h focus/person/sprint). The task goes to the least-loaded member of its pool.
-// Usage: node plan-sprints.mjs <backlog.json> <backlog-map.json> <swp-calibrated-payload.json> <out-plan.json>
+// Usage: node plan-sprints.mjs <backlog.json> <backlog-map.json> <swp-final-by-issue.json> <out-plan.json>
 import fs from "node:fs";
 const [bp, mp, cp, out] = process.argv.slice(2);
 const HOURS_PER_SWP = 3, CAPACITY = 60;

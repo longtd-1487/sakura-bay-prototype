@@ -1,0 +1,2013 @@
+{
+  "hoursPerSwp": 3,
+  "capacity": 60,
+  "leaves": [
+    {
+      "key": "T-01-01-a",
+      "no": 67,
+      "role": "BE-1",
+      "phase": 1,
+      "deps": [],
+      "swp": 10,
+      "parent": "I-01-01",
+      "hours": 30,
+      "sprint": 1
+    },
+    {
+      "key": "T-01-01-b",
+      "no": 68,
+      "role": "QA",
+      "phase": 1,
+      "deps": [
+        "T-01-01-a"
+      ],
+      "swp": 5,
+      "parent": "I-01-01",
+      "hours": 15,
+      "sprint": 1
+    },
+    {
+      "key": "T-01-01-c",
+      "no": 69,
+      "role": "FE-1",
+      "phase": 1,
+      "deps": [
+        "T-01-01-b"
+      ],
+      "swp": 10,
+      "parent": "I-01-01",
+      "hours": 30,
+      "sprint": 1
+    },
+    {
+      "key": "T-01-02-a",
+      "no": 70,
+      "role": "BE-2",
+      "phase": 1,
+      "deps": [
+        "T-01-01-a"
+      ],
+      "swp": 10,
+      "parent": "I-01-02",
+      "hours": 30,
+      "sprint": 1
+    },
+    {
+      "key": "T-01-02-b",
+      "no": 71,
+      "role": "BE-1",
+      "phase": 1,
+      "deps": [
+        "T-01-02-a"
+      ],
+      "swp": 6,
+      "parent": "I-01-02",
+      "hours": 18,
+      "sprint": 1
+    },
+    {
+      "key": "T-01-02-c",
+      "no": 72,
+      "role": "BE-2",
+      "phase": 1,
+      "deps": [
+        "T-01-02-a"
+      ],
+      "swp": 5,
+      "parent": "I-01-02",
+      "hours": 15,
+      "sprint": 1
+    },
+    {
+      "key": "T-01-02-d",
+      "no": 73,
+      "role": "BE-2",
+      "phase": 1,
+      "deps": [
+        "T-01-01-b"
+      ],
+      "swp": 4,
+      "parent": "I-01-02",
+      "hours": 12,
+      "sprint": 1
+    },
+    {
+      "key": "T-01-02-e",
+      "no": 74,
+      "role": "QA",
+      "phase": 6,
+      "deps": [
+        "T-02-01-a",
+        "T-06-01-a",
+        "T-09-02-a",
+        "T-10-01-a",
+        "T-12-01-a",
+        "T-08-01-a"
+      ],
+      "swp": 13,
+      "parent": "I-01-02",
+      "hours": 39,
+      "sprint": 8
+    },
+    {
+      "key": "T-01-03-a",
+      "no": 75,
+      "role": "FE-2",
+      "phase": 1,
+      "deps": [
+        "T-01-01-c",
+        "T-01-02-b"
+      ],
+      "swp": 8,
+      "parent": "I-01-03",
+      "hours": 24,
+      "sprint": 1
+    },
+    {
+      "key": "T-01-03-b",
+      "no": 76,
+      "role": "FE-2",
+      "phase": 1,
+      "deps": [
+        "T-01-01-c"
+      ],
+      "swp": 6,
+      "parent": "I-01-03",
+      "hours": 18,
+      "sprint": 1
+    },
+    {
+      "key": "T-01-04-a",
+      "no": 77,
+      "role": "FE-1",
+      "phase": 1,
+      "deps": [
+        "T-01-01-c"
+      ],
+      "swp": 5,
+      "parent": "I-01-04",
+      "hours": 15,
+      "sprint": 1
+    },
+    {
+      "key": "T-01-04-b",
+      "no": 78,
+      "role": "BE-1",
+      "phase": 1,
+      "deps": [
+        "T-01-02-a"
+      ],
+      "swp": 10,
+      "parent": "I-01-04",
+      "hours": 30,
+      "sprint": 2
+    },
+    {
+      "key": "T-01-05-a",
+      "no": 79,
+      "role": "BE-1",
+      "phase": 1,
+      "deps": [
+        "T-01-02-a"
+      ],
+      "swp": 3,
+      "parent": "I-01-05",
+      "hours": 9,
+      "sprint": 1
+    },
+    {
+      "key": "T-01-05-b",
+      "no": 80,
+      "role": "PM",
+      "phase": 1,
+      "deps": [],
+      "swp": 4,
+      "parent": "I-01-05",
+      "hours": 12,
+      "sprint": 2
+    },
+    {
+      "key": "T-02-01-a",
+      "no": 81,
+      "role": "BE-2",
+      "phase": 1,
+      "deps": [
+        "T-01-01-a"
+      ],
+      "swp": 3,
+      "parent": "I-02-01",
+      "hours": 9,
+      "sprint": 2
+    },
+    {
+      "key": "T-02-01-b",
+      "no": 82,
+      "role": "FE-1",
+      "phase": 2,
+      "deps": [
+        "T-02-01-a",
+        "T-01-03-a"
+      ],
+      "swp": 8,
+      "parent": "I-02-01",
+      "hours": 24,
+      "sprint": 2
+    },
+    {
+      "key": "T-02-01-c",
+      "no": 83,
+      "role": "QA",
+      "phase": 2,
+      "deps": [
+        "T-02-01-b"
+      ],
+      "swp": 5,
+      "parent": "I-02-01",
+      "hours": 15,
+      "sprint": 2
+    },
+    {
+      "key": "T-02-02-a",
+      "no": 84,
+      "role": "BE-1",
+      "phase": 2,
+      "deps": [
+        "T-01-02-b"
+      ],
+      "swp": 3,
+      "parent": "I-02-02",
+      "hours": 9,
+      "sprint": 2
+    },
+    {
+      "key": "T-02-02-b",
+      "no": 85,
+      "role": "BE-2",
+      "phase": 2,
+      "deps": [
+        "T-02-02-a",
+        "T-03-01-a",
+        "T-01-02-c"
+      ],
+      "swp": 10,
+      "parent": "I-02-02",
+      "hours": 30,
+      "sprint": 9
+    },
+    {
+      "key": "T-02-02-c",
+      "no": 86,
+      "role": "FE-2",
+      "phase": 2,
+      "deps": [
+        "T-02-02-a",
+        "T-01-03-a"
+      ],
+      "swp": 3,
+      "parent": "I-02-02",
+      "hours": 9,
+      "sprint": 2
+    },
+    {
+      "key": "T-02-02-d",
+      "no": 87,
+      "role": "FE-2",
+      "phase": 2,
+      "deps": [
+        "T-02-02-b",
+        "T-02-02-c"
+      ],
+      "swp": 4,
+      "parent": "I-02-02",
+      "hours": 12,
+      "sprint": 9
+    },
+    {
+      "key": "T-03-01-a",
+      "no": 88,
+      "role": "BE-1",
+      "phase": 2,
+      "deps": [
+        "T-01-02-a",
+        "T-04-01-a"
+      ],
+      "swp": 8,
+      "parent": "I-03-01",
+      "hours": 24,
+      "sprint": 3
+    },
+    {
+      "key": "T-03-01-b",
+      "no": 89,
+      "role": "BE-2",
+      "phase": 2,
+      "deps": [
+        "T-03-01-a"
+      ],
+      "swp": 6,
+      "parent": "I-03-01",
+      "hours": 18,
+      "sprint": 3
+    },
+    {
+      "key": "T-03-01-c",
+      "no": 90,
+      "role": "BE-2",
+      "phase": 2,
+      "deps": [
+        "T-03-01-b"
+      ],
+      "swp": 9,
+      "parent": "I-03-01",
+      "hours": 27,
+      "sprint": 3
+    },
+    {
+      "key": "T-03-01-d",
+      "no": 91,
+      "role": "BE-1",
+      "phase": 2,
+      "deps": [
+        "T-03-01-c",
+        "T-01-04-b"
+      ],
+      "swp": 5,
+      "parent": "I-03-01",
+      "hours": 15,
+      "sprint": 3
+    },
+    {
+      "key": "T-03-01-e",
+      "no": 92,
+      "role": "FE-1",
+      "phase": 2,
+      "deps": [
+        "T-03-01-c"
+      ],
+      "swp": 5,
+      "parent": "I-03-01",
+      "hours": 15,
+      "sprint": 3
+    },
+    {
+      "key": "T-03-01-f",
+      "no": 93,
+      "role": "QA",
+      "phase": 2,
+      "deps": [
+        "T-03-01-e",
+        "T-03-02-a",
+        "T-02-02-d",
+        "T-02-01-c"
+      ],
+      "swp": 8,
+      "parent": "I-03-01",
+      "hours": 24,
+      "sprint": 9
+    },
+    {
+      "key": "T-03-02-a",
+      "no": 94,
+      "role": "FE-2",
+      "phase": 2,
+      "deps": [
+        "T-03-01-a",
+        "T-01-03-a"
+      ],
+      "swp": 4,
+      "parent": "I-03-02",
+      "hours": 12,
+      "sprint": 3
+    },
+    {
+      "key": "T-03-03-a",
+      "no": 95,
+      "role": "BE-1",
+      "phase": 3,
+      "deps": [
+        "T-03-01-a",
+        "T-06-01-b"
+      ],
+      "swp": 5,
+      "parent": "I-03-03",
+      "hours": 15,
+      "sprint": 13
+    },
+    {
+      "key": "T-03-03-b",
+      "no": 96,
+      "role": "FE-2",
+      "phase": 3,
+      "deps": [
+        "T-03-03-a",
+        "T-03-01-e"
+      ],
+      "swp": 4,
+      "parent": "I-03-03",
+      "hours": 12,
+      "sprint": 13
+    },
+    {
+      "key": "T-04-01-a",
+      "no": 97,
+      "role": "BE-2",
+      "phase": 1,
+      "deps": [
+        "T-01-02-a"
+      ],
+      "swp": 10,
+      "parent": "I-04-01",
+      "hours": 30,
+      "sprint": 2
+    },
+    {
+      "key": "T-04-01-b",
+      "no": 98,
+      "role": "BE-1",
+      "phase": 2,
+      "deps": [
+        "T-04-01-a",
+        "T-01-04-b"
+      ],
+      "swp": 15,
+      "parent": "I-04-01",
+      "hours": 45,
+      "sprint": 4
+    },
+    {
+      "key": "T-04-01-c",
+      "no": 99,
+      "role": "FE-1",
+      "phase": 2,
+      "deps": [
+        "T-04-01-b",
+        "T-01-03-a"
+      ],
+      "swp": 8,
+      "parent": "I-04-01",
+      "hours": 24,
+      "sprint": 4
+    },
+    {
+      "key": "T-04-01-d",
+      "no": 100,
+      "role": "FE-2",
+      "phase": 2,
+      "deps": [
+        "T-04-01-b"
+      ],
+      "swp": 3,
+      "parent": "I-04-01",
+      "hours": 9,
+      "sprint": 4
+    },
+    {
+      "key": "T-04-02-a",
+      "no": 101,
+      "role": "BE-2",
+      "phase": 2,
+      "deps": [
+        "T-01-02-c"
+      ],
+      "swp": 8,
+      "parent": "I-04-02",
+      "hours": 24,
+      "sprint": 4
+    },
+    {
+      "key": "T-04-02-b",
+      "no": 102,
+      "role": "FE-2",
+      "phase": 2,
+      "deps": [
+        "T-04-02-a",
+        "T-01-03-a"
+      ],
+      "swp": 4,
+      "parent": "I-04-02",
+      "hours": 12,
+      "sprint": 4
+    },
+    {
+      "key": "T-04-03-a",
+      "no": 103,
+      "role": "BE-2",
+      "phase": 2,
+      "deps": [
+        "T-01-02-c"
+      ],
+      "swp": 8,
+      "parent": "I-04-03",
+      "hours": 24,
+      "sprint": 4
+    },
+    {
+      "key": "T-04-03-b",
+      "no": 104,
+      "role": "FE-2",
+      "phase": 2,
+      "deps": [
+        "T-04-03-a",
+        "T-04-02-b"
+      ],
+      "swp": 3,
+      "parent": "I-04-03",
+      "hours": 9,
+      "sprint": 4
+    },
+    {
+      "key": "T-04-04-a",
+      "no": 105,
+      "role": "BE-1",
+      "phase": 2,
+      "deps": [
+        "T-01-02-c",
+        "T-03-01-a"
+      ],
+      "swp": 8,
+      "parent": "I-04-04",
+      "hours": 24,
+      "sprint": 5
+    },
+    {
+      "key": "T-04-04-b",
+      "no": 106,
+      "role": "FE-1",
+      "phase": 2,
+      "deps": [
+        "T-04-04-a",
+        "T-01-03-a"
+      ],
+      "swp": 4,
+      "parent": "I-04-04",
+      "hours": 12,
+      "sprint": 5
+    },
+    {
+      "key": "T-04-05-a",
+      "no": 107,
+      "role": "BE-1",
+      "phase": 2,
+      "deps": [
+        "T-01-02-c"
+      ],
+      "swp": 5,
+      "parent": "I-04-05",
+      "hours": 15,
+      "sprint": 2
+    },
+    {
+      "key": "T-04-05-b",
+      "no": 108,
+      "role": "FE-1",
+      "phase": 2,
+      "deps": [
+        "T-04-05-a",
+        "T-04-02-b"
+      ],
+      "swp": 3,
+      "parent": "I-04-05",
+      "hours": 9,
+      "sprint": 4
+    },
+    {
+      "key": "T-05-01-a",
+      "no": 109,
+      "role": "BE-2",
+      "phase": 3,
+      "deps": [
+        "T-04-03-a",
+        "T-04-02-a",
+        "T-04-01-a"
+      ],
+      "swp": 10,
+      "parent": "I-05-01",
+      "hours": 30,
+      "sprint": 5
+    },
+    {
+      "key": "T-05-01-b",
+      "no": 110,
+      "role": "BE-1",
+      "phase": 3,
+      "deps": [
+        "T-05-01-a"
+      ],
+      "swp": 6,
+      "parent": "I-05-01",
+      "hours": 18,
+      "sprint": 5
+    },
+    {
+      "key": "T-05-01-c",
+      "no": 111,
+      "role": "FE-2",
+      "phase": 3,
+      "deps": [
+        "T-05-01-b",
+        "T-01-03-b"
+      ],
+      "swp": 8,
+      "parent": "I-05-01",
+      "hours": 24,
+      "sprint": 5
+    },
+    {
+      "key": "T-05-02-a",
+      "no": 112,
+      "role": "BE-2",
+      "phase": 3,
+      "deps": [
+        "T-05-01-a",
+        "T-04-05-a"
+      ],
+      "swp": 10,
+      "parent": "I-05-02",
+      "hours": 30,
+      "sprint": 5
+    },
+    {
+      "key": "T-05-02-b",
+      "no": 113,
+      "role": "BE-1",
+      "phase": 3,
+      "deps": [
+        "T-05-02-a"
+      ],
+      "swp": 6,
+      "parent": "I-05-02",
+      "hours": 18,
+      "sprint": 5
+    },
+    {
+      "key": "T-05-02-c",
+      "no": 114,
+      "role": "FE-1",
+      "phase": 3,
+      "deps": [
+        "T-05-02-b",
+        "T-01-03-b"
+      ],
+      "swp": 6,
+      "parent": "I-05-02",
+      "hours": 18,
+      "sprint": 5
+    },
+    {
+      "key": "T-05-03-a",
+      "no": 115,
+      "role": "BE-1",
+      "phase": 3,
+      "deps": [
+        "T-05-01-a"
+      ],
+      "swp": 5,
+      "parent": "I-05-03",
+      "hours": 15,
+      "sprint": 6
+    },
+    {
+      "key": "T-05-03-b",
+      "no": 116,
+      "role": "BE-2",
+      "phase": 3,
+      "deps": [
+        "T-05-03-a"
+      ],
+      "swp": 6,
+      "parent": "I-05-03",
+      "hours": 18,
+      "sprint": 6
+    },
+    {
+      "key": "T-05-03-c",
+      "no": 117,
+      "role": "BE-1",
+      "phase": 3,
+      "deps": [
+        "T-05-03-b",
+        "T-06-02-a",
+        "T-01-04-b"
+      ],
+      "swp": 10,
+      "parent": "I-05-03",
+      "hours": 30,
+      "sprint": 13
+    },
+    {
+      "key": "T-05-03-d",
+      "no": 118,
+      "role": "FE-1",
+      "phase": 3,
+      "deps": [
+        "T-05-03-b"
+      ],
+      "swp": 8,
+      "parent": "I-05-03",
+      "hours": 24,
+      "sprint": 6
+    },
+    {
+      "key": "T-05-03-e",
+      "no": 119,
+      "role": "QA",
+      "phase": 3,
+      "deps": [
+        "T-05-03-d",
+        "T-05-02-c",
+        "T-05-01-c",
+        "T-06-02-c"
+      ],
+      "swp": 6,
+      "parent": "I-05-03",
+      "hours": 18,
+      "sprint": 10
+    },
+    {
+      "key": "T-05-04-a",
+      "no": 120,
+      "role": "FE-2",
+      "phase": 3,
+      "deps": [
+        "T-05-03-a",
+        "T-05-02-a",
+        "T-01-04-a"
+      ],
+      "swp": 8,
+      "parent": "I-05-04",
+      "hours": 24,
+      "sprint": 6
+    },
+    {
+      "key": "T-06-01-a",
+      "no": 121,
+      "role": "BE-1",
+      "phase": 3,
+      "deps": [
+        "T-05-03-a",
+        "T-04-04-a"
+      ],
+      "swp": 10,
+      "parent": "I-06-01",
+      "hours": 30,
+      "sprint": 6
+    },
+    {
+      "key": "T-06-01-b",
+      "no": 122,
+      "role": "BE-1",
+      "phase": 3,
+      "deps": [
+        "T-06-01-a",
+        "T-03-01-c",
+        "T-09-02-a"
+      ],
+      "swp": 6,
+      "parent": "I-06-01",
+      "hours": 18,
+      "sprint": 10
+    },
+    {
+      "key": "T-06-01-c",
+      "no": 123,
+      "role": "BE-2",
+      "phase": 3,
+      "deps": [
+        "T-06-01-b"
+      ],
+      "swp": 4,
+      "parent": "I-06-01",
+      "hours": 12,
+      "sprint": 10
+    },
+    {
+      "key": "T-06-02-a",
+      "no": 124,
+      "role": "BE-2",
+      "phase": 3,
+      "deps": [
+        "T-06-01-c"
+      ],
+      "swp": 6,
+      "parent": "I-06-02",
+      "hours": 18,
+      "sprint": 10
+    },
+    {
+      "key": "T-06-02-b",
+      "no": 125,
+      "role": "BE-1",
+      "phase": 3,
+      "deps": [
+        "T-06-02-a",
+        "T-01-04-b"
+      ],
+      "swp": 6,
+      "parent": "I-06-02",
+      "hours": 18,
+      "sprint": 10
+    },
+    {
+      "key": "T-06-02-c",
+      "no": 126,
+      "role": "FE-1",
+      "phase": 3,
+      "deps": [
+        "T-06-02-b",
+        "T-01-03-b"
+      ],
+      "swp": 8,
+      "parent": "I-06-02",
+      "hours": 24,
+      "sprint": 10
+    },
+    {
+      "key": "T-06-02-d",
+      "no": 127,
+      "role": "QA",
+      "phase": 3,
+      "deps": [
+        "T-06-02-c",
+        "T-06-03-c",
+        "T-06-04-b"
+      ],
+      "swp": 8,
+      "parent": "I-06-02",
+      "hours": 24,
+      "sprint": 10
+    },
+    {
+      "key": "T-06-03-a",
+      "no": 128,
+      "role": "BE-2",
+      "phase": 3,
+      "deps": [
+        "T-06-02-b",
+        "T-01-02-c",
+        "T-09-01-a"
+      ],
+      "swp": 9,
+      "parent": "I-06-03",
+      "hours": 27,
+      "sprint": 10
+    },
+    {
+      "key": "T-06-03-b",
+      "no": 129,
+      "role": "BE-1",
+      "phase": 3,
+      "deps": [
+        "T-06-01-b"
+      ],
+      "swp": 4,
+      "parent": "I-06-03",
+      "hours": 12,
+      "sprint": 10
+    },
+    {
+      "key": "T-06-03-c",
+      "no": 130,
+      "role": "FE-2",
+      "phase": 3,
+      "deps": [
+        "T-06-03-a",
+        "T-06-03-b",
+        "T-06-02-c"
+      ],
+      "swp": 5,
+      "parent": "I-06-03",
+      "hours": 15,
+      "sprint": 10
+    },
+    {
+      "key": "T-06-04-a",
+      "no": 131,
+      "role": "FE-1",
+      "phase": 3,
+      "deps": [
+        "T-06-01-a",
+        "T-01-03-a"
+      ],
+      "swp": 3,
+      "parent": "I-06-04",
+      "hours": 9,
+      "sprint": 6
+    },
+    {
+      "key": "T-06-04-b",
+      "no": 132,
+      "role": "FE-2",
+      "phase": 3,
+      "deps": [
+        "T-06-02-b",
+        "T-06-04-a"
+      ],
+      "swp": 5,
+      "parent": "I-06-04",
+      "hours": 15,
+      "sprint": 10
+    },
+    {
+      "key": "T-06-05-a",
+      "no": 133,
+      "role": "BE-1",
+      "phase": 3,
+      "deps": [
+        "T-06-02-b"
+      ],
+      "swp": 10,
+      "parent": "I-06-05",
+      "hours": 30,
+      "sprint": 11
+    },
+    {
+      "key": "T-06-05-b",
+      "no": 134,
+      "role": "FE-1",
+      "phase": 3,
+      "deps": [
+        "T-06-05-a"
+      ],
+      "swp": 3,
+      "parent": "I-06-05",
+      "hours": 9,
+      "sprint": 11
+    },
+    {
+      "key": "T-07-01-a",
+      "no": 135,
+      "role": "BE-2",
+      "phase": 4,
+      "deps": [
+        "T-05-03-a"
+      ],
+      "swp": 6,
+      "parent": "I-07-01",
+      "hours": 18,
+      "sprint": 6
+    },
+    {
+      "key": "T-07-01-b",
+      "no": 136,
+      "role": "BE-2",
+      "phase": 4,
+      "deps": [
+        "T-07-01-a"
+      ],
+      "swp": 6,
+      "parent": "I-07-01",
+      "hours": 18,
+      "sprint": 6
+    },
+    {
+      "key": "T-07-01-c",
+      "no": 137,
+      "role": "FE-2",
+      "phase": 4,
+      "deps": [
+        "T-07-01-b",
+        "T-01-03-a"
+      ],
+      "swp": 5,
+      "parent": "I-07-01",
+      "hours": 15,
+      "sprint": 6
+    },
+    {
+      "key": "T-07-02-a",
+      "no": 138,
+      "role": "BE-2",
+      "phase": 4,
+      "deps": [
+        "T-07-01-b",
+        "T-06-01-c"
+      ],
+      "swp": 6,
+      "parent": "I-07-02",
+      "hours": 18,
+      "sprint": 11
+    },
+    {
+      "key": "T-07-02-b",
+      "no": 139,
+      "role": "BE-2",
+      "phase": 4,
+      "deps": [
+        "T-07-02-a",
+        "T-05-03-b"
+      ],
+      "swp": 6,
+      "parent": "I-07-02",
+      "hours": 18,
+      "sprint": 11
+    },
+    {
+      "key": "T-07-02-c",
+      "no": 140,
+      "role": "FE-2",
+      "phase": 4,
+      "deps": [
+        "T-07-02-b",
+        "T-01-03-b"
+      ],
+      "swp": 10,
+      "parent": "I-07-02",
+      "hours": 30,
+      "sprint": 11
+    },
+    {
+      "key": "T-07-02-d",
+      "no": 141,
+      "role": "FE-1",
+      "phase": 4,
+      "deps": [
+        "T-07-02-c"
+      ],
+      "swp": 5,
+      "parent": "I-07-02",
+      "hours": 15,
+      "sprint": 11
+    },
+    {
+      "key": "T-07-02-e",
+      "no": 142,
+      "role": "QA",
+      "phase": 4,
+      "deps": [
+        "T-07-02-d",
+        "T-07-01-c"
+      ],
+      "swp": 5,
+      "parent": "I-07-02",
+      "hours": 15,
+      "sprint": 11
+    },
+    {
+      "key": "T-07-03-a",
+      "no": 143,
+      "role": "BE-1",
+      "phase": 6,
+      "deps": [
+        "T-07-02-a"
+      ],
+      "swp": 5,
+      "parent": "I-07-03",
+      "hours": 15,
+      "sprint": 13
+    },
+    {
+      "key": "T-07-03-b",
+      "no": 144,
+      "role": "FE-1",
+      "phase": 6,
+      "deps": [
+        "T-07-03-a",
+        "T-07-02-c"
+      ],
+      "swp": 4,
+      "parent": "I-07-03",
+      "hours": 12,
+      "sprint": 13
+    },
+    {
+      "key": "T-08-01-a",
+      "no": 145,
+      "role": "BE-1",
+      "phase": 4,
+      "deps": [
+        "T-06-01-a"
+      ],
+      "swp": 6,
+      "parent": "I-08-01",
+      "hours": 18,
+      "sprint": 7
+    },
+    {
+      "key": "T-08-01-b",
+      "no": 146,
+      "role": "BE-2",
+      "phase": 4,
+      "deps": [
+        "T-08-01-a"
+      ],
+      "swp": 6,
+      "parent": "I-08-01",
+      "hours": 18,
+      "sprint": 7
+    },
+    {
+      "key": "T-08-01-c",
+      "no": 147,
+      "role": "FE-1",
+      "phase": 4,
+      "deps": [
+        "T-08-01-b"
+      ],
+      "swp": 5,
+      "parent": "I-08-01",
+      "hours": 15,
+      "sprint": 7
+    },
+    {
+      "key": "T-08-02-a",
+      "no": 148,
+      "role": "BE-1",
+      "phase": 4,
+      "deps": [
+        "T-08-01-a"
+      ],
+      "swp": 3,
+      "parent": "I-08-02",
+      "hours": 9,
+      "sprint": 7
+    },
+    {
+      "key": "T-08-02-b",
+      "no": 149,
+      "role": "FE-2",
+      "phase": 4,
+      "deps": [
+        "T-08-02-a",
+        "T-08-01-c"
+      ],
+      "swp": 4,
+      "parent": "I-08-02",
+      "hours": 12,
+      "sprint": 7
+    },
+    {
+      "key": "T-09-01-a",
+      "no": 150,
+      "role": "BE-2",
+      "phase": 3,
+      "deps": [
+        "T-04-01-a",
+        "T-01-02-c"
+      ],
+      "swp": 6,
+      "parent": "I-09-01",
+      "hours": 18,
+      "sprint": 2
+    },
+    {
+      "key": "T-09-01-b",
+      "no": 151,
+      "role": "BE-2",
+      "phase": 5,
+      "deps": [
+        "T-09-01-a",
+        "T-09-02-b",
+        "T-11-01-c",
+        "T-10-03-a"
+      ],
+      "swp": 6,
+      "parent": "I-09-01",
+      "hours": 18,
+      "sprint": 13
+    },
+    {
+      "key": "T-09-01-c",
+      "no": 152,
+      "role": "FE-1",
+      "phase": 5,
+      "deps": [
+        "T-09-01-b"
+      ],
+      "swp": 5,
+      "parent": "I-09-01",
+      "hours": 15,
+      "sprint": 13
+    },
+    {
+      "key": "T-09-01-d",
+      "no": 153,
+      "role": "QA",
+      "phase": 5,
+      "deps": [
+        "T-09-01-c",
+        "T-09-03-b",
+        "T-11-01-e",
+        "T-06-03-c",
+        "T-09-04-d"
+      ],
+      "swp": 8,
+      "parent": "I-09-01",
+      "hours": 24,
+      "sprint": 13
+    },
+    {
+      "key": "T-09-02-a",
+      "no": 154,
+      "role": "BE-1",
+      "phase": 3,
+      "deps": [
+        "T-09-01-a"
+      ],
+      "swp": 6,
+      "parent": "I-09-02",
+      "hours": 18,
+      "sprint": 3
+    },
+    {
+      "key": "T-09-02-b",
+      "no": 155,
+      "role": "BE-1",
+      "phase": 5,
+      "deps": [
+        "T-09-02-a",
+        "T-06-02-b",
+        "T-07-02-a"
+      ],
+      "swp": 10,
+      "parent": "I-09-02",
+      "hours": 30,
+      "sprint": 11
+    },
+    {
+      "key": "T-09-02-c",
+      "no": 156,
+      "role": "FE-1",
+      "phase": 5,
+      "deps": [
+        "T-09-02-b",
+        "T-01-04-a",
+        "T-01-04-b"
+      ],
+      "swp": 5,
+      "parent": "I-09-02",
+      "hours": 15,
+      "sprint": 11
+    },
+    {
+      "key": "T-09-02-d",
+      "no": 157,
+      "role": "FE-2",
+      "phase": 5,
+      "deps": [
+        "T-09-02-b"
+      ],
+      "swp": 4,
+      "parent": "I-09-02",
+      "hours": 12,
+      "sprint": 11
+    },
+    {
+      "key": "T-09-02-e",
+      "no": 158,
+      "role": "BE-2",
+      "phase": 5,
+      "deps": [
+        "T-09-02-a",
+        "T-01-04-b"
+      ],
+      "swp": 3,
+      "parent": "I-09-02",
+      "hours": 9,
+      "sprint": 3
+    },
+    {
+      "key": "T-09-03-a",
+      "no": 159,
+      "role": "BE-2",
+      "phase": 5,
+      "deps": [
+        "T-09-02-b",
+        "T-09-04-b"
+      ],
+      "swp": 6,
+      "parent": "I-09-03",
+      "hours": 18,
+      "sprint": 11
+    },
+    {
+      "key": "T-09-03-b",
+      "no": 160,
+      "role": "FE-1",
+      "phase": 5,
+      "deps": [
+        "T-09-03-a",
+        "T-09-02-c"
+      ],
+      "swp": 3,
+      "parent": "I-09-03",
+      "hours": 9,
+      "sprint": 11
+    },
+    {
+      "key": "T-09-04-a",
+      "no": 161,
+      "role": "BE-2",
+      "phase": 5,
+      "deps": [
+        "T-09-02-a"
+      ],
+      "swp": 6,
+      "parent": "I-09-04",
+      "hours": 18,
+      "sprint": 7
+    },
+    {
+      "key": "T-09-04-b",
+      "no": 162,
+      "role": "BE-1",
+      "phase": 5,
+      "deps": [
+        "T-09-04-a"
+      ],
+      "swp": 6,
+      "parent": "I-09-04",
+      "hours": 18,
+      "sprint": 7
+    },
+    {
+      "key": "T-09-04-c",
+      "no": 163,
+      "role": "BE-2",
+      "phase": 5,
+      "deps": [
+        "T-09-04-b",
+        "I-00-07"
+      ],
+      "swp": 6,
+      "parent": "I-09-04",
+      "hours": 18,
+      "sprint": 7
+    },
+    {
+      "key": "T-09-04-d",
+      "no": 164,
+      "role": "FE-2",
+      "phase": 5,
+      "deps": [
+        "T-09-04-b"
+      ],
+      "swp": 5,
+      "parent": "I-09-04",
+      "hours": 15,
+      "sprint": 7
+    },
+    {
+      "key": "T-10-01-a",
+      "no": 165,
+      "role": "BE-1",
+      "phase": 5,
+      "deps": [
+        "T-09-02-a",
+        "T-01-05-b"
+      ],
+      "swp": 6,
+      "parent": "I-10-01",
+      "hours": 18,
+      "sprint": 8
+    },
+    {
+      "key": "T-10-01-b",
+      "no": 166,
+      "role": "BE-2",
+      "phase": 5,
+      "deps": [
+        "T-10-01-a",
+        "T-09-04-a"
+      ],
+      "swp": 6,
+      "parent": "I-10-01",
+      "hours": 18,
+      "sprint": 8
+    },
+    {
+      "key": "T-10-02-a",
+      "no": 167,
+      "role": "BE-1",
+      "phase": 5,
+      "deps": [
+        "T-10-01-b"
+      ],
+      "swp": 3,
+      "parent": "I-10-02",
+      "hours": 9,
+      "sprint": 8
+    },
+    {
+      "key": "T-10-02-b",
+      "no": 168,
+      "role": "BE-2",
+      "phase": 5,
+      "deps": [
+        "T-04-01-a",
+        "T-10-01-b"
+      ],
+      "swp": 3,
+      "parent": "I-10-02",
+      "hours": 9,
+      "sprint": 8
+    },
+    {
+      "key": "T-10-03-a",
+      "no": 169,
+      "role": "BE-1",
+      "phase": 5,
+      "deps": [
+        "T-10-02-a",
+        "T-10-02-b"
+      ],
+      "swp": 6,
+      "parent": "I-10-03",
+      "hours": 18,
+      "sprint": 8
+    },
+    {
+      "key": "T-10-03-b",
+      "no": 170,
+      "role": "BE-2",
+      "phase": 5,
+      "deps": [
+        "T-10-03-a"
+      ],
+      "swp": 3,
+      "parent": "I-10-03",
+      "hours": 9,
+      "sprint": 8
+    },
+    {
+      "key": "T-10-04-a",
+      "no": 171,
+      "role": "BE-1",
+      "phase": 5,
+      "deps": [
+        "T-10-03-b",
+        "T-09-02-b"
+      ],
+      "swp": 6,
+      "parent": "I-10-04",
+      "hours": 18,
+      "sprint": 12
+    },
+    {
+      "key": "T-10-04-b",
+      "no": 172,
+      "role": "BE-2",
+      "phase": 5,
+      "deps": [
+        "T-10-04-a",
+        "T-09-03-a"
+      ],
+      "swp": 9,
+      "parent": "I-10-04",
+      "hours": 27,
+      "sprint": 12
+    },
+    {
+      "key": "T-10-05-a",
+      "no": 173,
+      "role": "FE-1",
+      "phase": 5,
+      "deps": [
+        "T-10-03-a",
+        "T-01-03-a"
+      ],
+      "swp": 5,
+      "parent": "I-10-05",
+      "hours": 15,
+      "sprint": 8
+    },
+    {
+      "key": "T-10-05-b",
+      "no": 174,
+      "role": "FE-1",
+      "phase": 5,
+      "deps": [
+        "T-10-05-a",
+        "T-10-03-b",
+        "T-10-04-a",
+        "T-09-03-b"
+      ],
+      "swp": 5,
+      "parent": "I-10-05",
+      "hours": 15,
+      "sprint": 12
+    },
+    {
+      "key": "T-10-05-c",
+      "no": 175,
+      "role": "BE-2",
+      "phase": 6,
+      "deps": [
+        "T-10-02-a",
+        "T-12-02-a"
+      ],
+      "swp": 3,
+      "parent": "I-10-05",
+      "hours": 9,
+      "sprint": 13
+    },
+    {
+      "key": "T-10-05-d",
+      "no": 176,
+      "role": "FE-2",
+      "phase": 6,
+      "deps": [
+        "T-10-05-c",
+        "T-12-02-b",
+        "T-12-03-b"
+      ],
+      "swp": 3,
+      "parent": "I-10-05",
+      "hours": 9,
+      "sprint": 13
+    },
+    {
+      "key": "T-10-05-e",
+      "no": 177,
+      "role": "QA",
+      "phase": 6,
+      "deps": [
+        "T-10-05-b",
+        "T-10-04-b",
+        "T-09-01-c",
+        "T-10-05-d"
+      ],
+      "swp": 8,
+      "parent": "I-10-05",
+      "hours": 24,
+      "sprint": 13
+    },
+    {
+      "key": "T-11-01-a",
+      "no": 178,
+      "role": "BE-1",
+      "phase": 5,
+      "deps": [
+        "T-04-03-a",
+        "T-05-01-a",
+        "T-09-01-a"
+      ],
+      "swp": 5,
+      "parent": "I-11-01",
+      "hours": 15,
+      "sprint": 6
+    },
+    {
+      "key": "T-11-01-b",
+      "no": 179,
+      "role": "BE-1",
+      "phase": 5,
+      "deps": [
+        "T-11-01-a",
+        "T-06-02-b",
+        "T-07-02-a"
+      ],
+      "swp": 6,
+      "parent": "I-11-01",
+      "hours": 18,
+      "sprint": 12
+    },
+    {
+      "key": "T-11-01-c",
+      "no": 180,
+      "role": "BE-2",
+      "phase": 5,
+      "deps": [
+        "T-11-01-b"
+      ],
+      "swp": 6,
+      "parent": "I-11-01",
+      "hours": 18,
+      "sprint": 12
+    },
+    {
+      "key": "T-11-01-d",
+      "no": 181,
+      "role": "FE-2",
+      "phase": 5,
+      "deps": [
+        "T-11-01-c",
+        "T-01-04-a"
+      ],
+      "swp": 3,
+      "parent": "I-11-01",
+      "hours": 9,
+      "sprint": 12
+    },
+    {
+      "key": "T-11-01-e",
+      "no": 182,
+      "role": "FE-2",
+      "phase": 5,
+      "deps": [
+        "T-11-01-c"
+      ],
+      "swp": 6,
+      "parent": "I-11-01",
+      "hours": 18,
+      "sprint": 12
+    },
+    {
+      "key": "T-11-02-a",
+      "no": 183,
+      "role": "BE-1",
+      "phase": 5,
+      "deps": [
+        "T-10-03-a",
+        "T-11-01-b"
+      ],
+      "swp": 6,
+      "parent": "I-11-02",
+      "hours": 18,
+      "sprint": 12
+    },
+    {
+      "key": "T-11-02-b",
+      "no": 184,
+      "role": "BE-2",
+      "phase": 5,
+      "deps": [
+        "T-11-02-a",
+        "I-00-06"
+      ],
+      "swp": 3,
+      "parent": "I-11-02",
+      "hours": 9,
+      "sprint": 12
+    },
+    {
+      "key": "T-11-02-c",
+      "no": 185,
+      "role": "FE-1",
+      "phase": 5,
+      "deps": [
+        "T-11-02-a",
+        "T-10-05-b"
+      ],
+      "swp": 3,
+      "parent": "I-11-02",
+      "hours": 9,
+      "sprint": 12
+    },
+    {
+      "key": "T-12-01-a",
+      "no": 186,
+      "role": "BE-2",
+      "phase": 6,
+      "deps": [
+        "T-06-01-a",
+        "T-04-02-a"
+      ],
+      "swp": 6,
+      "parent": "I-12-01",
+      "hours": 18,
+      "sprint": 8
+    },
+    {
+      "key": "T-12-01-b",
+      "no": 187,
+      "role": "BE-1",
+      "phase": 6,
+      "deps": [
+        "T-12-01-a"
+      ],
+      "swp": 9,
+      "parent": "I-12-01",
+      "hours": 27,
+      "sprint": 9
+    },
+    {
+      "key": "T-12-01-c",
+      "no": 188,
+      "role": "FE-1",
+      "phase": 6,
+      "deps": [
+        "T-12-01-b"
+      ],
+      "swp": 5,
+      "parent": "I-12-01",
+      "hours": 15,
+      "sprint": 9
+    },
+    {
+      "key": "T-12-01-d",
+      "no": 189,
+      "role": "FE-1",
+      "phase": 6,
+      "deps": [
+        "T-12-01-b",
+        "T-12-02-b"
+      ],
+      "swp": 3,
+      "parent": "I-12-01",
+      "hours": 9,
+      "sprint": 13
+    },
+    {
+      "key": "T-12-01-e",
+      "no": 190,
+      "role": "QA",
+      "phase": 6,
+      "deps": [
+        "T-12-01-c",
+        "T-12-01-d",
+        "T-06-03-c"
+      ],
+      "swp": 5,
+      "parent": "I-12-01",
+      "hours": 15,
+      "sprint": 14
+    },
+    {
+      "key": "T-12-02-a",
+      "no": 191,
+      "role": "BE-2",
+      "phase": 6,
+      "deps": [
+        "T-09-02-b",
+        "T-07-02-a"
+      ],
+      "swp": 4,
+      "parent": "I-12-02",
+      "hours": 12,
+      "sprint": 13
+    },
+    {
+      "key": "T-12-02-b",
+      "no": 192,
+      "role": "FE-2",
+      "phase": 6,
+      "deps": [
+        "T-12-02-a",
+        "T-01-04-a",
+        "I-00-07"
+      ],
+      "swp": 8,
+      "parent": "I-12-02",
+      "hours": 24,
+      "sprint": 13
+    },
+    {
+      "key": "T-12-03-a",
+      "no": 193,
+      "role": "BE-2",
+      "phase": 6,
+      "deps": [
+        "T-06-01-b",
+        "T-10-01-a",
+        "T-03-01-a"
+      ],
+      "swp": 6,
+      "parent": "I-12-03",
+      "hours": 18,
+      "sprint": 13
+    },
+    {
+      "key": "T-12-03-b",
+      "no": 194,
+      "role": "FE-1",
+      "phase": 6,
+      "deps": [
+        "T-12-03-a",
+        "T-01-03-a"
+      ],
+      "swp": 6,
+      "parent": "I-12-03",
+      "hours": 18,
+      "sprint": 13
+    },
+    {
+      "key": "T-12-03-c",
+      "no": 195,
+      "role": "QA",
+      "phase": 6,
+      "deps": [
+        "T-12-03-b",
+        "T-10-05-d"
+      ],
+      "swp": 4,
+      "parent": "I-12-03",
+      "hours": 12,
+      "sprint": 13
+    },
+    {
+      "key": "T-13-01-a",
+      "no": 196,
+      "role": "BE-2",
+      "phase": 6,
+      "deps": [
+        "T-01-02-c",
+        "T-11-01-a",
+        "T-10-01-a",
+        "T-12-01-a",
+        "T-08-01-a"
+      ],
+      "swp": 10,
+      "parent": "I-13-01",
+      "hours": 30,
+      "sprint": 9
+    },
+    {
+      "key": "T-13-01-b",
+      "no": 197,
+      "role": "FE-2",
+      "phase": 6,
+      "deps": [
+        "T-13-01-a"
+      ],
+      "swp": 5,
+      "parent": "I-13-01",
+      "hours": 15,
+      "sprint": 9
+    },
+    {
+      "key": "T-13-02-a",
+      "no": 198,
+      "role": "BE-1",
+      "phase": 6,
+      "deps": [
+        "T-01-04-b"
+      ],
+      "swp": 6,
+      "parent": "I-13-02",
+      "hours": 18,
+      "sprint": 9
+    },
+    {
+      "key": "T-13-02-b",
+      "no": 199,
+      "role": "FE-1",
+      "phase": 6,
+      "deps": [
+        "T-13-02-a",
+        "I-00-07"
+      ],
+      "swp": 8,
+      "parent": "I-13-02",
+      "hours": 24,
+      "sprint": 9
+    },
+    {
+      "key": "I-00-01",
+      "no": 15,
+      "role": "PM",
+      "phase": 1,
+      "deps": [],
+      "swp": 3,
+      "parent": "E00",
+      "hours": 9,
+      "sprint": 1
+    },
+    {
+      "key": "I-00-02",
+      "no": 16,
+      "role": "PM",
+      "phase": 1,
+      "deps": [],
+      "swp": 3,
+      "parent": "E00",
+      "hours": 9,
+      "sprint": 1
+    },
+    {
+      "key": "I-00-03",
+      "no": 17,
+      "role": "PM",
+      "phase": 1,
+      "deps": [],
+      "swp": 3,
+      "parent": "E00",
+      "hours": 9,
+      "sprint": 1
+    },
+    {
+      "key": "I-00-04",
+      "no": 18,
+      "role": "PM",
+      "phase": 1,
+      "deps": [],
+      "swp": 3,
+      "parent": "E00",
+      "hours": 9,
+      "sprint": 1
+    },
+    {
+      "key": "I-00-05",
+      "no": 19,
+      "role": "PM",
+      "phase": 1,
+      "deps": [],
+      "swp": 6,
+      "parent": "E00",
+      "hours": 18,
+      "sprint": 1
+    },
+    {
+      "key": "I-00-06",
+      "no": 20,
+      "role": "PM",
+      "phase": 1,
+      "deps": [],
+      "swp": 3,
+      "parent": "E00",
+      "hours": 9,
+      "sprint": 2
+    },
+    {
+      "key": "I-00-07",
+      "no": 21,
+      "role": "PM",
+      "phase": 1,
+      "deps": [],
+      "swp": 6,
+      "parent": "E00",
+      "hours": 18,
+      "sprint": 2
+    }
+  ],
+  "load": {
+    "1": {
+      "PM": 54,
+      "BE-1": 57,
+      "QA": 15,
+      "FE-1": 45,
+      "BE-2": 57,
+      "FE-2": 42
+    },
+    "2": {
+      "PM": 39,
+      "BE-1": 54,
+      "BE-2": 57,
+      "FE-1": 24,
+      "QA": 15,
+      "FE-2": 9
+    },
+    "3": {
+      "BE-1": 57,
+      "BE-2": 54,
+      "FE-1": 15,
+      "FE-2": 12
+    },
+    "4": {
+      "BE-1": 45,
+      "FE-1": 33,
+      "FE-2": 30,
+      "BE-2": 48
+    },
+    "5": {
+      "BE-1": 60,
+      "FE-1": 30,
+      "BE-2": 60,
+      "FE-2": 24
+    },
+    "6": {
+      "BE-1": 60,
+      "BE-2": 54,
+      "FE-1": 33,
+      "FE-2": 39
+    },
+    "7": {
+      "BE-1": 45,
+      "BE-2": 54,
+      "FE-1": 15,
+      "FE-2": 27
+    },
+    "8": {
+      "BE-1": 45,
+      "BE-2": 54,
+      "FE-1": 15,
+      "QA": 39
+    },
+    "9": {
+      "BE-1": 45,
+      "FE-1": 39,
+      "BE-2": 60,
+      "FE-2": 27,
+      "QA": 24
+    },
+    "10": {
+      "BE-1": 48,
+      "BE-2": 57,
+      "FE-1": 24,
+      "FE-2": 30,
+      "QA": 42
+    },
+    "11": {
+      "BE-1": 60,
+      "FE-1": 48,
+      "BE-2": 54,
+      "FE-2": 42,
+      "QA": 15
+    },
+    "12": {
+      "BE-1": 54,
+      "BE-2": 54,
+      "FE-1": 24,
+      "FE-2": 27
+    },
+    "13": {
+      "BE-1": 60,
+      "FE-1": 54,
+      "BE-2": 57,
+      "FE-2": 45,
+      "QA": 60
+    },
+    "14": {
+      "QA": 15
+    }
+  }
+}

@@ -1,0 +1,1890 @@
+[
+ {
+  "key": "T-01-01-a",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "BE-1",
+   "Status": "Done",
+   "Giờ thực tế": 38
+  }
+ },
+ {
+  "key": "T-01-01-b",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "QA",
+   "Status": "Done",
+   "Giờ thực tế": 14
+  }
+ },
+ {
+  "key": "T-01-01-c",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "FE-1",
+   "Status": "In Review",
+   "Giờ thực tế": 34
+  }
+ },
+ {
+  "key": "T-01-02-a",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "BE-2",
+   "Status": "Done",
+   "Giờ thực tế": 32
+  }
+ },
+ {
+  "key": "T-01-02-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "BE-1",
+   "Status": "Done",
+   "Giờ thực tế": 20
+  }
+ },
+ {
+  "key": "T-01-02-c",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "BE-2",
+   "Status": "Done",
+   "Giờ thực tế": 15
+  }
+ },
+ {
+  "key": "T-01-02-d",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "BE-2",
+   "Status": "Done",
+   "Giờ thực tế": 11
+  }
+ },
+ {
+  "key": "T-01-02-e",
+  "fields": {
+   "SWP": 13,
+   "Giờ ước lượng": 39,
+   "Iteration": "Sprint 8",
+   "Phụ trách": "QA",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-01-03-a",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "FE-2",
+   "Status": "In Progress",
+   "Giờ thực tế": 12
+  }
+ },
+ {
+  "key": "T-01-03-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "FE-2",
+   "Status": "In Review",
+   "Giờ thực tế": 16
+  }
+ },
+ {
+  "key": "T-01-04-a",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "FE-1",
+   "Status": "Done",
+   "Giờ thực tế": 13
+  }
+ },
+ {
+  "key": "T-01-04-b",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "BE-1",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "T-01-05-a",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "BE-1",
+   "Status": "Done",
+   "Giờ thực tế": 8
+  }
+ },
+ {
+  "key": "T-01-05-b",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "PM",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "T-02-01-a",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "BE-2",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "T-02-01-b",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "FE-1",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "T-02-01-c",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "QA",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "T-02-02-a",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "BE-1",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "T-02-02-b",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 9",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-02-02-c",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "FE-2",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "T-02-02-d",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 9",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-03-01-a",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 3",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-03-01-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 3",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-03-01-c",
+  "fields": {
+   "SWP": 9,
+   "Giờ ước lượng": 27,
+   "Iteration": "Sprint 3",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-03-01-d",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 3",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-03-01-e",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 3",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-03-01-f",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 9",
+   "Phụ trách": "QA",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-03-02-a",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 3",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-03-03-a",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-03-03-b",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-04-01-a",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "BE-2",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "T-04-01-b",
+  "fields": {
+   "SWP": 15,
+   "Giờ ước lượng": 45,
+   "Iteration": "Sprint 4",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-04-01-c",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 4",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-04-01-d",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 4",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-04-02-a",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 4",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-04-02-b",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 4",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-04-03-a",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 4",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-04-03-b",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 4",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-04-04-a",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 5",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-04-04-b",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 5",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-04-05-a",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "BE-1",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "T-04-05-b",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 4",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-01-a",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 5",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-01-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 5",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-01-c",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 5",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-02-a",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 5",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-02-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 5",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-02-c",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 5",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-03-a",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 6",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-03-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 6",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-03-c",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-03-d",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 6",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-03-e",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 10",
+   "Phụ trách": "QA",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-05-04-a",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 6",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-01-a",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 6",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-01-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 10",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-01-c",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 10",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-02-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 10",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-02-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 10",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-02-c",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 10",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-02-d",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 10",
+   "Phụ trách": "QA",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-03-a",
+  "fields": {
+   "SWP": 9,
+   "Giờ ước lượng": 27,
+   "Iteration": "Sprint 10",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-03-b",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 10",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-03-c",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 10",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-04-a",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 6",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-04-b",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 10",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-05-a",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-06-05-b",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-07-01-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 6",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-07-01-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 6",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-07-01-c",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 6",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-07-02-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-07-02-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-07-02-c",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-07-02-d",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-07-02-e",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "QA",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-07-03-a",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-07-03-b",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-08-01-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 7",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-08-01-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 7",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-08-01-c",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 7",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-08-02-a",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 7",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-08-02-b",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 7",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-01-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "BE-2",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "T-09-01-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-01-c",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-01-d",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "QA",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-02-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 3",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-02-b",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-02-c",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-02-d",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-02-e",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 3",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-03-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-03-b",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 11",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-04-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 7",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-04-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 7",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-04-c",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 7",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-09-04-d",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 7",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-01-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 8",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-01-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 8",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-02-a",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 8",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-02-b",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 8",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-03-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 8",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-03-b",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 8",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-04-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 12",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-04-b",
+  "fields": {
+   "SWP": 9,
+   "Giờ ước lượng": 27,
+   "Iteration": "Sprint 12",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-05-a",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 8",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-05-b",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 12",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-05-c",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-05-d",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-10-05-e",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "QA",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-11-01-a",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 6",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-11-01-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 12",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-11-01-c",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 12",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-11-01-d",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 12",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-11-01-e",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 12",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-11-02-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 12",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-11-02-b",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 12",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-11-02-c",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 12",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-12-01-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 8",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-12-01-b",
+  "fields": {
+   "SWP": 9,
+   "Giờ ước lượng": 27,
+   "Iteration": "Sprint 9",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-12-01-c",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 9",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-12-01-d",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-12-01-e",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 14",
+   "Phụ trách": "QA",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-12-02-a",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-12-02-b",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-12-03-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-12-03-b",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-12-03-c",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Iteration": "Sprint 13",
+   "Phụ trách": "QA",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-13-01-a",
+  "fields": {
+   "SWP": 10,
+   "Giờ ước lượng": 30,
+   "Iteration": "Sprint 9",
+   "Phụ trách": "BE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-13-01-b",
+  "fields": {
+   "SWP": 5,
+   "Giờ ước lượng": 15,
+   "Iteration": "Sprint 9",
+   "Phụ trách": "FE-2",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-13-02-a",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 9",
+   "Phụ trách": "BE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "T-13-02-b",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Iteration": "Sprint 9",
+   "Phụ trách": "FE-1",
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-00-01",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "PM",
+   "Status": "Blocked",
+   "Giờ thực tế": 5
+  }
+ },
+ {
+  "key": "I-00-02",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "PM",
+   "Status": "Blocked",
+   "Giờ thực tế": 6
+  }
+ },
+ {
+  "key": "I-00-03",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "PM",
+   "Status": "Done",
+   "Giờ thực tế": 10
+  }
+ },
+ {
+  "key": "I-00-04",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "PM",
+   "Status": "Done",
+   "Giờ thực tế": 8
+  }
+ },
+ {
+  "key": "I-00-05",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 1",
+   "Phụ trách": "PM",
+   "Status": "In Progress",
+   "Giờ thực tế": 10
+  }
+ },
+ {
+  "key": "I-00-06",
+  "fields": {
+   "SWP": 3,
+   "Giờ ước lượng": 9,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "PM",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "I-00-07",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Iteration": "Sprint 2",
+   "Phụ trách": "PM",
+   "Status": "Todo"
+  }
+ },
+ {
+  "key": "I-01-01",
+  "fields": {
+   "SWP": 25,
+   "Giờ ước lượng": 75,
+   "Status": "In Progress"
+  }
+ },
+ {
+  "key": "I-01-02",
+  "fields": {
+   "SWP": 38,
+   "Giờ ước lượng": 114,
+   "Status": "In Progress"
+  }
+ },
+ {
+  "key": "I-01-03",
+  "fields": {
+   "SWP": 14,
+   "Giờ ước lượng": 42,
+   "Status": "In Progress"
+  }
+ },
+ {
+  "key": "I-01-04",
+  "fields": {
+   "SWP": 15,
+   "Giờ ước lượng": 45,
+   "Status": "In Progress"
+  }
+ },
+ {
+  "key": "I-01-05",
+  "fields": {
+   "SWP": 7,
+   "Giờ ước lượng": 21,
+   "Status": "In Progress"
+  }
+ },
+ {
+  "key": "I-02-01",
+  "fields": {
+   "SWP": 16,
+   "Giờ ước lượng": 48,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-02-02",
+  "fields": {
+   "SWP": 20,
+   "Giờ ước lượng": 60,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-03-01",
+  "fields": {
+   "SWP": 41,
+   "Giờ ước lượng": 123,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-03-02",
+  "fields": {
+   "SWP": 4,
+   "Giờ ước lượng": 12,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-03-03",
+  "fields": {
+   "SWP": 9,
+   "Giờ ước lượng": 27,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-04-01",
+  "fields": {
+   "SWP": 36,
+   "Giờ ước lượng": 108,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-04-02",
+  "fields": {
+   "SWP": 12,
+   "Giờ ước lượng": 36,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-04-03",
+  "fields": {
+   "SWP": 11,
+   "Giờ ước lượng": 33,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-04-04",
+  "fields": {
+   "SWP": 12,
+   "Giờ ước lượng": 36,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-04-05",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-05-01",
+  "fields": {
+   "SWP": 24,
+   "Giờ ước lượng": 72,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-05-02",
+  "fields": {
+   "SWP": 22,
+   "Giờ ước lượng": 66,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-05-03",
+  "fields": {
+   "SWP": 35,
+   "Giờ ước lượng": 105,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-05-04",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-06-01",
+  "fields": {
+   "SWP": 20,
+   "Giờ ước lượng": 60,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-06-02",
+  "fields": {
+   "SWP": 28,
+   "Giờ ước lượng": 84,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-06-03",
+  "fields": {
+   "SWP": 18,
+   "Giờ ước lượng": 54,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-06-04",
+  "fields": {
+   "SWP": 8,
+   "Giờ ước lượng": 24,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-06-05",
+  "fields": {
+   "SWP": 13,
+   "Giờ ước lượng": 39,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-07-01",
+  "fields": {
+   "SWP": 17,
+   "Giờ ước lượng": 51,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-07-02",
+  "fields": {
+   "SWP": 32,
+   "Giờ ước lượng": 96,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-07-03",
+  "fields": {
+   "SWP": 9,
+   "Giờ ước lượng": 27,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-08-01",
+  "fields": {
+   "SWP": 17,
+   "Giờ ước lượng": 51,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-08-02",
+  "fields": {
+   "SWP": 7,
+   "Giờ ước lượng": 21,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-09-01",
+  "fields": {
+   "SWP": 25,
+   "Giờ ước lượng": 75,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-09-02",
+  "fields": {
+   "SWP": 28,
+   "Giờ ước lượng": 84,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-09-03",
+  "fields": {
+   "SWP": 9,
+   "Giờ ước lượng": 27,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-09-04",
+  "fields": {
+   "SWP": 23,
+   "Giờ ước lượng": 69,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-10-01",
+  "fields": {
+   "SWP": 12,
+   "Giờ ước lượng": 36,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-10-02",
+  "fields": {
+   "SWP": 6,
+   "Giờ ước lượng": 18,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-10-03",
+  "fields": {
+   "SWP": 9,
+   "Giờ ước lượng": 27,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-10-04",
+  "fields": {
+   "SWP": 15,
+   "Giờ ước lượng": 45,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-10-05",
+  "fields": {
+   "SWP": 24,
+   "Giờ ước lượng": 72,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-11-01",
+  "fields": {
+   "SWP": 26,
+   "Giờ ước lượng": 78,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-11-02",
+  "fields": {
+   "SWP": 12,
+   "Giờ ước lượng": 36,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-12-01",
+  "fields": {
+   "SWP": 28,
+   "Giờ ước lượng": 84,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-12-02",
+  "fields": {
+   "SWP": 12,
+   "Giờ ước lượng": 36,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-12-03",
+  "fields": {
+   "SWP": 16,
+   "Giờ ước lượng": 48,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-13-01",
+  "fields": {
+   "SWP": 15,
+   "Giờ ước lượng": 45,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "I-13-02",
+  "fields": {
+   "SWP": 14,
+   "Giờ ước lượng": 42,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E00",
+  "fields": {
+   "SWP": 27,
+   "Giờ ước lượng": 81,
+   "Status": "In Progress"
+  }
+ },
+ {
+  "key": "E01",
+  "fields": {
+   "SWP": 99,
+   "Giờ ước lượng": 297,
+   "Status": "In Progress"
+  }
+ },
+ {
+  "key": "E02",
+  "fields": {
+   "SWP": 36,
+   "Giờ ước lượng": 108,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E03",
+  "fields": {
+   "SWP": 54,
+   "Giờ ước lượng": 162,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E04",
+  "fields": {
+   "SWP": 79,
+   "Giờ ước lượng": 237,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E05",
+  "fields": {
+   "SWP": 89,
+   "Giờ ước lượng": 267,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E06",
+  "fields": {
+   "SWP": 87,
+   "Giờ ước lượng": 261,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E07",
+  "fields": {
+   "SWP": 58,
+   "Giờ ước lượng": 174,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E08",
+  "fields": {
+   "SWP": 24,
+   "Giờ ước lượng": 72,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E09",
+  "fields": {
+   "SWP": 85,
+   "Giờ ước lượng": 255,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E10",
+  "fields": {
+   "SWP": 66,
+   "Giờ ước lượng": 198,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E11",
+  "fields": {
+   "SWP": 38,
+   "Giờ ước lượng": 114,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E12",
+  "fields": {
+   "SWP": 56,
+   "Giờ ước lượng": 168,
+   "Status": "Backlog"
+  }
+ },
+ {
+  "key": "E13",
+  "fields": {
+   "SWP": 29,
+   "Giờ ước lượng": 87,
+   "Status": "Backlog"
+  }
+ }
+]

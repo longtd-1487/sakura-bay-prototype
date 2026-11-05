@@ -1,0 +1,4548 @@
+{
+  "epics": [
+    {
+      "key": "E00",
+      "title": "E00 Làm rõ yêu cầu với khách (Q18–Q41, PREMISE A-xx)",
+      "body": "**Phạm vi:**\n- Gom 24 câu hỏi Q18–Q41 (decision-log § 3) và giả định A-01…A-11 thành 7 gói câu hỏi theo khu vực nghiệp vụ\n- Mỗi gói có mặc định đang thiết kế để dev không bị chặn; câu trả lời của khách phải được phản ánh lại vào spec trước khi task phụ thuộc vào \"Done\"\n\n**Spec:** decision-log § 3 (Q18–Q41), PREMISE § 4 (A-01…A-11), prototype-gap GAP-11\n\n**Ràng buộc đặc thù:**\n- Mọi tham số số nằm trong 業務規程 (ADR-004) → đổi giá trị không cần sửa code; chỉ câu hỏi về *logic* mới chặn\n- Gói I-00-01, I-00-02 chặn tính tiền (E09/E10) → hỏi trước tiên",
+      "priority": "Must",
+      "constraint": "",
+      "labels": [
+        "type:epic",
+        "area:E00"
+      ]
+    },
+    {
+      "key": "E01",
+      "title": "E01 Nền tảng & hạ tầng",
+      "body": "**Phạm vi:**\n- Supabase Tokyo + Vercel hnd1, pipeline migration, CI (typecheck/lint/Vitest/pgTAP)\n- Lõi DB nhóm A, RLS helpers, khung `fn_audit`, danh mục mã lỗi\n- Layout/menu theo `kind` + `functions`, hook ADR-010, module PDF (ADR-011), hàng đợi email + cron\n- Seed theo vai trò; đồng bộ tài liệu thiết kế\n\n**Spec:** ADR-001, ADR-005, ADR-008, ADR-010, ADR-011, architecture § 2, § 4, § 7, GAP-15, GAP-16, GAP-17, D-04, D-17, D-27, D-30\n\n**Ràng buộc đặc thù:**\n- Phase 1 — mọi epic khác phụ thuộc\n- Mọi ghi nghiệp vụ qua RPC `security definer` (ADR-005); không còn service role trong route nghiệp vụ (GAP-16)",
+      "priority": "Must",
+      "constraint": "",
+      "labels": [
+        "type:epic",
+        "area:E01"
+      ]
+    },
+    {
+      "key": "E02",
+      "title": "E02 Xác thực & tài khoản",
+      "body": "**Phạm vi:**\n- SC-01 đăng nhập, SC-02 đặt lại mật khẩu / nhận lời mời, SC-04 danh sách tài khoản, SC-05 tạo/sửa tài khoản bằng lời mời\n\n**Spec:** SC-01, SC-02, SC-04, SC-05, FT-01, FT-02, FT-03, BR-09, GAP-15, D-04, D-05, Q39\n\n**Ràng buộc đặc thù:**\n- Không tự đăng ký — tài khoản chỉ tạo bằng lời mời sau khi tư cách được duyệt (BR-09)\n- Ngoại lệ service role duy nhất: `lib/server/invite-user.ts` (D-04)",
+      "priority": "Must",
+      "constraint": "",
+      "labels": [
+        "type:epic",
+        "area:E02"
+      ]
+    },
+    {
+      "key": "E03",
+      "title": "E03 Tư cách tham gia 許可/承認/登録 & 保証金",
+      "body": "**Phạm vi:**\n- Mô hình 3 loại tư cách với danh mục điều kiện riêng (ADR-003)\n- SC-06 danh sách hồ sơ, SC-07 xét duyệt rẽ nhánh theo loại, SC-30 保証金\n- Job hết hạn + nhắc gia hạn\n\n**Spec:** SC-06, SC-07, SC-30, ADR-003, BR-01, BR-02, BR-07, BR-08, BR-28, GAP-02, D-06, D-07, D-08, FT-04, FT-31\n\n**Ràng buộc đặc thù:**\n- FT-04/SC-06/SC-07 ghi Should nhưng BR-04 (Must) cần tư cách hiệu lực → phần DB/RPC tư cách xếp Must, giao diện SC-06 giữ Should\n- Danh mục điều kiện quản lý bằng seed/migration ở giai đoạn 1 (D-08)",
+      "priority": "Must",
+      "constraint": "許可/承認/登録",
+      "labels": [
+        "type:epic",
+        "area:E03"
+      ]
+    },
+    {
+      "key": "E04",
+      "title": "E04 Danh mục & 業務規程 có phiên bản",
+      "body": "**Phạm vi:**\n- SC-11 業務規程 có phiên bản + lịch chợ\n- SC-08 品目・規格, SC-09 船・荷主, SC-10 参加者 (đình chỉ, hạn mức), SC-12 符丁\n\n**Spec:** SC-08, SC-09, SC-10, SC-11, SC-12, ADR-004, BR-40, BR-42, GAP-03, GAP-19, D-23, D-24, D-26\n\n**Ràng buộc đặc thù:**\n- Mọi chứng từ lưu `rule_set_id`; không sửa phiên bản đã hiệu lực (ADR-004)\n- `fn_rule` chặn mọi RPC tính tiền → T-04-01-a ở phase 1",
+      "priority": "Must",
+      "constraint": "業務規程 có phiên bản",
+      "labels": [
+        "type:epic",
+        "area:E04"
+      ]
+    },
+    {
+      "key": "E05",
+      "title": "E05 Nhập hàng, thẩm định 目利き, phân bổ kênh",
+      "body": "**Phạm vi:**\n- SC-14 đăng ký lô (tablet, mạng yếu), SC-15 thẩm định + 符丁 có ảnh, SC-16 phân bổ kênh tách lô, SC-13 danh sách lô + nhãn\n\n**Spec:** SC-13, SC-14, SC-15, SC-16, ADR-006, ADR-007, ADR-010, BR-10…BR-15, BR-40, BR-41, GAP-04, GAP-05, GAP-06, GAP-07, D-19, D-25\n\n**Ràng buộc đặc thù:**\n- Không có gợi ý tự động hạng tươi / OCR 符丁 — người thẩm định quyết định (ADR-007)\n- Kéo-thả chỉ PC, tablet dùng nút (PREMISE § 3)",
+      "priority": "Must",
+      "constraint": "HITL 目利き/符丁",
+      "labels": [
+        "type:epic",
+        "area:E05"
+      ]
+    },
+    {
+      "key": "E06",
+      "title": "E06 Giao dịch 相対 & kiểm quyền mua 2 cấp",
+      "body": "**Phạm vi:**\n- Hàm `fn_check_buyer_eligibility` + `trg_enforce_buyer_tier` (ADR-002)\n- SC-18 tạo/chốt/sửa giao dịch, SC-17 danh sách, SC-19 xác nhận phía bên mua, SC-20 予約\n- Sửa sau chốt có duyệt (ADR-008) và ngoại lệ đình chỉ (BR-05)\n\n**Spec:** SC-17, SC-18, SC-19, SC-20, ADR-002, ADR-006, ADR-008, BR-04…BR-06, BR-17…BR-20, GAP-08, GAP-09, GAP-10, D-21, D-22, D-23, US-01, US-05, US-06, US-07\n\n**Ràng buộc đặc thù:**\n- Quyền mua kiểm ở DB, UI chỉ hiển thị trước (business-rules lời đầu)\n- 買出人 (cấp 2) bị từ chối tuyệt đối khi mua từ 卸売業者\n- Chốt 成立 bằng app **hoặc** xác nhận miệng/điện thoại kèm tên người xác nhận (BR-18)",
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "labels": [
+        "type:epic",
+        "area:E06"
+      ]
+    },
+    {
+      "key": "E07",
+      "title": "E07 Phiên せり (chỉ ghi kết quả)",
+      "body": "**Phạm vi:**\n- SC-21 thiết lập phiên, SC-22 tiến trình trên tablet, SC-23 nhập 落札 (chia lô, 不落), SC-24 màn hình sàn (Could)\n\n**Spec:** SC-21, SC-22, SC-23, SC-24, ADR-009, ADR-010, BR-16, BR-04, GAP-09, GAP-18, FT-20…FT-24, Q32, Q33\n\n**Ràng buộc đặc thù:**\n- Không làm đấu giá điện tử; 競り人 nhập kết quả (ADR-009)\n- Bên mua trong せり cũng đi qua `fn_check_buyer_eligibility`",
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "labels": [
+        "type:epic",
+        "area:E07"
+      ]
+    },
+    {
+      "key": "E08",
+      "title": "E08 Bán trong chợ 仲卸 → 買出人",
+      "body": "**Phạm vi:**\n- SC-25 phiếu bán cho 買出人 (chỉ 仲卸 bảo lãnh), SC-26 tồn hàng 仲卸\n- FT-27 công nợ 買出人 (Could) chỉ xem tổng\n\n**Spec:** SC-25, SC-26, FT-25, FT-26, FT-27, BR-03, X-8, GAP-21, D-20, Q34\n\n**Ràng buộc đặc thù:**\n- 買出人 (cấp 2) chỉ mua từ 仲卸 đã bảo lãnh mình — cưỡng chế bằng trigger trên `retail_sales`",
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "labels": [
+        "type:epic",
+        "area:E08"
+      ]
+    },
+    {
+      "key": "E09",
+      "title": "E09 Hóa đơn, tiền về, khóa kỳ",
+      "body": "**Phạm vi:**\n- Kỳ chốt `billing_periods` + trigger khóa kỳ (ADR-012)\n- SC-27 chốt kỳ & phát hành 請求書, SC-28 chi tiết + void/phát hành lại, SC-29 入金・消込, SC-33 khóa kỳ\n- Nhắc hạn / 期限超過 (FT-30)\n\n**Spec:** SC-27, SC-28, SC-29, SC-33, ADR-011, ADR-012, BR-21…BR-26, BR-29, GAP-05, GAP-11, GAP-12, GAP-13, GAP-14, D-03, D-09, D-14, FT-28, FT-29, FT-30, FT-35\n\n**Ràng buộc đặc thù:**\n- Sau khóa kỳ: không sửa giao dịch, số tiền hóa đơn, 仕切書; **ngoại lệ D-09**: vẫn ghi tiền về trễ và 消込\n- W-ACC chạy 締め処理, ADM khóa / mở lại kỳ (D-03)\n- Phần khấu trừ 完納奨励金 trong close_period thuộc E10 (T-10-04-a)",
+      "priority": "Must",
+      "constraint": "Khóa kỳ 締め",
+      "labels": [
+        "type:epic",
+        "area:E09"
+      ]
+    },
+    {
+      "key": "E10",
+      "title": "E10 完納奨励金 — thưởng thanh toán đủ & đúng hạn",
+      "body": "**Phạm vi:**\n- Bằng chứng theo bên mua × kỳ, quy tắc 完納 (kể cả trường hợp biên), bậc thưởng theo 業務規程 có phiên bản\n- RPC tính (idempotent, chặn trước hạn), duyệt / từ chối của ADM\n- Khấu trừ vào hóa đơn kỳ sau qua `incentive_applications` (cap ≤ tiền hàng, chuyển tiếp phần dư)\n- SC-32 giao diện, 完納率 trên SC-35/SC-03, hồi quy E2E 2 kỳ\n\n**Spec:** SC-32, SC-28, SC-27, SC-33, SC-35, SC-03, BR-24, BR-26, BR-27, BR-29, ADR-004, ADR-005, GAP-13, GAP-22, D-02, D-09, D-11, D-12, D-14, A-06, US-14, FT-33\n\n**Ràng buộc đặc thù:**\n- Bắt buộc theo đề: logic nhiều biến → tách task nhỏ, không gộp\n- Máy tính, người quyết định: tính chỉ tạo `calculated`, ADM duyệt (D-02 tách người tính/người duyệt)\n- Bằng chứng là ảnh chụp lúc tính; thưởng dùng phiên bản 業務規程 tại ngày chốt kỳ\n- 出荷奨励金 (BR-33, Should) thuộc E11",
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "labels": [
+        "type:epic",
+        "area:E10"
+      ]
+    },
+    {
+      "key": "E11",
+      "title": "E11 Quyết toán chủ hàng 仕切書 & 出荷奨励金",
+      "body": "**Phạm vi:**\n- SC-31 lập / phát hành / hủy 仕切書 cho 委託 và 買付\n- 出荷奨励金 (BR-33, Should, mặc định tắt) — tính và áp vào 仕切書 kỳ sau\n\n**Spec:** SC-31, SC-32, BR-30, BR-31, BR-32, BR-33, GAP-11, GAP-19, D-10, D-13, A-03, A-07, FT-32, FT-34, Q38\n\n**Ràng buộc đặc thù:**\n- 委託手数料 chỉ trừ ở 仕切書 (A-03) — gỡ GAP-11 hai phía trong cùng release\n- BR-32 chỉ áp cho 委託; 買付 trả đủ giá mua × SL (D-10)",
+      "priority": "Must",
+      "constraint": "業務規程 có phiên bản",
+      "labels": [
+        "type:epic",
+        "area:E11"
+      ]
+    },
+    {
+      "key": "E12",
+      "title": "E12 Công bố 公表, báo cáo & dashboard",
+      "body": "**Phạm vi:**\n- 公表: bản chụp số liệu theo ngày, trang công khai không đăng nhập (SC-34) + panel công bố (SC-35)\n- Nhật báo / nguyệt báo + xuất CSV/PDF (SC-35)\n- Dashboard theo vai trò (SC-03, Should)\n\n**Spec:** SC-03, SC-34, SC-35, BR-50, BR-51, BR-52, GAP-16, GAP-20, D-01, D-15, D-16, FT-36, FT-37, FT-38, FT-39, Q35, Q40\n\n**Ràng buộc đặc thù:**\n- Bản công bố là ảnh chụp, không tính lại khi giao dịch bị sửa (BR-50, 卸売市場法)\n- Chỉ W-MGR bấm 公表 / 取り下げ (D-01)\n- anon chỉ đọc view `public_publications` (D-16)",
+      "priority": "Must",
+      "constraint": "公表 theo 卸売市場法",
+      "labels": [
+        "type:epic",
+        "area:E12"
+      ]
+    },
+    {
+      "key": "E13",
+      "title": "E13 Quản trị: audit log, cài đặt, thông báo",
+      "body": "**Phạm vi:**\n- SC-36 audit log (gắn `fn_audit` cho mọi bảng nhóm A–F)\n- SC-37 mẫu email, lịch sử gửi, display token, chính sách sao lưu\n\n**Spec:** SC-36, SC-37, ADR-008, BR-43, D-17, D-18, D-28, FT-40, FT-41, FT-42, Q41\n\n**Ràng buộc đặc thù:**\n- audit_logs chỉ thêm, không ai sửa/xóa (BR-43)",
+      "priority": "Must",
+      "constraint": "",
+      "labels": [
+        "type:epic",
+        "area:E13"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "key": "I-00-01",
+      "epic": "E00",
+      "title": "Thuế tiêu dùng, làm tròn & khấu trừ thưởng trên 適格請求書",
+      "body": "**Mục tiêu:** Chốt cách tính thuế và cách thể hiện khấu trừ 完納奨励金 trên 請求書 / 仕切書 trước khi viết close_period và draft_settlement.\n\n**Spec:** Q18, Q19, Q10, A-04, D-12, BR-24, SC-27 Data Flow, SC-28 E10/E11\n\n**Câu hỏi gửi khách (kèm mặc định đang thiết kế):**\n- Q18: làm tròn thuế — 切り捨て theo hóa đơn (mặc định); SC-27 đang ghi `round`, SC-28 ghi `floor` → cần một quy tắc\n- Q19: thưởng trừ sau thuế, không lập 返還インボイス (mặc định) — kế toán thuế khách có chấp nhận theo chế độ インボイス không?\n- Thuế trên 仕切書: 8% hàng, 10% 手数料? (Q18)\n- Q10: mẫu chứng từ 請求書 / 仕切書 của khách và số đăng ký T của 卸売業者\n\n**Tiêu chí hoàn thành:**\n- [ ] Có văn bản trả lời của khách cho Q18, Q19, Q10\n- [ ] BR-24, SC-27, SC-28 cập nhật một công thức làm tròn duy nhất\n- [ ] Task phụ thuộc được cập nhật tiêu chí nếu khác mặc định\n\n**Chặn / ảnh hưởng:** T-09-02-b, T-09-02-c, T-10-04-a, T-11-01-b, T-11-01-d",
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "spec_refs": [
+        "Q18",
+        "Q19",
+        "Q10",
+        "A-04",
+        "D-12",
+        "BR-24",
+        "SC-27",
+        "SC-28"
+      ],
+      "labels": [
+        "type:clarify",
+        "area:E00",
+        "constraint"
+      ],
+      "role": "PM",
+      "phase": 1,
+      "depends_on": [],
+      "blocks": [
+        "T-09-02-b",
+        "T-09-02-c",
+        "T-10-04-a",
+        "T-11-01-b",
+        "T-11-01-d"
+      ]
+    },
+    {
+      "key": "I-00-02",
+      "epic": "E00",
+      "title": "Quy tắc 完納奨励金: bậc thưởng, ngày áp quy tắc và các trường hợp biên",
+      "body": "**Mục tiêu:** Khóa định nghĩa 完納 và cách tính thưởng để E10 không phải làm lại.\n\n**Spec:** Q20, Q21, A-06, BR-26, BR-27, BR-29, D-09, D-11, SC-32 Implementation Mapping, SC-35 E07\n\n**Câu hỏi gửi khách (kèm mặc định đang thiết kế):**\n- Q20: bậc thưởng — một tỷ lệ cho toàn bộ doanh số theo bậc đạt (mặc định) hay lũy tiến từng phần?\n- Bậc lấy theo 業務規程 hiệu lực **tại ngày chốt kỳ** (BR-21, mặc định) hay tại `period_end` (SC-32 E03 đang ghi)?\n- Q21: bên mua tự trừ 振込手数料 (先方負担) → hóa đơn thiếu vài trăm yên → mất 完納? Mặc định: mất, kế toán xử lý tay\n- Tiền về **trước hạn** nhưng 消込 sau khi kỳ đã khóa (D-09): có tính lại thưởng không? Mặc định: không, cảnh báo khi khóa kỳ\n- Bên mua có thưởng đã duyệt nhưng kỳ sau không có hóa đơn: treo vô thời hạn (mặc định) hay trả cách khác?\n- Bên mua đang 取引停止 / hết tư cách có được nhận thưởng không? Mặc định: có\n- 完納率 trên báo cáo đếm theo hóa đơn (SC-35) hay theo bên mua × kỳ (BR-27)?\n\n**Tiêu chí hoàn thành:**\n- [ ] Có trả lời cho 7 câu hỏi\n- [ ] BR-27 + SC-32 + SC-35 dùng chung một định nghĩa\n- [ ] pgTAP của T-10-02-a / T-10-02-b cập nhật theo trả lời\n\n**Chặn / ảnh hưởng:** T-10-02-a, T-10-02-b, T-10-03-a, T-10-04-a, T-10-05-c",
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "spec_refs": [
+        "Q20",
+        "Q21",
+        "A-06",
+        "BR-26",
+        "BR-27",
+        "BR-29",
+        "D-09",
+        "D-11",
+        "SC-32",
+        "SC-35",
+        "BR-21"
+      ],
+      "labels": [
+        "type:clarify",
+        "area:E00",
+        "constraint"
+      ],
+      "role": "PM",
+      "phase": 1,
+      "depends_on": [],
+      "blocks": [
+        "T-10-02-a",
+        "T-10-02-b",
+        "T-10-03-a",
+        "T-10-04-a",
+        "T-10-05-c"
+      ]
+    },
+    {
+      "key": "I-00-03",
+      "epic": "E00",
+      "title": "Vòng đời giao dịch 相対 và hạn mức tín dụng",
+      "body": "**Mục tiêu:** Chốt các nhánh trạng thái giao dịch 相対 và ý nghĩa hạn mức trước khi viết RPC lõi SC-18.\n\n**Spec:** Q22, Q23, Q24, Q25, BR-06, BR-15, BR-18, BR-20, SC-18 Điểm cần xác nhận, SC-19\n\n**Câu hỏi gửi khách (kèm mặc định đang thiết kế):**\n- Q22: 交渉中 còn lại cuối ngày → tự hủy 23:59 JST + thông báo (mặc định)\n- Q23: hủy cả giao dịch đã 成立 → yêu cầu sửa quantity = 0 + duyệt (mặc định)\n- Q24: sửa giao dịch đã vào hóa đơn → duyệt sửa rồi void + phát hành lại (mặc định)\n- Q25: `credit_limit = 0` = không cho nợ (mặc định; prototype hiểu là không giới hạn)\n- Draft có được lưu với bên mua 買出人 / hết hạn tư cách không? Mặc định: không\n- Bên mua có nút 辞退 trên SC-19 không? Có email nhắc khi chuyển 交渉中 không?\n- BR-15: khóa cả số lượng 交渉中 khi chuyển kênh (thiết kế) — khách đồng ý?\n\n**Tiêu chí hoàn thành:**\n- [ ] Có trả lời cho 7 điểm\n- [ ] SC-18/SC-19 cập nhật nhánh; pgTAP T-06-01-b, T-06-02-a phản ánh trả lời\n\n**Chặn / ảnh hưởng:** T-06-01-b, T-06-02-a, T-06-02-b, T-06-03-a, T-05-03-c",
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "spec_refs": [
+        "Q22",
+        "Q23",
+        "Q24",
+        "Q25",
+        "BR-06",
+        "BR-15",
+        "BR-18",
+        "BR-20",
+        "SC-18",
+        "SC-19"
+      ],
+      "labels": [
+        "type:clarify",
+        "area:E00",
+        "constraint"
+      ],
+      "role": "PM",
+      "phase": 1,
+      "depends_on": [],
+      "blocks": [
+        "T-06-01-b",
+        "T-06-02-a",
+        "T-06-02-b",
+        "T-06-03-a",
+        "T-05-03-c"
+      ]
+    },
+    {
+      "key": "I-00-04",
+      "epic": "E00",
+      "title": "Tư cách 許可/承認/登録 và 保証金",
+      "body": "**Mục tiêu:** Lấy danh mục điều kiện chính thức và các quy tắc chuyển trạng thái tư cách.\n\n**Spec:** Q26, Q27, Q28, Q29, Q37, A-01, A-02, ADR-003, BR-01, BR-02, BR-08, BR-28, D-08\n\n**Câu hỏi gửi khách (kèm mặc định đang thiết kế):**\n- Q27: danh mục điều kiện chính thức 許可 (7) / 承認 (4) / 登録 (2) và loại file bằng chứng (mặc định A-02)\n- Q26: có cần four-eyes (người xét ≠ người duyệt) cho tư cách và 業務規程 không? Mặc định: không\n- Q28: 仲卸 bảo lãnh mất 許可 → 登録 của 買出人 tạm dừng (mặc định)?\n- Q29: 買出人 có bị 取引停止 không? Mặc định: không\n- Q37: hoàn 保証金 một phần / 充当 công nợ? Mặc định: không ở giai đoạn 1\n- A-01: không có ngoại lệ cho 買出人 mua trực tiếp — xác nhận\n- Có cần `revoke_qualification` (thu hồi) ở giai đoạn 1?\n\n**Tiêu chí hoàn thành:**\n- [ ] Seed danh mục điều kiện (T-03-01-a) dùng danh mục khách xác nhận\n- [ ] ADR-003 cập nhật nếu khác mặc định\n\n**Chặn / ảnh hưởng:** T-03-01-a, T-03-01-c, T-03-03-a",
+      "priority": "Must",
+      "constraint": "許可/承認/登録",
+      "spec_refs": [
+        "Q26",
+        "Q27",
+        "Q28",
+        "Q29",
+        "Q37",
+        "A-01",
+        "A-02",
+        "ADR-003",
+        "BR-01",
+        "BR-02",
+        "BR-08",
+        "BR-28",
+        "D-08"
+      ],
+      "labels": [
+        "type:clarify",
+        "area:E00",
+        "constraint"
+      ],
+      "role": "PM",
+      "phase": 1,
+      "depends_on": [],
+      "blocks": [
+        "T-03-01-a",
+        "T-03-01-c",
+        "T-03-03-a"
+      ]
+    },
+    {
+      "key": "I-00-05",
+      "epic": "E00",
+      "title": "Nhập hàng, せり và bán trong chợ",
+      "body": "**Mục tiêu:** Làm rõ các điểm nghiệp vụ sàn để form tablet không phải sửa sau khi chạy thử.\n\n**Spec:** Q30, Q31, Q32, Q33, Q34, A-07, A-09, SC-13, SC-14, SC-15, SC-20, SC-21, SC-24, SC-25, SC-26\n\n**Câu hỏi gửi khách (kèm mặc định đang thiết kế):**\n- Q31: một tàu có cả 委託 và 買付 trong ngày → tách chuyến nhập (mặc định)\n- Q30: lô 持越 có phải thẩm định lại? Mặc định: không, có cảnh báo\n- Q32: thêm lô vào phiên せり đang chạy → cho thêm cuối hàng chờ (mặc định)\n- Q33: TV sàn ẩn giá loại cá nhạy cảm, hiện mã bên mua ngắn (mặc định)\n- Q34: phiếu bán lẻ có thuế 8%; hàng tồn hôm trước được bán tiếp (mặc định)\n- Bên mua có được xem ảnh thẩm định ở SC-19? Kích thước nhãn lô (A7) và nội dung QR?\n- Đặt trước khớp một phần (10 箱 nhưng bán 6) xử lý thế nào?\n\n**Tiêu chí hoàn thành:**\n- [ ] Có trả lời; SC-14/15/21/25 cập nhật nhánh nếu khác mặc định\n\n**Chặn / ảnh hưởng:** T-05-01-c, T-05-03-c, T-07-01-b, T-08-01-a, T-06-05-a",
+      "priority": "Should",
+      "constraint": "HITL 目利き/符丁",
+      "spec_refs": [
+        "Q30",
+        "Q31",
+        "Q32",
+        "Q33",
+        "Q34",
+        "A-07",
+        "A-09",
+        "SC-13",
+        "SC-14",
+        "SC-15",
+        "SC-20",
+        "SC-21",
+        "SC-24",
+        "SC-25",
+        "SC-26",
+        "SC-19"
+      ],
+      "labels": [
+        "type:clarify",
+        "area:E00",
+        "constraint"
+      ],
+      "role": "PM",
+      "phase": 1,
+      "depends_on": [],
+      "blocks": [
+        "T-05-01-c",
+        "T-05-03-c",
+        "T-07-01-b",
+        "T-08-01-a",
+        "T-06-05-a"
+      ]
+    },
+    {
+      "key": "I-00-06",
+      "epic": "E00",
+      "title": "Quyết toán chủ hàng 仕切書 và 出荷奨励金",
+      "body": "**Mục tiêu:** Chốt chu kỳ 仕切 và cách tính/trả 出荷奨励金 (đang mặc định tắt).\n\n**Spec:** Q38, A-03, A-07, BR-30, BR-31, BR-32, BR-33, D-10, FT-34, SC-31, SC-32\n\n**Câu hỏi gửi khách (kèm mặc định đang thiết kế):**\n- Q38: chu kỳ 仕切 theo kỳ (mặc định) hay theo chuyến nhập?\n- A-03: 委託手数料 5.5% thu của chủ hàng, không cộng vào hóa đơn bên mua (sửa GAP-11) — xác nhận\n- BR-33: base 出荷奨励金 gồm 委託 hay cả 買付?\n- Kênh trả 出荷奨励金: cộng vào 仕切書 kỳ sau (`incentive_applications.settlement_id`) hay trả riêng?\n\n**Tiêu chí hoàn thành:**\n- [ ] Có trả lời; nếu khách chưa cần 出荷奨励金 thì T-11-02-* giữ trạng thái Should, tắt bằng `shipping_incentive_tiers = []`\n\n**Chặn / ảnh hưởng:** T-11-01-b, T-11-02-a, T-11-02-b",
+      "priority": "Should",
+      "constraint": "業務規程 có phiên bản",
+      "spec_refs": [
+        "Q38",
+        "A-03",
+        "A-07",
+        "BR-30",
+        "BR-31",
+        "BR-32",
+        "BR-33",
+        "D-10",
+        "FT-34",
+        "SC-31",
+        "SC-32",
+        "GAP-11"
+      ],
+      "labels": [
+        "type:clarify",
+        "area:E00",
+        "constraint"
+      ],
+      "role": "PM",
+      "phase": 1,
+      "depends_on": [],
+      "blocks": [
+        "T-11-01-b",
+        "T-11-02-a",
+        "T-11-02-b"
+      ]
+    },
+    {
+      "key": "I-00-07",
+      "epic": "E00",
+      "title": "Vận hành, tích hợp và cấu hình hệ thống",
+      "body": "**Mục tiêu:** Thu thập mẫu file và chính sách vận hành cần cho tích hợp ngân hàng/kế toán và quản trị.\n\n**Spec:** Q13, Q35, Q36, Q39, Q40, Q41, A-08, D-28, SC-27, SC-29, SC-33, SC-34, SC-35, SC-36, SC-37\n\n**Câu hỏi gửi khách (kèm mặc định đang thiết kế):**\n- Q13: ngân hàng khách dùng, xin file sao kê mẫu (全銀 + CSV)\n- Q40: định dạng CSV phần mềm kế toán (mặc định UTF-8 BOM)\n- Q36: chặn mở lại kỳ N khi N+1 đã khóa (mặc định)\n- SC-27: chặn 締め処理 khi còn 交渉中 / yêu cầu sửa chờ? Ngày chốt = ngày chạy hay `period_end`?\n- Q35: trang công khai hiện gì khi rút công bố (mặc định \"データなし\")\n- Q39: khóa sau N lần sai mật khẩu? hạn link mời 72 giờ\n- Q41: phạm vi audit log của W-MGR\n- A-08: khảo sát mạng tại cầu cảng; D-28: PITR có mua không\n\n**Tiêu chí hoàn thành:**\n- [ ] Có file mẫu ngân hàng + CSV kế toán trong repo test fixtures\n- [ ] Trả lời được ghi vào decision-log\n\n**Chặn / ảnh hưởng:** T-09-04-c, T-12-02-b, T-09-01-b, T-09-02-b, T-13-02-b",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "Q13",
+        "Q35",
+        "Q36",
+        "Q39",
+        "Q40",
+        "Q41",
+        "A-08",
+        "D-28",
+        "SC-27",
+        "SC-29",
+        "SC-33",
+        "SC-34",
+        "SC-35",
+        "SC-36",
+        "SC-37"
+      ],
+      "labels": [
+        "type:clarify",
+        "area:E00"
+      ],
+      "role": "PM",
+      "phase": 1,
+      "depends_on": [],
+      "blocks": [
+        "T-09-04-c",
+        "T-12-02-b",
+        "T-09-01-b",
+        "T-09-02-b",
+        "T-13-02-b"
+      ]
+    },
+    {
+      "key": "I-01-01",
+      "epic": "E01",
+      "title": "Môi trường, pipeline triển khai và CI",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "ADR-001",
+        "D-28"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E01"
+      ],
+      "body": "**Mục tiêu:** Có môi trường local/staging/production ở Tokyo và CI chặn merge khi test đỏ.\n\n**Spec:** ADR-001, architecture § 2, § 4, D-28\n\n**Sub-issue:** T-01-01-a, T-01-01-b, T-01-01-c\n\n**DoD tổng:**\n- [ ] PR mở → preview deploy + CI xanh mới merge được\n- [ ] Migration chạy tự động lên staging bằng `supabase db push`"
+    },
+    {
+      "key": "I-01-02",
+      "epic": "E01",
+      "title": "Lõi dữ liệu nhóm A, RLS và audit",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "ADR-002",
+        "ADR-005",
+        "ADR-008",
+        "GAP-01",
+        "GAP-15",
+        "GAP-16",
+        "GAP-17",
+        "BR-03",
+        "BR-41",
+        "BR-43",
+        "D-18",
+        "D-30"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E01"
+      ],
+      "body": "**Mục tiêu:** Có schema người tham gia/tài khoản đúng TO-BE, RLS theo người xem và khung audit cho mọi bảng sau.\n\n**Spec:** ADR-002, ADR-005, ADR-008, GAP-01, GAP-15, GAP-16, GAP-17, BR-03, BR-41, BR-43, D-18, D-30\n\n**Sub-issue:** T-01-02-a, T-01-02-b, T-01-02-c, T-01-02-d, T-01-02-e\n\n**DoD tổng:**\n- [ ] Không còn policy `using (true)`\n- [ ] Mọi bảng mới dùng helper RLS và `fn_audit`\n- [ ] Bộ test bảo mật tổng (T-01-02-e) xanh trước release"
+    },
+    {
+      "key": "I-01-03",
+      "epic": "E01",
+      "title": "Khung giao diện chung và hook mạng yếu",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "ADR-010",
+        "GAP-15",
+        "PERM-01",
+        "PERM-12"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E01"
+      ],
+      "body": "**Mục tiêu:** Layout, menu, guard và các hook dùng chung để màn hình nghiệp vụ chỉ lo phần riêng.\n\n**Spec:** screen-list \"Quy ước chung\", ADR-010, GAP-15, PERM-01…PERM-12\n\n**Sub-issue:** T-01-03-a, T-01-03-b\n\n**DoD tổng:**\n- [ ] Truy cập URL trái quyền → 404 cho mọi route\n- [ ] Hook ADR-010 có test mô phỏng mất mạng"
+    },
+    {
+      "key": "I-01-04",
+      "epic": "E01",
+      "title": "Chứng từ PDF, email và tác vụ định kỳ",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "ADR-011",
+        "D-17",
+        "D-27",
+        "FT-41",
+        "FT-38"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E01"
+      ],
+      "body": "**Mục tiêu:** Module PDF tiếng Nhật và hàng đợi email/cron dùng chung cho mọi chứng từ và thông báo.\n\n**Spec:** ADR-011, D-17, D-27, architecture § 1, § 2, FT-41, FT-38\n\n**Sub-issue:** T-01-04-a, T-01-04-b\n\n**DoD tổng:**\n- [ ] Một PDF mẫu tiếng Nhật render đúng font\n- [ ] Email gửi ngay sau commit, cron 0:05 gửi lại lỗi"
+    },
+    {
+      "key": "I-01-05",
+      "epic": "E01",
+      "title": "Dữ liệu seed và đồng bộ tài liệu thiết kế",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-03",
+        "SC-07",
+        "D-11",
+        "D-29"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E01"
+      ],
+      "body": "**Mục tiêu:** Có dữ liệu thử đủ vai trò và tài liệu thiết kế không mâu thuẫn trước khi dev song song.\n\n**Spec:** SC-03 Ghi chú LAB-5, SC-07 Ghi chú LAB-5, D-11, D-29, rpc-and-error-index\n\n**Sub-issue:** T-01-05-a, T-01-05-b\n\n**DoD tổng:**\n- [ ] `supabase db reset` tạo đủ tài khoản 10 vai trò\n- [ ] Các mâu thuẫn trong backlog-coverage § c được sửa hoặc ghi giả định"
+    },
+    {
+      "key": "I-02-01",
+      "epic": "E02",
+      "title": "SC-01 / SC-02 Đăng nhập và đặt lại mật khẩu",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-01",
+        "SC-02",
+        "FT-01",
+        "GAP-15",
+        "D-05",
+        "Q39"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E02"
+      ],
+      "body": "**Mục tiêu:** Người dùng đăng nhập bằng email/mật khẩu, đặt lại mật khẩu và nhận lời mời qua cùng một luồng.\n\n**Spec:** SC-01, SC-02, FT-01, GAP-15, D-05, Q39\n\n**Sub-issue:** T-02-01-a, T-02-01-b, T-02-01-c\n\n**DoD tổng:**\n- [ ] Không ai tự tạo được tài khoản\n- [ ] Tài khoản bị khóa không đăng nhập được, bị đăng xuất giữa phiên"
+    },
+    {
+      "key": "I-02-02",
+      "epic": "E02",
+      "title": "SC-04 / SC-05 Quản lý tài khoản và lời mời",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-04",
+        "SC-05",
+        "FT-02",
+        "FT-03",
+        "PERM-01",
+        "GAP-01",
+        "GAP-16",
+        "D-04"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E02"
+      ],
+      "body": "**Mục tiêu:** ADM xem, mời, sửa, khóa tài khoản; vai trò lấy từ người tham gia, chức năng nhân viên chọn được.\n\n**Spec:** SC-04, SC-05, FT-02, FT-03, PERM-01, GAP-01, GAP-16, D-04\n\n**Sub-issue:** T-02-02-a, T-02-02-b, T-02-02-c, T-02-02-d\n\n**DoD tổng:**\n- [ ] Chỉ mời được người có tư cách hiệu lực (trừ nhân viên)\n- [ ] RLS `profiles` đúng PERM-01"
+    },
+    {
+      "key": "I-03-01",
+      "epic": "E03",
+      "title": "SC-07 Xét duyệt tư cách 許可/承認/登録 và mô hình dữ liệu",
+      "priority": "Must",
+      "constraint": "許可/承認/登録",
+      "spec_refs": [
+        "SC-07",
+        "ADR-003",
+        "BR-01",
+        "BR-02",
+        "BR-07",
+        "BR-08",
+        "GAP-02",
+        "D-06",
+        "D-07"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E03"
+      ],
+      "body": "**Mục tiêu:** Duyệt hồ sơ theo đúng danh mục điều kiện từng loại; cấp quyền mua suy ra từ tư cách hiệu lực.\n\n**Spec:** SC-07, ADR-003, BR-01, BR-02, BR-07, BR-08, GAP-02, D-06, D-07\n\n**Sub-issue:** T-03-01-a, T-03-01-b, T-03-01-c, T-03-01-d, T-03-01-e, T-03-01-f\n\n**DoD tổng:**\n- [ ] 許可 thiếu một điều kiện không duyệt được\n- [ ] 登録 cần 仲卸 bảo lãnh có 許可 hiệu lực\n- [ ] Tư cách hết hạn mất quyền mua lúc 00:00 JST"
+    },
+    {
+      "key": "I-03-02",
+      "epic": "E03",
+      "title": "SC-06 Danh sách hồ sơ tham gia",
+      "priority": "Should",
+      "constraint": "許可/承認/登録",
+      "spec_refs": [
+        "SC-06",
+        "FT-04"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E03"
+      ],
+      "body": "**Mục tiêu:** ADM theo dõi tiến độ xét hồ sơ theo loại và trạng thái.\n\n**Spec:** SC-06, FT-04, decision-log § 2 (v_qualification_progress)\n\n**Sub-issue:** T-03-02-a\n\n**DoD tổng:**\n- [ ] Thẻ đếm khớp dữ liệu\n- [ ] W-MGR không thấy E02, NAK → 404"
+    },
+    {
+      "key": "I-03-03",
+      "epic": "E03",
+      "title": "SC-30 Quản lý 保証金",
+      "priority": "Should",
+      "constraint": "",
+      "spec_refs": [
+        "SC-30",
+        "FT-31",
+        "BR-02",
+        "BR-06",
+        "BR-28",
+        "Q37"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E03"
+      ],
+      "body": "**Mục tiêu:** Ghi nộp/hoàn 保証金; giá trị dùng cho điều kiện tư cách và hạn mức mặc định.\n\n**Spec:** SC-30, FT-31, BR-02, BR-06, BR-28, Q37\n\n**Sub-issue:** T-03-03-a, T-03-03-b\n\n**DoD tổng:**\n- [ ] Hoàn chỉ khi tư cách chấm dứt và công nợ = 0"
+    },
+    {
+      "key": "I-04-01",
+      "epic": "E04",
+      "title": "SC-11 Tham số 業務規程 theo phiên bản và lịch chợ",
+      "priority": "Must",
+      "constraint": "業務規程 có phiên bản",
+      "spec_refs": [
+        "SC-11",
+        "ADR-004",
+        "BR-40",
+        "BR-42",
+        "GAP-03",
+        "D-24",
+        "FT-08"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E04"
+      ],
+      "body": "**Mục tiêu:** Quản lý phiên bản 業務規程 có ngày hiệu lực và duyệt; quản lý 休市日.\n\n**Spec:** SC-11, ADR-004, BR-40, BR-42, GAP-03, D-24, FT-08\n\n**Sub-issue:** T-04-01-a, T-04-01-b, T-04-01-c, T-04-01-d\n\n**DoD tổng:**\n- [ ] Hóa đơn chốt hôm nay vẫn lưu phiên bản đang hiệu lực dù phiên bản mới đã duyệt cho ngày mai\n- [ ] Không sửa được phiên bản `active`"
+    },
+    {
+      "key": "I-04-02",
+      "epic": "E04",
+      "title": "SC-08 Danh mục 品目・規格",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-08",
+        "FT-05"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E04"
+      ],
+      "body": "**Mục tiêu:** Quản lý loại cá, quy cách và kênh bán mặc định.\n\n**Spec:** SC-08, FT-05\n\n**Sub-issue:** T-04-02-a, T-04-02-b\n\n**DoD tổng:**\n- [ ] Mã 品目 không đổi được sau khi dùng\n- [ ] W-FLR chỉ xem"
+    },
+    {
+      "key": "I-04-03",
+      "epic": "E04",
+      "title": "SC-09 Danh mục tàu・荷主",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-09",
+        "FT-06",
+        "GAP-19",
+        "D-23",
+        "D-26"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E04"
+      ],
+      "body": "**Mục tiêu:** Tách 荷主 khỏi tàu; thông tin ngân hàng chỉ kế toán/quản lý sửa.\n\n**Spec:** SC-09, FT-06, GAP-19, D-23, D-26\n\n**Sub-issue:** T-04-03-a, T-04-03-b\n\n**DoD tổng:**\n- [ ] 3 tàu seed LAB-2 có 荷主 tương ứng\n- [ ] W-FLR không sửa được 振込先"
+    },
+    {
+      "key": "I-04-04",
+      "epic": "E04",
+      "title": "SC-10 Danh mục người tham gia: đình chỉ và hạn mức",
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "spec_refs": [
+        "SC-10",
+        "FT-07",
+        "BR-05",
+        "BR-06",
+        "BR-25",
+        "GAP-01",
+        "D-23"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E04"
+      ],
+      "body": "**Mục tiêu:** ADM quản lý người tham gia, 取引停止 có lịch sử và hạn mức tín dụng.\n\n**Spec:** SC-10, FT-07, BR-05, BR-06, BR-25, GAP-01, D-23\n\n**Sub-issue:** T-04-04-a, T-04-04-b\n\n**DoD tổng:**\n- [ ] Đình chỉ → SC-18 từ chối với thông điệp tiếng Nhật\n- [ ] Tier chỉ hiển thị, không sửa"
+    },
+    {
+      "key": "I-04-05",
+      "epic": "E04",
+      "title": "SC-12 Bảng mã 符丁",
+      "priority": "Should",
+      "constraint": "HITL 目利き/符丁",
+      "spec_refs": [
+        "SC-12",
+        "FT-09",
+        "BR-13",
+        "GAP-07",
+        "D-26"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E04"
+      ],
+      "body": "**Mục tiêu:** Danh mục ký hiệu riêng của chợ để gắn cho lô.\n\n**Spec:** SC-12, FT-09, BR-13, GAP-07, D-26\n\n**Sub-issue:** T-04-05-a, T-04-05-b\n\n**DoD tổng:**\n- [ ] 符丁 vô hiệu không hiện ở SC-15 nhưng lô cũ vẫn hiện nhãn"
+    },
+    {
+      "key": "I-05-01",
+      "epic": "E05",
+      "title": "SC-14 Đăng ký lô nhập trên tablet",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-14",
+        "FT-10",
+        "BR-10",
+        "BR-40",
+        "BR-41",
+        "GAP-05",
+        "GAP-17",
+        "ADR-010",
+        "D-19"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E05"
+      ],
+      "body": "**Mục tiêu:** Nhân viên sàn nhập lô < 30 giây/lô, không trùng mã khi nhiều người nhập cùng lúc, không mất dữ liệu khi rớt mạng.\n\n**Spec:** SC-14, FT-10, BR-10, BR-40, BR-41, GAP-05, GAP-17, ADR-010, D-19\n\n**Sub-issue:** T-05-01-a, T-05-01-b, T-05-01-c\n\n**DoD tổng:**\n- [ ] Hai phiên đồng thời không sinh trùng mã lô\n- [ ] Gửi lại cùng `client_request_id` trả cùng `lot_no`"
+    },
+    {
+      "key": "I-05-02",
+      "epic": "E05",
+      "title": "SC-15 Thẩm định độ tươi 目利き và 符丁 có ảnh",
+      "priority": "Must",
+      "constraint": "HITL 目利き/符丁",
+      "spec_refs": [
+        "SC-15",
+        "FT-11",
+        "FT-12",
+        "ADR-007",
+        "BR-11",
+        "BR-12",
+        "BR-13",
+        "GAP-06",
+        "GAP-07",
+        "D-25",
+        "D-26",
+        "US-03"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E05"
+      ],
+      "body": "**Mục tiêu:** Người có chức năng 目利き ghi hạng + ảnh; lịch sử chỉ thêm; sửa sau 成立 cần lý do.\n\n**Spec:** SC-15, FT-11, FT-12, ADR-007, BR-11, BR-12, BR-13, GAP-06, GAP-07, D-25, D-26, US-03\n\n**Sub-issue:** T-05-02-a, T-05-02-b, T-05-02-c\n\n**DoD tổng:**\n- [ ] Không phải 目利き → không ghi được hạng\n- [ ] Không có gợi ý tự động"
+    },
+    {
+      "key": "I-05-03",
+      "epic": "E05",
+      "title": "SC-16 Phân bổ kênh bán: tách lô, 持越, chuyển kênh",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-16",
+        "FT-13",
+        "FT-19",
+        "FT-23",
+        "ADR-006",
+        "BR-14",
+        "BR-15",
+        "GAP-04",
+        "Q22"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E05"
+      ],
+      "body": "**Mục tiêu:** Một lô tách nhiều phần ở 相対 / せり / 保留, có lịch sử; cuối ngày 持越 hoặc rút.\n\n**Spec:** SC-16, FT-13, FT-19, FT-23, ADR-006, BR-14, BR-15, GAP-04, Q22\n\n**Sub-issue:** T-05-03-a, T-05-03-b, T-05-03-c, T-05-03-d, T-05-03-e\n\n**DoD tổng:**\n- [ ] Σ phân bổ ≤ số lượng lô ở DB\n- [ ] Phần đã 成立 không chuyển kênh được"
+    },
+    {
+      "key": "I-05-04",
+      "epic": "E05",
+      "title": "SC-13 Danh sách lô nhập và in nhãn lô",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-13",
+        "FT-10",
+        "FT-13",
+        "FT-14"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E05"
+      ],
+      "body": "**Mục tiêu:** Danh sách lô theo ngày với tóm tắt kênh, in nhãn lô PDF.\n\n**Spec:** SC-13, FT-10, FT-13, FT-14\n\n**Sub-issue:** T-05-04-a\n\n**DoD tổng:**\n- [ ] NAK gọi `select * from lots` → 0 dòng\n- [ ] Nhãn A7 có QR"
+    },
+    {
+      "key": "I-06-01",
+      "epic": "E06",
+      "title": "Kiểm quyền mua 2 cấp và hạn mức ở DB (ADR-002)",
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "spec_refs": [
+        "ADR-002",
+        "BR-03",
+        "BR-04",
+        "BR-05",
+        "BR-06",
+        "BR-19",
+        "GAP-08",
+        "GAP-09",
+        "D-21"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E06"
+      ],
+      "body": "**Mục tiêu:** Mọi đường ghi giao dịch (相対, せり, sửa) đi qua cùng một hàm kiểm và một trigger chặn cuối.\n\n**Spec:** ADR-002, BR-03, BR-04, BR-05, BR-06, BR-19, GAP-08, GAP-09, D-21, X-2\n\n**Sub-issue:** T-06-01-a, T-06-01-b, T-06-01-c\n\n**DoD tổng:**\n- [ ] 8 case ADR-002 + case biên xanh\n- [ ] Insert trực tiếp vượt quyền bị trigger chặn"
+    },
+    {
+      "key": "I-06-02",
+      "epic": "E06",
+      "title": "SC-18 Đăng ký và chốt giao dịch 相対",
+      "priority": "Must",
+      "constraint": "相対 xác nhận miệng",
+      "spec_refs": [
+        "SC-18",
+        "FT-15",
+        "FT-17",
+        "BR-17",
+        "BR-18",
+        "BR-19",
+        "ADR-010",
+        "US-01",
+        "US-05",
+        "US-06"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E06"
+      ],
+      "body": "**Mục tiêu:** Nhân viên tạo giao dịch, chuyển 交渉中, chốt 成立 bằng app hoặc xác nhận miệng/điện thoại, không bán vượt.\n\n**Spec:** SC-18, FT-15, FT-17, BR-17, BR-18, BR-19, ADR-010, US-01, US-05, US-06\n\n**Sub-issue:** T-06-02-a, T-06-02-b, T-06-02-c, T-06-02-d\n\n**DoD tổng:**\n- [ ] Mất mạng gửi lại 2 lần → 1 giao dịch\n- [ ] 口頭/電話 bắt buộc tên người xác nhận"
+    },
+    {
+      "key": "I-06-03",
+      "epic": "E06",
+      "title": "Sửa sau chốt và ngoại lệ đình chỉ có duyệt",
+      "priority": "Must",
+      "constraint": "Khóa kỳ 締め",
+      "spec_refs": [
+        "SC-18",
+        "FT-18",
+        "ADR-008",
+        "BR-05",
+        "BR-20",
+        "BR-29",
+        "GAP-10",
+        "Q23",
+        "Q24",
+        "US-07"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E06"
+      ],
+      "body": "**Mục tiêu:** Sửa SL/giá/bên mua sau 成立 qua duyệt của 市場管理者; ngoại lệ đình chỉ duyệt từng giao dịch.\n\n**Spec:** SC-18, FT-18, ADR-008, BR-05, BR-20, BR-29, GAP-10, Q23, Q24, US-07\n\n**Sub-issue:** T-06-03-a, T-06-03-b, T-06-03-c\n\n**DoD tổng:**\n- [ ] Kỳ `locked` → sửa bị chặn\n- [ ] Ngoại lệ hết hạn cuối ngày nghiệp vụ"
+    },
+    {
+      "key": "I-06-04",
+      "epic": "E06",
+      "title": "SC-17 / SC-19 Danh sách giao dịch và xác nhận phía bên mua",
+      "priority": "Must",
+      "constraint": "相対 xác nhận miệng",
+      "spec_refs": [
+        "SC-17",
+        "SC-19",
+        "FT-15",
+        "FT-17",
+        "PERM-06",
+        "PERM-09",
+        "GAP-16"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E06"
+      ],
+      "body": "**Mục tiêu:** Nhân viên xem bảng giao dịch; bên mua xem thẻ giao dịch của mình và bấm 承認 trên điện thoại.\n\n**Spec:** SC-17, SC-19, FT-15, FT-17, PERM-06, PERM-09, GAP-16\n\n**Sub-issue:** T-06-04-a, T-06-04-b\n\n**DoD tổng:**\n- [ ] Bên mua A không thấy giao dịch của B kể cả gọi API trực tiếp"
+    },
+    {
+      "key": "I-06-05",
+      "epic": "E06",
+      "title": "SC-20 予約相対 (đặt trước)",
+      "priority": "Should",
+      "constraint": "",
+      "spec_refs": [
+        "SC-20",
+        "FT-16"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E06"
+      ],
+      "body": "**Mục tiêu:** Ghi nhận đặt trước của bên mua cấp 1 và khớp với giao dịch.\n\n**Spec:** SC-20, FT-16\n\n**Sub-issue:** T-06-05-a, T-06-05-b\n\n**DoD tổng:**\n- [ ] Bên mua A không thấy đặt trước của B\n- [ ] 成立 → `照合済`"
+    },
+    {
+      "key": "I-07-01",
+      "epic": "E07",
+      "title": "SC-21 Thiết lập phiên せり",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-21",
+        "FT-20",
+        "ADR-009",
+        "GAP-18"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E07"
+      ],
+      "body": "**Mục tiêu:** Tạo phiên, chọn lô từ phần phân bổ kênh せり, sắp thứ tự, bắt đầu phiên.\n\n**Spec:** SC-21, FT-20, ADR-009, GAP-18\n\n**Sub-issue:** T-07-01-a, T-07-01-b, T-07-01-c\n\n**DoD tổng:**\n- [ ] Trạng thái phiên chỉ đi một chiều\n- [ ] 競り人 là nhân viên có chức năng auctioneer"
+    },
+    {
+      "key": "I-07-02",
+      "epic": "E07",
+      "title": "SC-22 / SC-23 Tiến trình phiên và nhập kết quả 落札",
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "spec_refs": [
+        "SC-22",
+        "SC-23",
+        "FT-21",
+        "FT-22",
+        "FT-23",
+        "BR-16",
+        "BR-04",
+        "GAP-09",
+        "GAP-18",
+        "ADR-010"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E07"
+      ],
+      "body": "**Mục tiêu:** 競り人 nhập mã bên mua ngắn + giá + SL ≤ 5 giây/lô; chia lô; 不落 chuyển kênh.\n\n**Spec:** SC-22, SC-23, FT-21, FT-22, FT-23, BR-16, BR-04, GAP-09, GAP-18, ADR-010\n\n**Sub-issue:** T-07-02-a, T-07-02-b, T-07-02-c, T-07-02-d, T-07-02-e\n\n**DoD tổng:**\n- [ ] Bên mua không đủ quyền bị từ chối như 相対\n- [ ] Gửi trùng cùng id → 1 giao dịch"
+    },
+    {
+      "key": "I-07-03",
+      "epic": "E07",
+      "title": "SC-24 Màn hình công khai trên sàn (TV)",
+      "priority": "Could",
+      "constraint": "公表 theo 卸売市場法",
+      "spec_refs": [
+        "SC-24",
+        "FT-24",
+        "D-17",
+        "Q33"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E07"
+      ],
+      "body": "**Mục tiêu:** TV trên sàn hiển thị kết quả phiên realtime bằng URL có token.\n\n**Spec:** SC-24, FT-24, D-17, Q33\n\n**Sub-issue:** T-07-03-a, T-07-03-b\n\n**DoD tổng:**\n- [ ] Ghi ở SC-23 → TV cập nhật ≤ 2 giây\n- [ ] Token hết hạn cuối ngày"
+    },
+    {
+      "key": "I-08-01",
+      "epic": "E08",
+      "title": "SC-25 Phiếu bán cho 買出人",
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "spec_refs": [
+        "SC-25",
+        "FT-25",
+        "BR-03",
+        "GAP-21",
+        "D-19",
+        "D-20",
+        "Q34"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E08"
+      ],
+      "body": "**Mục tiêu:** 仲卸 lập phiếu bán cho 買出人 mình bảo lãnh, trừ tồn FIFO, in A5.\n\n**Spec:** SC-25, FT-25, BR-03, X-8, GAP-21, D-19, D-20, Q34\n\n**Sub-issue:** T-08-01-a, T-08-01-b, T-08-01-c\n\n**DoD tổng:**\n- [ ] Bán cho 買出人 không bảo lãnh → từ chối\n- [ ] Không bán vượt tồn"
+    },
+    {
+      "key": "I-08-02",
+      "epic": "E08",
+      "title": "SC-26 Tồn hàng 仲卸",
+      "priority": "Should",
+      "constraint": "",
+      "spec_refs": [
+        "SC-26",
+        "FT-26",
+        "FT-27"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E08"
+      ],
+      "body": "**Mục tiêu:** 仲卸 xem tồn theo nguồn mua (せり chia lô, 相対) trừ đã bán lẻ.\n\n**Spec:** SC-26, FT-26, FT-27\n\n**Sub-issue:** T-08-02-a, T-08-02-b\n\n**DoD tổng:**\n- [ ] Tồn khớp giữa SC-25 và SC-26"
+    },
+    {
+      "key": "I-09-01",
+      "epic": "E09",
+      "title": "SC-33 Kỳ chốt và khóa kỳ 締め確定",
+      "priority": "Must",
+      "constraint": "Khóa kỳ 締め",
+      "spec_refs": [
+        "SC-33",
+        "ADR-012",
+        "BR-29",
+        "D-03",
+        "D-09",
+        "D-14",
+        "GAP-12",
+        "FT-35",
+        "Q36"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E09"
+      ],
+      "body": "**Mục tiêu:** Kỳ chốt là thực thể riêng; khóa kỳ chặn ghi ở DB; mở lại có lý do.\n\n**Spec:** SC-33, ADR-012, BR-29, D-03, D-09, D-14, GAP-12, FT-35, Q36\n\n**Sub-issue:** T-09-01-a, T-09-01-b, T-09-01-c, T-09-01-d\n\n**DoD tổng:**\n- [ ] Sau khóa: sửa giao dịch/hóa đơn/仕切書 → ERR_PERIOD_LOCKED; 消込 vẫn được\n- [ ] Không khóa được khi còn điều kiện BR-29 chưa đạt"
+    },
+    {
+      "key": "I-09-02",
+      "epic": "E09",
+      "title": "SC-27 Chốt kỳ và phát hành 請求書",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-27",
+        "FT-28",
+        "FT-30",
+        "BR-21",
+        "BR-22",
+        "BR-24",
+        "BR-25",
+        "GAP-05",
+        "GAP-11",
+        "GAP-12",
+        "GAP-13",
+        "A-04",
+        "A-05"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E09"
+      ],
+      "body": "**Mục tiêu:** W-ACC chốt kỳ: mỗi bên mua một hóa đơn, thuế 8%, không phí, số không trùng, PDF 適格請求書.\n\n**Spec:** SC-27, FT-28, FT-30, BR-21, BR-22, BR-24, BR-25, GAP-05, GAP-11, GAP-12, GAP-13, A-04, A-05\n\n**Sub-issue:** T-09-02-a, T-09-02-b, T-09-02-c, T-09-02-d, T-09-02-e\n\n**DoD tổng:**\n- [ ] Chốt 2 lần không ra hóa đơn trùng\n- [ ] Tổng hóa đơn ≥ 0, không có 手数料"
+    },
+    {
+      "key": "I-09-03",
+      "epic": "E09",
+      "title": "SC-28 Chi tiết 請求書, PDF và void / phát hành lại",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-28",
+        "FT-28",
+        "FT-38",
+        "BR-23",
+        "BR-24",
+        "ADR-011",
+        "Q24"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E09"
+      ],
+      "body": "**Mục tiêu:** Xem chi tiết hóa đơn; hủy có lý do và phát hành lại số mới, chuyển 消込 và thưởng sang hóa đơn mới.\n\n**Spec:** SC-28, FT-28, FT-38, BR-23, BR-24, ADR-011, Q24\n\n**Sub-issue:** T-09-03-a, T-09-03-b\n\n**DoD tổng:**\n- [ ] Hóa đơn cũ giữ số, có watermark 取消\n- [ ] 消込 và khấu trừ thưởng chuyển đủ sang hóa đơn mới"
+    },
+    {
+      "key": "I-09-04",
+      "epic": "E09",
+      "title": "SC-29 Ghi nhận 入金 và 消込",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-29",
+        "FT-29",
+        "BR-26",
+        "D-09",
+        "GAP-14",
+        "Q13",
+        "Q21"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E09"
+      ],
+      "body": "**Mục tiêu:** Nhập tay hoặc import sao kê; gợi ý khớp; một khoản chia nhiều hóa đơn; không trả vượt; ngày tiền về là ngày sao kê.\n\n**Spec:** SC-29, FT-29, BR-26, D-09, GAP-14, Q13, Q21\n\n**Sub-issue:** T-09-04-a, T-09-04-b, T-09-04-c, T-09-04-d\n\n**DoD tổng:**\n- [ ] Không ghi nhận trả vượt\n- [ ] Kỳ đã khóa vẫn 消込 được (D-09)"
+    },
+    {
+      "key": "I-10-01",
+      "epic": "E10",
+      "title": "Dữ liệu thưởng và bảng bằng chứng theo bên mua × kỳ",
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "spec_refs": [
+        "SC-32",
+        "D-11",
+        "D-14",
+        "GAP-22",
+        "BR-27"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E10"
+      ],
+      "body": "**Mục tiêu:** Có schema thưởng TO-BE và một nguồn số liệu bằng chứng dùng chung cho tính toán, SC-32 và báo cáo.\n\n**Spec:** SC-32 Implementation Mapping R4 + DB_GAP E22; D-11; D-14; GAP-22; BR-27\n\n**Sub-issue:** T-10-01-a, T-10-01-b\n\n**DoD tổng:**\n- [ ] `applied_invoice_id` không còn trong schema\n- [ ] Bảng bằng chứng gồm cả bên mua không đạt"
+    },
+    {
+      "key": "I-10-02",
+      "epic": "E10",
+      "title": "Quy tắc 完納 và bậc thưởng theo 業務規程 có phiên bản",
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "spec_refs": [
+        "BR-27",
+        "BR-26",
+        "ADR-004",
+        "A-06",
+        "Q20",
+        "SC-35"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E10"
+      ],
+      "body": "**Mục tiêu:** Định nghĩa 完納 và tỷ lệ thưởng nằm trong hai hàm thuần, test đủ trường hợp biên, dùng chung cho SC-32 và báo cáo.\n\n**Spec:** BR-27, BR-26, ADR-004, A-06, Q20, X-7, SC-35 E07\n\n**Sub-issue:** T-10-02-a, T-10-02-b\n\n**DoD tổng:**\n- [ ] SC-32, SC-35, SC-03 gọi cùng hàm\n- [ ] Đổi bậc trong phiên bản mới không đổi thưởng kỳ cũ"
+    },
+    {
+      "key": "I-10-03",
+      "epic": "E10",
+      "title": "Tính và duyệt 完納奨励金",
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "spec_refs": [
+        "SC-32",
+        "BR-27",
+        "D-02",
+        "PERM-07",
+        "US-14"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E10"
+      ],
+      "body": "**Mục tiêu:** W-ACC/W-MGR tính sau hạn thanh toán; ADM duyệt hoặc từ chối có lý do; không có đường tự duyệt.\n\n**Spec:** SC-32 E04, E17–E19, BR-27, D-02, PERM-07, US-14\n\n**Sub-issue:** T-10-03-a, T-10-03-b\n\n**DoD tổng:**\n- [ ] Tính lại không đổi dòng đã quyết định\n- [ ] Kế toán không tự duyệt được"
+    },
+    {
+      "key": "I-10-04",
+      "epic": "E10",
+      "title": "Khấu trừ thưởng vào hóa đơn kỳ sau và chuyển tiếp phần dư",
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "spec_refs": [
+        "BR-24",
+        "BR-27",
+        "D-11",
+        "D-12",
+        "GAP-13",
+        "GAP-22",
+        "SC-28",
+        "SC-27",
+        "Q19"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E10"
+      ],
+      "body": "**Mục tiêu:** Thưởng đã duyệt trừ vào hóa đơn kỳ sau, không vượt tiền hàng chưa thuế, phần dư chuyển tiếp; đồng bộ khi void/phát hành lại.\n\n**Spec:** BR-24, BR-27, D-11, D-12, GAP-13, GAP-22, SC-28 E11/E12, SC-27 Data Flow, Q19\n\n**Sub-issue:** T-10-04-a, T-10-04-b\n\n**DoD tổng:**\n- [ ] Tổng hóa đơn ≥ tiền thuế ≥ 0\n- [ ] Σ applications = amount ⇔ status `applied`"
+    },
+    {
+      "key": "I-10-05",
+      "epic": "E10",
+      "title": "SC-32 giao diện, 完納率 KPI và hồi quy 2 kỳ",
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "spec_refs": [
+        "SC-32",
+        "SC-28",
+        "SC-35",
+        "SC-03",
+        "US-14",
+        "FT-33"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E10"
+      ],
+      "body": "**Mục tiêu:** Kế toán/ADM thấy bảng đối chiếu và duyệt; bên mua thấy thưởng của mình; báo cáo có 完納率; luồng 2 kỳ được khóa bằng E2E.\n\n**Spec:** SC-32, SC-28 E11/E12, SC-35 E07, SC-03 E21, US-14, FT-33\n\n**Sub-issue:** T-10-05-a, T-10-05-b, T-10-05-c, T-10-05-d, T-10-05-e\n\n**DoD tổng:**\n- [ ] Câu hỏi \"vì sao tôi không được thưởng\" trả lời được từ màn hình (US-14 tc3)\n- [ ] E2E 2 kỳ xanh"
+    },
+    {
+      "key": "I-11-01",
+      "epic": "E11",
+      "title": "SC-31 Lập và phát hành 仕切書",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-31",
+        "FT-32",
+        "FT-38",
+        "BR-30",
+        "BR-31",
+        "BR-32",
+        "GAP-11",
+        "GAP-19",
+        "D-10",
+        "D-13",
+        "US-13"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E11"
+      ],
+      "body": "**Mục tiêu:** Kế toán lập 仕切書 theo kỳ cho từng 荷主, trừ 手数料 và chi phí, phát hành bất biến.\n\n**Spec:** SC-31, FT-32, FT-38, BR-30, BR-31, BR-32, GAP-11, GAP-19, D-10, D-13, US-13\n\n**Sub-issue:** T-11-01-a, T-11-01-b, T-11-01-c, T-11-01-d, T-11-01-e\n\n**DoD tổng:**\n- [ ] Ví dụ ¥686,175 khớp\n- [ ] 仕切書 đã phát hành không sửa được"
+    },
+    {
+      "key": "I-11-02",
+      "epic": "E11",
+      "title": "出荷奨励金 cho chủ hàng (mặc định tắt)",
+      "priority": "Should",
+      "constraint": "",
+      "spec_refs": [
+        "BR-33",
+        "FT-34",
+        "SC-32",
+        "D-11",
+        "Q38"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E11"
+      ],
+      "body": "**Mục tiêu:** Khi 業務規程 có bậc `shipping_incentive_tiers`, tính và duyệt 出荷奨励金 như BR-27, áp vào 仕切書 kỳ sau.\n\n**Spec:** BR-33, FT-34, SC-32 tab 出荷, D-11, Q38\n\n**Sub-issue:** T-11-02-a, T-11-02-b, T-11-02-c\n\n**DoD tổng:**\n- [ ] Bậc rỗng → tab 無効, không tính được\n- [ ] Không ảnh hưởng 完納奨励金"
+    },
+    {
+      "key": "I-12-01",
+      "epic": "E12",
+      "title": "Công bố kết quả giao dịch 公表 (SC-34 + panel SC-35)",
+      "priority": "Must",
+      "constraint": "公表 theo 卸売市場法",
+      "spec_refs": [
+        "SC-34",
+        "SC-35",
+        "BR-50",
+        "BR-51",
+        "BR-52",
+        "GAP-20",
+        "D-01",
+        "D-15",
+        "D-16",
+        "FT-36",
+        "US-15"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E12"
+      ],
+      "body": "**Mục tiêu:** W-MGR tạo bản xem trước, công bố bản chụp; công chúng xem không cần đăng nhập.\n\n**Spec:** SC-34, SC-35, BR-50, BR-51, BR-52, GAP-20, D-01, D-15, D-16, FT-36, US-15\n\n**Sub-issue:** T-12-01-a, T-12-01-b, T-12-01-c, T-12-01-d, T-12-01-e\n\n**DoD tổng:**\n- [ ] Sửa giao dịch sau công bố → trang công khai không đổi\n- [ ] anon không đọc được bảng gốc"
+    },
+    {
+      "key": "I-12-02",
+      "epic": "E12",
+      "title": "SC-35 Nhật báo / nguyệt báo và xuất chứng từ",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-35",
+        "FT-37",
+        "FT-38",
+        "Q40"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E12"
+      ],
+      "body": "**Mục tiêu:** Văn phòng xem 取扱高 theo ngày/tháng và xuất CSV kế toán, PDF lưu trữ.\n\n**Spec:** SC-35, FT-37, FT-38, Q40, architecture § 5 I-2\n\n**Sub-issue:** T-12-02-a, T-12-02-b\n\n**DoD tổng:**\n- [ ] CSV mở đúng trong phần mềm kế toán khách\n- [ ] Không có CSV injection"
+    },
+    {
+      "key": "I-12-03",
+      "epic": "E12",
+      "title": "SC-03 Dashboard theo vai trò",
+      "priority": "Should",
+      "constraint": "",
+      "spec_refs": [
+        "SC-03",
+        "FT-39",
+        "GAP-16",
+        "PERM-09"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E12"
+      ],
+      "body": "**Mục tiêu:** Mỗi người thấy việc cần làm hôm nay của mình; không lộ dữ liệu bên mua khác.\n\n**Spec:** SC-03, FT-39, GAP-16, PERM-09\n\n**Sub-issue:** T-12-03-a, T-12-03-b, T-12-03-c\n\n**DoD tổng:**\n- [ ] 4 vai trò thấy đúng tập vùng\n- [ ] NAK-A không thấy số của NAK-B"
+    },
+    {
+      "key": "I-13-01",
+      "epic": "E13",
+      "title": "SC-36 Audit log",
+      "priority": "Must",
+      "constraint": "",
+      "spec_refs": [
+        "SC-36",
+        "FT-40",
+        "ADR-008",
+        "BR-43",
+        "D-18",
+        "Q41"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E13"
+      ],
+      "body": "**Mục tiêu:** Tra cứu ai đổi gì, khi nào, trước/sau, lý do trên mọi bảng nghiệp vụ.\n\n**Spec:** SC-36, FT-40, ADR-008, BR-43, D-18, Q41\n\n**Sub-issue:** T-13-01-a, T-13-01-b\n\n**DoD tổng:**\n- [ ] Mọi bảng nhóm A–F có trigger audit (trừ audit_logs, notifications)\n- [ ] Không role nào sửa/xóa được audit"
+    },
+    {
+      "key": "I-13-02",
+      "epic": "E13",
+      "title": "SC-37 Cài đặt thông báo và hệ thống",
+      "priority": "Should",
+      "constraint": "",
+      "spec_refs": [
+        "SC-37",
+        "FT-41",
+        "FT-42",
+        "D-17",
+        "D-28"
+      ],
+      "labels": [
+        "type:feature",
+        "area:E13"
+      ],
+      "body": "**Mục tiêu:** ADM sửa mẫu email, xem lịch sử gửi, thu hồi display token, xem chính sách sao lưu.\n\n**Spec:** SC-37, FT-41, FT-42, D-17, D-28\n\n**Sub-issue:** T-13-02-a, T-13-02-b\n\n**DoD tổng:**\n- [ ] Chỉ ADM\n- [ ] Mẫu email escape biến"
+    }
+  ],
+  "subissues": [
+    {
+      "key": "T-01-01-a",
+      "parent": "I-01-01",
+      "title": "[INFRA] Supabase Tokyo (staging/prod) + Vercel hnd1 + pipeline migration",
+      "labels": [
+        "type:infra",
+        "area:E01"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 1,
+      "depends_on": [],
+      "spec_refs": [
+        "ADR-001",
+        "D-28"
+      ],
+      "body": "**Mục tiêu:** Dựng hạ tầng đích theo ADR-001 và pipeline đẩy migration.\n\n**Spec:** ADR-001 Việc phải làm; architecture § 4; D-28\n\n**Phạm vi:**\n- Tạo Supabase project staging + production region ap-northeast-1; Vercel function region `hnd1`\n- Biến môi trường trên Vercel, không commit `.env*`\n- Job deploy migration staging khi merge main; production chạy tay có duyệt\n- Sao lưu hằng ngày giữ 7 ngày (gói Pro), ghi chú PITR tùy chọn\n\n**Tiêu chí hoàn thành:**\n- [ ] `supabase db push` chạy được từ CI lên staging\n- [ ] Độ trễ RPC đơn giản từ Vercel hnd1 → DB < 50ms (đo 1 lần, ghi vào README)\n- [ ] Không có secret trong repo (secret scan pass)\n\n**Phụ thuộc:** Không"
+    },
+    {
+      "key": "T-01-01-b",
+      "parent": "I-01-01",
+      "title": "[INFRA] CI GitHub Actions: typecheck, lint, Vitest, pgTAP",
+      "labels": [
+        "type:infra",
+        "area:E01"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "QA",
+      "phase": 1,
+      "depends_on": [
+        "T-01-01-a"
+      ],
+      "spec_refs": [
+        "ADR-005"
+      ],
+      "body": "**Mục tiêu:** Mọi PR được kiểm tự động, gồm test DB pgTAP trên Supabase local.\n\n**Spec:** architecture § 2 (CI/CD); ADR-005 Việc phải làm (test RPC song song migration)\n\n**Phạm vi:**\n- Workflow: `tsc --noEmit`, ESLint, Vitest, `supabase start` + `supabase test db` (pgTAP)\n- Cache node_modules + Docker image Supabase\n- Mẫu file pgTAP + helper đăng nhập theo vai trò (`tests.authenticate_as(role)`)\n\n**Tiêu chí hoàn thành:**\n- [ ] CI đỏ khi một test pgTAP mẫu fail\n- [ ] Thời gian CI < 10 phút\n- [ ] Branch protection bật \"required checks\"\n\n**Phụ thuộc:** T-01-01-a"
+    },
+    {
+      "key": "T-01-01-c",
+      "parent": "I-01-01",
+      "title": "[INFRA] Nâng Next.js 14.2 → 15 / React 19 và gỡ service role khỏi route nghiệp vụ",
+      "labels": [
+        "type:infra",
+        "area:E01",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 1,
+      "depends_on": [
+        "T-01-01-b"
+      ],
+      "spec_refs": [
+        "GAP-16",
+        "D-04"
+      ],
+      "body": "**Mục tiêu:** Đưa codebase LAB-2 lên bản được hỗ trợ bảo mật và cắt mọi đường ghi bằng service role.\n\n**Spec:** architecture § 2, § 7; GAP-16; D-04\n\n**Phạm vi:**\n- Nâng Next 15, React 19, @supabase/ssr; sửa API async `cookies()`/`params`\n- Xóa client service role khỏi `app/api/*` nghiệp vụ; chỉ giữ cho cron, migration và `lib/server/invite-user.ts` (D-04)\n- Lint rule cấm import `SUPABASE_SERVICE_ROLE_KEY` ngoài danh sách cho phép\n\n**Tiêu chí hoàn thành:**\n- [ ] `next build` pass\n- [ ] grep service role chỉ còn trong 3 vị trí cho phép\n- [ ] Smoke test đăng nhập + dashboard LAB-2 vẫn chạy\n\n**Phụ thuộc:** T-01-01-b"
+    },
+    {
+      "key": "T-01-02-a",
+      "parent": "I-01-02",
+      "title": "[DB] Migration nhóm A: participants (tier GENERATED), profiles.functions, business_date JST",
+      "labels": [
+        "type:db",
+        "area:E01",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "BE-1",
+      "phase": 1,
+      "depends_on": [
+        "T-01-01-a"
+      ],
+      "spec_refs": [
+        "SC-05",
+        "SC-10",
+        "GAP-01",
+        "GAP-17",
+        "BR-03",
+        "BR-41"
+      ],
+      "body": "**Mục tiêu:** Sửa gốc lỗi \"nhập tay tier\" và ngày nghiệp vụ theo UTC.\n\n**Spec:** SC-05 Ghi chú LAB-5; SC-10; GAP-01; GAP-17; BR-03; BR-41; database-diagram nhóm A\n\n**Phạm vi:**\n- `participants.kind` enum + `tier` GENERATED từ `kind`; `short_buyer_no` UK; `sponsor_intermediate_id`; CHECK số T+13\n- `profiles.functions staff_function[]` + CHECK chỉ nhân viên 卸売業者 mới có functions; `is_active`\n- Hàm `fn_business_date()` = `(now() at time zone 'Asia/Tokyo')::date` dùng làm default\n- Script migrate `role/tier/license_no` LAB-2\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: insert `functions` cho bên mua → lỗi\n- [ ] pgTAP: không update được `tier` trực tiếp\n- [ ] pgTAP: `fn_business_date()` lúc 2026-11-03 00:30 JST trả 11/03\n\n**Phụ thuộc:** T-01-01-a"
+    },
+    {
+      "key": "T-01-02-b",
+      "parent": "I-01-02",
+      "title": "[DB] RLS helpers auth_participant_id / is_wholesaler_staff / has_function + RLS nền",
+      "labels": [
+        "type:db",
+        "area:E01",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 1,
+      "depends_on": [
+        "T-01-02-a"
+      ],
+      "spec_refs": [
+        "GAP-16",
+        "ADR-005",
+        "PERM-09",
+        "SC-17"
+      ],
+      "body": "**Mục tiêu:** Thay RLS `using (true)` bằng chính sách theo người xem; thu hồi quyền ghi trực tiếp.\n\n**Spec:** GAP-16; ADR-005; architecture § 7; PERM-09; SC-17 Ghi chú LAB-5\n\n**Phạm vi:**\n- Hàm `auth_participant_id()`, `is_wholesaler_staff()`, `has_function(text)`, `is_market_admin()` (stable, security definer, search_path cố định)\n- REVOKE INSERT/UPDATE/DELETE từ `authenticated` trên mọi bảng nghiệp vụ\n- Policy SELECT mẫu cho `participants`, `profiles`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: mỗi helper đúng với 4 tài khoản seed (ADM, W-FLR, NAK-A, KAI)\n- [ ] pgTAP: `authenticated` insert trực tiếp vào `participants` → lỗi quyền\n\n**Phụ thuộc:** T-01-02-a"
+    },
+    {
+      "key": "T-01-02-c",
+      "parent": "I-01-02",
+      "title": "[DB] Khung fn_audit + audit_logs bất biến + quy ước app.audit_reason",
+      "labels": [
+        "type:db",
+        "area:E01"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 1,
+      "depends_on": [
+        "T-01-02-a"
+      ],
+      "spec_refs": [
+        "ADR-008",
+        "BR-43",
+        "D-18",
+        "SC-36"
+      ],
+      "body": "**Mục tiêu:** Có trigger audit dùng chung để mọi migration sau chỉ cần gắn.\n\n**Spec:** ADR-008; BR-43; D-18; SC-36 Ghi chú LAB-5\n\n**Phạm vi:**\n- Bảng `audit_logs` (actor, table, row_id, action, before, after, reason, at)\n- Trigger `fn_audit()` đọc `current_setting('app.audit_reason', true)`\n- REVOKE UPDATE/DELETE mọi role + trigger chặn sửa → `ERR_AUDIT_IMMUTABLE`\n- Helper `fn_set_audit_reason(text)` cho RPC\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: update/delete `audit_logs` với mọi role đều lỗi\n- [ ] pgTAP: update một dòng bảng mẫu có reason → đúng 1 dòng audit có before/after/reason\n\n**Phụ thuộc:** T-01-02-a"
+    },
+    {
+      "key": "T-01-02-d",
+      "parent": "I-01-02",
+      "title": "[DB] Danh mục mã lỗi ERR_* (95 mã) + fn_raise + map thông điệp tiếng Nhật",
+      "labels": [
+        "type:db",
+        "area:E01"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 1,
+      "depends_on": [
+        "T-01-01-b"
+      ],
+      "spec_refs": [
+        "D-30"
+      ],
+      "body": "**Mục tiêu:** Một nguồn mã lỗi duy nhất cho RPC và UI (D-30).\n\n**Spec:** rpc-and-error-index § 2; D-30; screen-list \"Lỗi từ server\"\n\n**Phạm vi:**\n- Hàm `fn_raise(code text, detail jsonb)` trả SQLSTATE riêng + message JA\n- File TS `lib/errors.ts` sinh từ cùng bảng (script) + type union\n- Helper client đọc lỗi PostgREST → hiển thị nguyên văn tiếng Nhật\n\n**Tiêu chí hoàn thành:**\n- [ ] Script kiểm: 95 mã trong index = 95 mã trong catalog\n- [ ] Vitest: parse lỗi `ERR_CREDIT` từ response mẫu ra đúng message\n\n**Phụ thuộc:** T-01-01-b"
+    },
+    {
+      "key": "T-01-02-e",
+      "parent": "I-01-02",
+      "title": "[TEST] Bộ hồi quy bảo mật tổng: ma trận RLS theo vai trò, anon, tự đăng ký",
+      "labels": [
+        "type:test",
+        "area:E01",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "QA",
+      "phase": 6,
+      "depends_on": [
+        "T-02-01-a",
+        "T-06-01-a",
+        "T-09-02-a",
+        "T-10-01-a",
+        "T-12-01-a",
+        "T-08-01-a"
+      ],
+      "spec_refs": [
+        "GAP-15",
+        "GAP-16",
+        "PERM-09",
+        "BR-52"
+      ],
+      "body": "**Mục tiêu:** Chứng minh GAP-15/GAP-16 đã đóng trên toàn bộ bảng trước release.\n\n**Spec:** GAP-15; GAP-16; PERM-09; BR-52; architecture § 7; prototype-gap § 3 (ưu tiên bảo mật)\n\n**Phạm vi:**\n- pgTAP ma trận: mỗi bảng nghiệp vụ × {ADM, W-FLR, W-ACC, W-MGR, NAK-A, NAK-B, SBK, KAI, anon}\n- E2E: gọi `/auth/v1/signup` bị từ chối; KAI đọc `invoices` người khác → 0 dòng\n- Kiểm không route nghiệp vụ nào dùng service role\n\n**Tiêu chí hoàn thành:**\n- [ ] Ma trận kỳ vọng nằm trong file fixture, test sinh từ fixture\n- [ ] Toàn bộ xanh trên staging\n- [ ] Báo cáo đính kèm vào release note\n\n**Phụ thuộc:** T-02-01-a, T-06-01-a, T-09-02-a, T-10-01-a, T-12-01-a, T-08-01-a"
+    },
+    {
+      "key": "T-01-03-a",
+      "parent": "I-01-03",
+      "title": "[FE] Layout (app) + menu theo kind/functions + GUARD-01/02 + UI kit dùng chung",
+      "labels": [
+        "type:fe",
+        "area:E01",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 1,
+      "depends_on": [
+        "T-01-01-c",
+        "T-01-02-b"
+      ],
+      "spec_refs": [
+        "GAP-15",
+        "SC-03"
+      ],
+      "body": "**Mục tiêu:** Header/sidebar/tab-bar theo vai trò và bộ component dùng chung.\n\n**Spec:** screen-list \"Quy ước chung\"; GAP-15 (`app/(app)/layout.tsx:20`); permissions-matrix § 3; SC-03 Ghi chú LAB-5\n\n**Phạm vi:**\n- Header: tên chợ, ngày nghiệp vụ JST, người dùng, vai trò; sidebar PC / tab-bar tablet\n- Menu sinh từ bảng cấu hình route × (kind, functions); route trái quyền → `notFound()`\n- Bỏ mặc định \"không có hồ sơ = 買出人\"\n- UI kit: StatusBadge, format ¥/ngày JST, DataTable lọc qua URL, ReasonDialog, ConfirmDialog, hiển thị lỗi RPC; nút ≥ 48px\n\n**Tiêu chí hoàn thành:**\n- [ ] Vitest: hàm tính menu cho 10 vai trò khớp permissions-matrix § 3\n- [ ] E2E: KAI mở `/admin/users` → 404\n- [ ] Không còn chuỗi tiếng Việt trên UI\n\n**Phụ thuộc:** T-01-01-c, T-01-02-b"
+    },
+    {
+      "key": "T-01-03-b",
+      "parent": "I-01-03",
+      "title": "[FE] Hook useDraftForm + useIdempotentSubmit + NetworkBanner (ADR-010)",
+      "labels": [
+        "type:fe",
+        "area:E01"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 1,
+      "depends_on": [
+        "T-01-01-c"
+      ],
+      "spec_refs": [
+        "ADR-010",
+        "SC-14",
+        "SC-15",
+        "SC-18",
+        "SC-23"
+      ],
+      "body": "**Mục tiêu:** Giữ dữ liệu form và gửi lại an toàn khi mạng cầu cảng chập chờn.\n\n**Spec:** ADR-010; SC-14 Ghi chú LAB-5; screen-list \"Mạng yếu\" (SC-14, SC-15, SC-18, SC-23)\n\n**Phạm vi:**\n- `useDraftForm(key)`: lưu localStorage/IndexedDB theo user + màn hình, xóa khi thành công\n- `useIdempotentSubmit`: sinh `client_request_id` một lần cho mỗi lần gửi, retry backoff\n- `NetworkBanner` online/offline + số bản nháp chờ gửi\n\n**Tiêu chí hoàn thành:**\n- [ ] Vitest: mất mạng giữa chừng → reload → dữ liệu còn\n- [ ] Vitest: gửi lại 2 lần cùng id → server mock nhận cùng id\n- [ ] Hook có tài liệu dùng trong README\n\n**Phụ thuộc:** T-01-01-c"
+    },
+    {
+      "key": "T-01-04-a",
+      "parent": "I-01-04",
+      "title": "[INFRA] Module PDF dùng chung @react-pdf + Noto Sans JP + bucket documents",
+      "labels": [
+        "type:infra",
+        "area:E01"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 1,
+      "depends_on": [
+        "T-01-01-c"
+      ],
+      "spec_refs": [
+        "ADR-011"
+      ],
+      "body": "**Mục tiêu:** Một module render chứng từ bất biến cho 請求書, 仕切書, nhãn lô, phiếu bán, báo cáo.\n\n**Spec:** ADR-011 Việc phải làm; architecture § 2, § 7\n\n**Phạm vi:**\n- `lib/pdf/` renderer + layout chung (header 卸売業者, số chứng từ, trang)\n- Nhúng Noto Sans JP (subset), kiểm ký tự 旧字体 thường gặp trong tên\n- Bucket private `documents`, path chứa `participant_id`, signed URL 300 giây\n\n**Tiêu chí hoàn thành:**\n- [ ] Snapshot test PDF mẫu (text extract khớp)\n- [ ] Policy Storage: bên mua A không lấy được file của B (pgTAP/storage test)\n\n**Phụ thuộc:** T-01-01-c"
+    },
+    {
+      "key": "T-01-04-b",
+      "parent": "I-01-04",
+      "title": "[INFRA] Hàng đợi notifications + notification_templates + gửi Resend + Vercel Cron",
+      "labels": [
+        "type:infra",
+        "area:E01"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 1,
+      "depends_on": [
+        "T-01-02-a"
+      ],
+      "spec_refs": [
+        "D-17",
+        "D-27",
+        "SC-37",
+        "FT-41"
+      ],
+      "body": "**Mục tiêu:** Gửi email ngay sau commit, thử lại bằng cron; khung cron cho các job ngày.\n\n**Spec:** D-17; D-27; architecture § 2 (Hàng đợi); SC-37 Ghi chú LAB-5; FT-41\n\n**Phạm vi:**\n- Bảng `notifications` (+`created_at`, `attempt_count`, status) và `notification_templates` seed 4 mẫu JP\n- Server Action đọc hàng đợi sau commit; render template escape biến\n- Route cron có secret; lịch 0:05 JST retry + chỗ đăng ký job (hết hạn tư cách, kích hoạt 業務規程, nhắc hạn, tạo kỳ)\n\n**Tiêu chí hoàn thành:**\n- [ ] Vitest: render escape `<script>`, biến lạ → `ERR_TEMPLATE_VARIABLE`\n- [ ] Email lỗi được gửi lại ở lần cron sau, `attempt_count` tăng\n- [ ] Cron từ chối khi thiếu secret\n\n**Phụ thuộc:** T-01-02-a"
+    },
+    {
+      "key": "T-01-05-a",
+      "parent": "I-01-05",
+      "title": "[DB] Seed dữ liệu theo vai trò (ADM, W-*, NAK-A/B, SBK, KAI) + fixture nghiệp vụ",
+      "labels": [
+        "type:db",
+        "area:E01"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 1,
+      "depends_on": [
+        "T-01-02-a"
+      ],
+      "spec_refs": [
+        "SC-03",
+        "A-08",
+        "A-10"
+      ],
+      "body": "**Mục tiêu:** Mọi dev/QA dùng chung bộ tài khoản và dữ liệu mẫu.\n\n**Spec:** SC-03 Ghi chú LAB-5 (seed đủ vai trò); A-08; A-10\n\n**Phạm vi:**\n- Tài khoản: ADM, W-FLR, W-APR, W-AUC, W-ACC, W-MGR, NAK-A, NAK-B, SBK-01, SBK-02 (đình chỉ), KAI (bảo lãnh bởi NAK-A)\n- Seed được mở rộng theo epic (file seed tách theo nhóm bảng)\n- Mật khẩu seed chỉ ở local/staging\n\n**Tiêu chí hoàn thành:**\n- [ ] `supabase db reset` xanh\n- [ ] Seed không chạy trên production (guard env)\n\n**Phụ thuộc:** T-01-02-a"
+    },
+    {
+      "key": "T-01-05-b",
+      "parent": "I-01-05",
+      "title": "[DOC] Đồng bộ spec: applied_invoice_id → incentive_applications, RPC thiếu trong index, screen-flow § 3",
+      "labels": [
+        "type:doc",
+        "area:E01",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "PM",
+      "phase": 1,
+      "depends_on": [],
+      "spec_refs": [
+        "D-11",
+        "GAP-22",
+        "SC-27",
+        "SC-28",
+        "SC-32",
+        "SC-35",
+        "D-20",
+        "D-29"
+      ],
+      "body": "**Mục tiêu:** Sửa các mâu thuẫn tài liệu phát hiện khi break task để dev không làm theo bản cũ.\n\n**Spec:** D-11; GAP-22; SC-27 Data Flow; SC-28 E11; SC-32 E16; SC-35 E07; rpc-and-error-index; D-20; D-29\n\n**Phạm vi:**\n- SC-27/SC-28/SC-32: thay `incentives.applied_invoice_id` bằng `incentive_applications`\n- Index RPC: thêm `incentive_evidence`, `publish`, `cancel_retail_slip`, job hết hạn tư cách\n- Thống nhất định nghĩa 完納 (BR-27) cho SC-32 và SC-35; ngày áp bậc thưởng\n- screen-flow § 3: bổ sung các dòng SC-03/SC-07 đề xuất\n\n**Tiêu chí hoàn thành:**\n- [ ] PR tài liệu được tech lead duyệt\n- [ ] Không còn chuỗi `applied_invoice_id` trong docs (trừ lịch sử GAP-22)\n\n**Phụ thuộc:** Không"
+    },
+    {
+      "key": "T-02-01-a",
+      "parent": "I-02-01",
+      "title": "[INFRA] Cấu hình Supabase Auth: tắt signup, mật khẩu ≥10, template JP, redirect",
+      "labels": [
+        "type:infra",
+        "area:E02",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 1,
+      "depends_on": [
+        "T-01-01-a"
+      ],
+      "spec_refs": [
+        "SC-01",
+        "SC-02",
+        "GAP-15",
+        "BR-09",
+        "Q39"
+      ],
+      "body": "**Mục tiêu:** Đóng lỗ hổng tự đăng ký đã kiểm chứng trên bản deploy LAB-2.\n\n**Spec:** SC-01 Ghi chú LAB-5 (CFG); SC-02 Ghi chú LAB-5 (CFG); GAP-15; BR-09; Q39\n\n**Phạm vi:**\n- `enable_signup = false` ở `config.toml` + staging + production\n- Độ dài mật khẩu 10; redirect URL `/auth/confirm`; hạn link mời 72h\n- Email template tiếng Nhật cho `recovery`, `invite`\n\n**Tiêu chí hoàn thành:**\n- [ ] Gọi `/auth/v1/signup` trên staging → bị từ chối (ghi lại lệnh curl)\n- [ ] Email mời/khôi phục hiển thị tiếng Nhật trên Inbucket\n\n**Phụ thuộc:** T-01-01-a"
+    },
+    {
+      "key": "T-02-01-b",
+      "parent": "I-02-01",
+      "title": "[FE] Trang /login, /password-reset, /auth/confirm + safeNext + GUARD-03",
+      "labels": [
+        "type:fe",
+        "area:E02"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 2,
+      "depends_on": [
+        "T-02-01-a",
+        "T-01-03-a"
+      ],
+      "spec_refs": [
+        "SC-01",
+        "SC-02",
+        "D-05"
+      ],
+      "body": "**Mục tiêu:** Viết lại màn đăng nhập/đặt lại mật khẩu theo detail design, dùng chung bước đặt mật khẩu cho invite và recovery.\n\n**Spec:** SC-01 § 3; SC-02 § 3; D-05; GUARD-03\n\n**Phạm vi:**\n- `app/login/page.tsx` nhãn JP, E04/E08/E09, bỏ khối demo\n- Middleware route công khai + `safeNext` dùng chung\n- `/password-reset` bước 1 phản hồi không phân biệt email tồn tại; `/auth/confirm` + bước 2\n- GUARD-03: `is_active=false` giữa phiên → đăng xuất, `/login?notice=account_disabled`\n\n**Tiêu chí hoàn thành:**\n- [ ] Vitest `safeNext` 6 case: `/x`, `//evil`, `http://`, `/login`, rỗng, `\\\\evil`\n- [ ] Bước 2 chặn tài khoản `is_active=false`\n\n**Phụ thuộc:** T-02-01-a, T-01-03-a"
+    },
+    {
+      "key": "T-02-01-c",
+      "parent": "I-02-01",
+      "title": "[TEST] E2E đăng nhập & đặt lại mật khẩu với Inbucket",
+      "labels": [
+        "type:test",
+        "area:E02"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "QA",
+      "phase": 2,
+      "depends_on": [
+        "T-02-01-b"
+      ],
+      "spec_refs": [
+        "SC-01",
+        "SC-02"
+      ],
+      "body": "**Mục tiêu:** Khóa hành vi đăng nhập/khôi phục bằng test tự động.\n\n**Spec:** SC-01 Ghi chú LAB-5 (TEST); SC-02 Ghi chú LAB-5 (TEST)\n\n**Phạm vi:**\n- Sai mật khẩu; tài khoản bị khóa; `next` hợp lệ/không hợp lệ\n- Yêu cầu reset → mở link Inbucket → đặt mật khẩu → đăng nhập\n- Link hết hạn; email không tồn tại cho cùng phản hồi\n\n**Tiêu chí hoàn thành:**\n- [ ] 7 kịch bản xanh trên CI (Supabase local)\n\n**Phụ thuộc:** T-02-01-b"
+    },
+    {
+      "key": "T-02-02-a",
+      "parent": "I-02-02",
+      "title": "[DB] RLS profiles theo PERM-01 + view v_user_accounts (trạng thái mời)",
+      "labels": [
+        "type:db",
+        "area:E02",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-01-02-b"
+      ],
+      "spec_refs": [
+        "SC-04",
+        "PERM-01",
+        "GAP-16"
+      ],
+      "body": "**Mục tiêu:** Chỉ ADM thấy mọi tài khoản; người khác chỉ thấy mình.\n\n**Spec:** SC-04 Ghi chú LAB-5; PERM-01; GAP-16; decision-log § 2 (v_user_accounts)\n\n**Phạm vi:**\n- Policy SELECT `profiles`: ADM tất cả; W-MGR theo quyết định SC-04 § 7; còn lại `id = auth.uid()`\n- View `v_user_accounts` (security_invoker): kind, functions, is_active, invited_at/last_sign_in\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: ADM thấy tất cả, W-MGR đúng phạm vi, NAK chỉ thấy mình\n\n**Phụ thuộc:** T-01-02-b"
+    },
+    {
+      "key": "T-02-02-b",
+      "parent": "I-02-02",
+      "title": "[RPC] prepare_user_invite / update_user_profile / set_user_active + module invite-user.ts",
+      "labels": [
+        "type:rpc",
+        "area:E02",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "許可/承認/登録",
+      "role": "BE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-02-02-a",
+        "T-03-01-a",
+        "T-01-02-c"
+      ],
+      "spec_refs": [
+        "SC-05",
+        "D-04",
+        "ADR-005"
+      ],
+      "body": "**Mục tiêu:** Mời tài khoản an toàn: RPC kiểm quyền + tư cách, module server dùng service role hẹp.\n\n**Spec:** SC-05 Implementation Mapping; D-04; ADR-005 § 3; architecture § 7\n\n**Phạm vi:**\n- `prepare_user_invite` kiểm ADM + tư cách hiệu lực (bên mua) → trả token chuẩn bị\n- `lib/server/invite-user.ts` gọi `inviteUserByEmail` chỉ khi token hợp lệ; trigger `fn_handle_invited_user`\n- `update_user_profile`, `set_user_active` (chặn tự khóa, chặn khóa ADM cuối)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP 7 mã lỗi: ERR_FORBIDDEN, ERR_EMAIL_TAKEN, ERR_FUNCTIONS_REQUIRED, ERR_FUNCTIONS_NOT_ALLOWED, ERR_NO_VALID_QUALIFICATION, ERR_SELF_DEACTIVATE, ERR_LAST_ADMIN\n- [ ] Vitest: module invite từ chối khi không có token\n\n**Phụ thuộc:** T-02-02-a, T-03-01-a, T-01-02-c"
+    },
+    {
+      "key": "T-02-02-c",
+      "parent": "I-02-02",
+      "title": "[FE] SC-04 danh sách tài khoản (lọc URL, badge trạng thái)",
+      "labels": [
+        "type:fe",
+        "area:E02"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-02-02-a",
+        "T-01-03-a"
+      ],
+      "spec_refs": [
+        "SC-04"
+      ],
+      "body": "**Mục tiêu:** ADM tra cứu tài khoản theo vai trò/trạng thái.\n\n**Spec:** SC-04 § 3–§ 7\n\n**Phạm vi:**\n- Bảng + bộ lọc qua URL (kind, function, trạng thái)\n- Badge dùng chung với SC-05/SC-10\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: NAK mở `/admin/users` → 404\n- [ ] Bộ lọc giữ được khi reload\n\n**Phụ thuộc:** T-02-02-a, T-01-03-a"
+    },
+    {
+      "key": "T-02-02-d",
+      "parent": "I-02-02",
+      "title": "[FE] SC-05 form tạo/sửa tài khoản hai chế độ + hộp xác nhận khóa",
+      "labels": [
+        "type:fe",
+        "area:E02",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-02-02-b",
+        "T-02-02-c"
+      ],
+      "spec_refs": [
+        "SC-05",
+        "GAP-01",
+        "FT-03"
+      ],
+      "body": "**Mục tiêu:** ADM mời và sửa tài khoản; vai trò hiển thị từ người tham gia, không nhập tay tier.\n\n**Spec:** SC-05 § 3–§ 6; GAP-01; FT-03\n\n**Phạm vi:**\n- Chế độ mời / sửa; E02 combobox người tham gia; E03–E05 chỉ đọc (kind, tier, tư cách)\n- Chọn functions cho nhân viên 卸売業者\n- Hộp xác nhận khóa tài khoản\n\n**Tiêu chí hoàn thành:**\n- [ ] Lỗi RPC hiển thị nguyên văn tiếng Nhật\n- [ ] Không có ô nhập tier\n\n**Phụ thuộc:** T-02-02-b, T-02-02-c"
+    },
+    {
+      "key": "T-03-01-a",
+      "parent": "I-03-01",
+      "title": "[DB] Migration qualifications / requirements / checks + seed 13 điều kiện + bucket bằng chứng",
+      "labels": [
+        "type:db",
+        "area:E03",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "許可/承認/登録",
+      "role": "BE-1",
+      "phase": 2,
+      "depends_on": [
+        "T-01-02-a",
+        "T-04-01-a"
+      ],
+      "spec_refs": [
+        "ADR-003",
+        "SC-06",
+        "SC-07",
+        "GAP-02",
+        "D-06",
+        "BR-08"
+      ],
+      "body": "**Mục tiêu:** Có mô hình dữ liệu 3 loại tư cách (sửa GAP-02).\n\n**Spec:** ADR-003 § 5; SC-06 Ghi chú LAB-5; SC-07 Ghi chú LAB-5; GAP-02; D-06; BR-08\n\n**Phạm vi:**\n- Enum `license_type`, `qualification_status`, `check_result`\n- 3 bảng + partial unique `(participant_id) WHERE status = 'approved'` (D-06)\n- Seed điều kiện: kyoka 7, shonin 4, toroku 2\n- Bucket private bằng chứng + policy; RLS 3 bảng; gắn `fn_audit`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: hai hồ sơ `approved` cùng người → lỗi unique\n- [ ] pgTAP: NAK không đọc được hồ sơ người khác\n\n**Phụ thuộc:** T-01-02-a, T-04-01-a"
+    },
+    {
+      "key": "T-03-01-b",
+      "parent": "I-03-01",
+      "title": "[RPC] submit_qualification + record_check (upload bằng chứng)",
+      "labels": [
+        "type:rpc",
+        "area:E03",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "許可/承認/登録",
+      "role": "BE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-03-01-a"
+      ],
+      "spec_refs": [
+        "SC-07",
+        "ADR-003",
+        "BR-01",
+        "BR-02"
+      ],
+      "body": "**Mục tiêu:** Ghi hồ sơ và kết quả từng điều kiện.\n\n**Spec:** SC-07 Implementation Mapping; ADR-003; BR-01; BR-02\n\n**Phạm vi:**\n- `submit_qualification` (ERR_APPLICATION_OPEN khi đã có hồ sơ mở)\n- `record_check` lưu từng dòng + file bằng chứng (ERR_EVIDENCE_REQUIRED)\n- Giá trị khai báo (vốn, năm kinh nghiệm) so với `fn_rule`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: ERR_FORBIDDEN cho NAK; ERR_EVIDENCE_REQUIRED khi thiếu file\n- [ ] Mỗi lần ghi sinh audit\n\n**Phụ thuộc:** T-03-01-a"
+    },
+    {
+      "key": "T-03-01-c",
+      "parent": "I-03-01",
+      "title": "[RPC] approve / reject / revoke qualification rẽ nhánh theo loại",
+      "labels": [
+        "type:rpc",
+        "area:E03",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "許可/承認/登録",
+      "role": "BE-1",
+      "phase": 2,
+      "depends_on": [
+        "T-03-01-b"
+      ],
+      "spec_refs": [
+        "SC-07",
+        "BR-01",
+        "BR-02",
+        "BR-08",
+        "D-06",
+        "D-07"
+      ],
+      "body": "**Mục tiêu:** Duyệt hồ sơ đúng BR-01/BR-02 và cập nhật kind/sponsor của người tham gia (D-07).\n\n**Spec:** SC-07 Ghi chú LAB-5 (TEST pgTAP); BR-01; BR-02; BR-08; D-06; D-07; X-1\n\n**Phạm vi:**\n- `approve_qualification`: kiểm đủ điều kiện bắt buộc theo `license_type`; `valid_to` theo `validity_years_*`; hồ sơ cũ → `superseded` cùng transaction; cập nhật `participants.kind`, sponsor\n- `reject_qualification` (ERR_DECISION_NOTE_REQUIRED); `revoke_qualification` nếu I-00-04 xác nhận\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: kyoka thiếu 1 điều kiện → ERR_REQUIREMENT_UNMET\n- [ ] pgTAP: shonin đủ 4 → `valid_to` = +3 năm − 1 ngày\n- [ ] pgTAP: toroku với 仲卸 hết hạn → ERR_SPONSOR_INVALID\n- [ ] pgTAP: duyệt hồ sơ mới → cũ `superseded`; tier đổi theo kind\n\n**Phụ thuộc:** T-03-01-b"
+    },
+    {
+      "key": "T-03-01-d",
+      "parent": "I-03-01",
+      "title": "[RPC] Job hết hạn tư cách 00:00 JST + email nhắc gia hạn",
+      "labels": [
+        "type:rpc",
+        "area:E03",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "許可/承認/登録",
+      "role": "BE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-03-01-c",
+        "T-01-04-b"
+      ],
+      "spec_refs": [
+        "BR-07",
+        "D-24",
+        "ADR-003"
+      ],
+      "body": "**Mục tiêu:** Tư cách hết hạn tự chuyển `expired` và người dùng được nhắc trước.\n\n**Spec:** BR-07; D-24 (`qualification_reminder_days`); ADR-003 Việc phải làm (job hết hạn)\n\n**Phạm vi:**\n- Hàm `expire_qualifications(p_date)` gọi từ cron 00:00 JST\n- Enqueue email nhắc trước `qualification_reminder_days` ngày (một lần mỗi mốc)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: `valid_to` = hôm qua → `expired`; fn_check_buyer_eligibility trả ERR_QUALIFICATION sau đó\n- [ ] Không gửi trùng email nhắc khi cron chạy lại\n\n**Phụ thuộc:** T-03-01-c, T-01-04-b"
+    },
+    {
+      "key": "T-03-01-e",
+      "parent": "I-03-01",
+      "title": "[FE] SC-07 RequirementChecklist rẽ nhánh + upload thử lại + DecisionPanel",
+      "labels": [
+        "type:fe",
+        "area:E03",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "許可/承認/登録",
+      "role": "FE-1",
+      "phase": 2,
+      "depends_on": [
+        "T-03-01-c"
+      ],
+      "spec_refs": [
+        "SC-07"
+      ],
+      "body": "**Mục tiêu:** Màn xét duyệt hiển thị đúng danh mục điều kiện theo loại, lưu từng dòng.\n\n**Spec:** SC-07 § 3–§ 7; X-1\n\n**Phạm vi:**\n- Checklist lấy từ DB theo `license_type` (không hard-code)\n- Upload bằng chứng có thử lại; lưu từng dòng\n- DecisionPanel E20/E21: nút duyệt khóa khi thiếu điều kiện; lý do từ chối\n\n**Tiêu chí hoàn thành:**\n- [ ] Nút 承認 disabled khi còn điều kiện bắt buộc chưa đạt\n- [ ] Lỗi RPC hiển thị nguyên văn\n\n**Phụ thuộc:** T-03-01-c"
+    },
+    {
+      "key": "T-03-01-f",
+      "parent": "I-03-01",
+      "title": "[TEST] E2E luồng 8: SC-06 → SC-07 duyệt → SC-05 mời → SC-02 → SC-01 (3 loại tư cách)",
+      "labels": [
+        "type:test",
+        "area:E03",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "許可/承認/登録",
+      "role": "QA",
+      "phase": 2,
+      "depends_on": [
+        "T-03-01-e",
+        "T-03-02-a",
+        "T-02-02-d",
+        "T-02-01-c"
+      ],
+      "spec_refs": [
+        "SC-07",
+        "SC-05",
+        "BR-09"
+      ],
+      "body": "**Mục tiêu:** Chứng minh luồng cấp tư cách → tài khoản chạy trọn vẹn cho 許可, 承認, 登録.\n\n**Spec:** SC-07 Ghi chú LAB-5 (TEST e2e); SC-05 Ghi chú LAB-5 (TEST); BR-09\n\n**Phạm vi:**\n- 3 kịch bản theo loại; 許可 thiếu điều kiện bị chặn\n- NAK hết hạn tư cách không được mời\n\n**Tiêu chí hoàn thành:**\n- [ ] 3 kịch bản + 1 kịch bản chặn xanh trên CI\n\n**Phụ thuộc:** T-03-01-e, T-03-02-a, T-02-02-d, T-02-01-c"
+    },
+    {
+      "key": "T-03-02-a",
+      "parent": "I-03-02",
+      "title": "[FE] SC-06 danh sách + tab + thẻ đếm (kèm view v_qualification_progress)",
+      "labels": [
+        "type:fe",
+        "area:E03",
+        "constraint"
+      ],
+      "priority": "Should",
+      "constraint": "許可/承認/登録",
+      "role": "FE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-03-01-a",
+        "T-01-03-a"
+      ],
+      "spec_refs": [
+        "SC-06"
+      ],
+      "body": "**Mục tiêu:** Danh sách hồ sơ có tiến độ điều kiện.\n\n**Spec:** SC-06 § 3–§ 7; SC-06 Ghi chú LAB-5\n\n**Phạm vi:**\n- View `v_qualification_progress` (mandatory_met, missing_count)\n- Tab theo loại, thẻ đếm, badge dùng chung\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: view tính đúng `mandatory_met` khi thiếu dòng check\n- [ ] E2E: W-MGR không thấy E02; NAK → 404\n\n**Phụ thuộc:** T-03-01-a, T-01-03-a"
+    },
+    {
+      "key": "T-03-03-a",
+      "parent": "I-03-03",
+      "title": "[RPC] Bảng deposits + RPC record_deposit / return_deposit / check_deposit_return",
+      "labels": [
+        "type:rpc",
+        "area:E03"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-03-01-a",
+        "T-06-01-b"
+      ],
+      "spec_refs": [
+        "SC-30",
+        "BR-28",
+        "Q37"
+      ],
+      "body": "**Mục tiêu:** Quản lý 保証金 có kiểm điều kiện hoàn.\n\n**Spec:** SC-30 Ghi chú LAB-5; BR-28; Q37\n\n**Phạm vi:**\n- Bảng `deposits` + RLS (bên mua xem của mình) + `fn_audit`\n- `check_deposit_return` dùng `fn_buyer_exposure`; `return_deposit` chặn khi còn nợ/tư cách hiệu lực\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: còn nợ → ERR_DEPOSIT_RETURN_BLOCKED; tư cách còn hiệu lực → chặn; hoàn 2 lần → ERR_ALREADY_RETURNED\n\n**Phụ thuộc:** T-03-01-a, T-06-01-b"
+    },
+    {
+      "key": "T-03-03-b",
+      "parent": "I-03-03",
+      "title": "[FE] SC-30 danh sách + panel + 2 modal; hiện số giữ ở điều kiện DEPOSIT của SC-07",
+      "labels": [
+        "type:fe",
+        "area:E03"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-03-03-a",
+        "T-03-01-e"
+      ],
+      "spec_refs": [
+        "SC-30",
+        "SC-07"
+      ],
+      "body": "**Mục tiêu:** Kế toán/ADM ghi nộp, hoàn 保証金.\n\n**Spec:** SC-30 § 3–§ 7; SC-07 điều kiện DEPOSIT\n\n**Phạm vi:**\n- Danh sách + panel chi tiết; modal nộp / hoàn\n- SC-07: dòng DEPOSIT hiển thị tổng đang giữ (chỉ đọc)\n\n**Tiêu chí hoàn thành:**\n- [ ] W-ACC/W-MGR chỉ xem (R) theo matrix; ADM ghi được\n\n**Phụ thuộc:** T-03-03-a, T-03-01-e"
+    },
+    {
+      "key": "T-04-01-a",
+      "parent": "I-04-01",
+      "title": "[DB] rule_sets / rule_values / market_calendar + fn_rule + migrate market_rules → v1",
+      "labels": [
+        "type:db",
+        "area:E04",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "業務規程 có phiên bản",
+      "role": "BE-1",
+      "phase": 1,
+      "depends_on": [
+        "T-01-02-a"
+      ],
+      "spec_refs": [
+        "ADR-004",
+        "SC-11",
+        "GAP-03",
+        "BR-40",
+        "D-23",
+        "D-24"
+      ],
+      "body": "**Mục tiêu:** Nền tham số có phiên bản cho mọi RPC tính tiền (sửa GAP-03).\n\n**Spec:** ADR-004 Việc phải làm; SC-11 Ghi chú LAB-5; GAP-03; BR-40; D-23; D-24; business-rules § 1\n\n**Phạm vi:**\n- `rule_sets` (+created_by, based_on, approved_at), `rule_values`, `market_calendar`\n- `fn_rule(key, date)` trả giá trị phiên bản hiệu lực tại ngày; `fn_rule_set_id(date)`\n- Catalog kiểu 19 key (SQL CASE + zod sinh từ cùng nguồn)\n- `fn_assert_market_open(date)` dùng chung cho trigger BR-40\n- Migrate `market_rules` → `v1` đủ 19 key\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: `fn_rule` đúng ở ranh giới `effective_from`\n- [ ] pgTAP: thiếu key → ERR_RULE_KEY_MISSING\n- [ ] pgTAP: `fn_assert_market_open` với 休市日 → ERR_MARKET_CLOSED\n\n**Phụ thuộc:** T-01-02-a"
+    },
+    {
+      "key": "T-04-01-b",
+      "parent": "I-04-01",
+      "title": "[RPC] phiên bản 業務規程 (draft/approve/revoke) + save_market_calendar + cron activate_rule_sets",
+      "labels": [
+        "type:rpc",
+        "area:E04",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "業務規程 có phiên bản",
+      "role": "BE-1",
+      "phase": 2,
+      "depends_on": [
+        "T-04-01-a",
+        "T-01-04-b"
+      ],
+      "spec_refs": [
+        "SC-11",
+        "BR-42",
+        "ADR-004"
+      ],
+      "body": "**Mục tiêu:** Vòng đời phiên bản: nháp → duyệt → hiệu lực, không sửa bản đã hiệu lực.\n\n**Spec:** SC-11 Implementation Mapping; BR-42; ADR-004\n\n**Phạm vi:**\n- `create_rule_set_draft`, `save_rule_set_draft`, `delete_rule_set_draft`, `approve_rule_set`, `revoke_rule_set_approval`\n- `save_market_calendar` (ERR_CALENDAR_HAS_DATA, ERR_CALENDAR_PAST_DATE)\n- Cron `activate_rule_sets` 00:00 JST\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: sửa bản `active` → ERR_RULE_SET_NOT_DRAFT\n- [ ] pgTAP: `effective_from` < ngày mai JST → ERR_EFFECTIVE_FROM_TOO_EARLY; trùng ngày → ERR_EFFECTIVE_FROM_CONFLICT\n- [ ] pgTAP: thiếu key khi duyệt → ERR_RULE_KEY_MISSING; giá trị sai kiểu → ERR_RULE_VALUE_INVALID\n\n**Phụ thuộc:** T-04-01-a, T-01-04-b"
+    },
+    {
+      "key": "T-04-01-c",
+      "parent": "I-04-01",
+      "title": "[FE] SC-11 danh sách phiên bản + RuleValueEditor 8 kiểu + cột so sánh + duyệt",
+      "labels": [
+        "type:fe",
+        "area:E04",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "業務規程 có phiên bản",
+      "role": "FE-1",
+      "phase": 2,
+      "depends_on": [
+        "T-04-01-b",
+        "T-01-03-a"
+      ],
+      "spec_refs": [
+        "SC-11"
+      ],
+      "body": "**Mục tiêu:** ADM soạn, so sánh và duyệt phiên bản 業務規程.\n\n**Spec:** SC-11 § 3–§ 7\n\n**Phạm vi:**\n- Danh sách phiên bản + trạng thái\n- Trang phiên bản: editor 8 kiểu (%, JPY, ngày, năm, enum, JSON bậc, danh sách mã, giờ) có validate zod\n- Cột so sánh với phiên bản trước; hộp thoại duyệt; cảnh báo rời trang khi chưa lưu\n\n**Tiêu chí hoàn thành:**\n- [ ] Editor bậc thưởng chặn JSON sai (min trùng, rate < 0)\n- [ ] W-ACC chỉ xem\n\n**Phụ thuộc:** T-04-01-b, T-01-03-a"
+    },
+    {
+      "key": "T-04-01-d",
+      "parent": "I-04-01",
+      "title": "[FE] SC-11 tab lịch chợ 休市日 (chọn nhiều ngày)",
+      "labels": [
+        "type:fe",
+        "area:E04",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "業務規程 có phiên bản",
+      "role": "FE-1",
+      "phase": 2,
+      "depends_on": [
+        "T-04-01-b"
+      ],
+      "spec_refs": [
+        "SC-11",
+        "BR-40",
+        "A-09"
+      ],
+      "body": "**Mục tiêu:** Quản lý ngày nghỉ chợ theo tháng.\n\n**Spec:** SC-11 § 3 (tab lịch); BR-40; A-09\n\n**Phạm vi:**\n- Lịch tháng chọn nhiều ngày, lưu một lần\n- Hiển thị lỗi khi ngày đã có dữ liệu nghiệp vụ\n\n**Tiêu chí hoàn thành:**\n- [ ] Đặt 休市日 cho ngày đã có lô → hiện ERR_CALENDAR_HAS_DATA\n\n**Phụ thuộc:** T-04-01-b"
+    },
+    {
+      "key": "T-04-02-a",
+      "parent": "I-04-02",
+      "title": "[RPC] Migration fish_species / species_standards + RPC upsert/delete + pgTAP",
+      "labels": [
+        "type:rpc",
+        "area:E04"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-01-02-c"
+      ],
+      "spec_refs": [
+        "SC-08"
+      ],
+      "body": "**Mục tiêu:** Danh mục 品目 TO-BE với khóa mã.\n\n**Spec:** SC-08 Ghi chú LAB-5\n\n**Phạm vi:**\n- Sửa `fish_species` (thêm cột, bỏ `name_vn`), tạo `species_standards`, trigger khóa `code`\n- Seed lại 5 loại có mã\n- `upsert_species`, `upsert_species_standard`, `delete_species_standard`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: quyền ADM/W-MGR; trùng mã → ERR_DUPLICATE_CODE; xóa 規格 đang dùng → ERR_IN_USE; đổi mã → ERR_CODE_IMMUTABLE\n\n**Phụ thuộc:** T-01-02-c"
+    },
+    {
+      "key": "T-04-02-b",
+      "parent": "I-04-02",
+      "title": "[FE] Trang /master/species hai cột + bảng 規格 sửa tại dòng (khung List+Form dùng chung)",
+      "labels": [
+        "type:fe",
+        "area:E04"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-04-02-a",
+        "T-01-03-a"
+      ],
+      "spec_refs": [
+        "SC-08"
+      ],
+      "body": "**Mục tiêu:** Màn danh mục 品目 và khung List+Form tái dùng cho SC-12.\n\n**Spec:** SC-08 § 3–§ 7\n\n**Phạm vi:**\n- Khung `MasterListForm` (list trái, form phải)\n- Bảng 規格 sửa tại dòng; chế độ chỉ xem theo vai trò\n- Badge E13 đọc `fn_rule`\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: W-FLR chỉ xem, không thấy nút lưu\n\n**Phụ thuộc:** T-04-02-a, T-01-03-a"
+    },
+    {
+      "key": "T-04-03-a",
+      "parent": "I-04-03",
+      "title": "[RPC] Migration shippers + vessels + view che số tài khoản + RPC upsert_shipper / upsert_vessel",
+      "labels": [
+        "type:rpc",
+        "area:E04",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-01-02-c"
+      ],
+      "spec_refs": [
+        "SC-09",
+        "GAP-19",
+        "D-23",
+        "D-26"
+      ],
+      "body": "**Mục tiêu:** Mô hình chủ hàng đầy đủ để quyết toán (GAP-19).\n\n**Spec:** SC-09 Ghi chú LAB-5; GAP-19; D-23; D-26; decision-log § 2 (v_shippers_masked)\n\n**Phạm vi:**\n- `shippers` (+account_holder_kana, is_active), sửa `vessels` (+is_active, CHECK code `^[A-Z0-9]{2,5}$`)\n- Script chuyển `owner_name` 3 tàu seed → 3 荷主\n- View `v_shippers_masked` che số tài khoản theo functions\n- RPC kiểm quyền theo trường ngân hàng\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: W-FLR sửa trường bank → ERR_FORBIDDEN\n- [ ] pgTAP: đổi mã tàu đã dùng → ERR_CODE_IMMUTABLE; số T sai → ERR_INVALID_REG_NO\n\n**Phụ thuộc:** T-01-02-c"
+    },
+    {
+      "key": "T-04-03-b",
+      "parent": "I-04-03",
+      "title": "[FE] SC-09 trang hai tab 船 / 荷主 + modal tàu + che số tài khoản",
+      "labels": [
+        "type:fe",
+        "area:E04"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-04-03-a",
+        "T-04-02-b"
+      ],
+      "spec_refs": [
+        "SC-09"
+      ],
+      "body": "**Mục tiêu:** Màn danh mục tàu và chủ hàng.\n\n**Spec:** SC-09 § 3–§ 7\n\n**Phạm vi:**\n- Tab 荷主 / 船, modal tàu\n- Số tài khoản che theo vai trò\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: W-FLR không sửa được 振込先\n\n**Phụ thuộc:** T-04-03-a, T-04-02-b"
+    },
+    {
+      "key": "T-04-04-a",
+      "parent": "I-04-04",
+      "title": "[RPC] trading_suspensions + v_participant_master + RPC suspend / lift / set_credit_limit / update_participant",
+      "labels": [
+        "type:rpc",
+        "area:E04",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "BE-1",
+      "phase": 2,
+      "depends_on": [
+        "T-01-02-c",
+        "T-03-01-a"
+      ],
+      "spec_refs": [
+        "SC-10",
+        "BR-05",
+        "BR-06",
+        "D-23",
+        "Q29"
+      ],
+      "body": "**Mục tiêu:** Ghi đình chỉ thành bản ghi riêng có lý do; hạn mức chỉ ADM sửa.\n\n**Spec:** SC-10 Ghi chú LAB-5; BR-05; BR-06; D-23; Q29\n\n**Phạm vi:**\n- `trading_suspensions` (+lift_reason), view `v_participant_master` (tier, tư cách hiện tại, đình chỉ, hạn mức)\n- RPC `suspend_participant`, `lift_suspension`, `set_credit_limit`, `update_participant`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: chỉ ADM; đình chỉ 2 lần → ERR_ALREADY_SUSPENDED; gỡ khi không đình chỉ → ERR_NOT_SUSPENDED\n- [ ] pgTAP: update_participant không đổi được tier/kind\n- [ ] pgTAP: đình chỉ KAI → ERR_NOT_BUYER (theo Q29 mặc định)\n\n**Phụ thuộc:** T-01-02-c, T-03-01-a"
+    },
+    {
+      "key": "T-04-04-b",
+      "parent": "I-04-04",
+      "title": "[FE] SC-10 danh sách + chi tiết theo kind + modal lý do + lịch sử đình chỉ",
+      "labels": [
+        "type:fe",
+        "area:E04"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 2,
+      "depends_on": [
+        "T-04-04-a",
+        "T-01-03-a"
+      ],
+      "spec_refs": [
+        "SC-10"
+      ],
+      "body": "**Mục tiêu:** Màn người tham gia thay cho trang PATCH LAB-2.\n\n**Spec:** SC-10 § 3–§ 7\n\n**Phạm vi:**\n- Danh sách + chi tiết biến thể theo `kind`\n- Modal đình chỉ/gỡ có lý do; lịch sử đình chỉ\n- Xóa nút PATCH LAB-2\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: W-ACC chỉ xem\n- [ ] E2E (sau T-06-02-c): đình chỉ SBK-02 → SC-18 từ chối với thông điệp JP\n\n**Phụ thuộc:** T-04-04-a, T-01-03-a"
+    },
+    {
+      "key": "T-04-05-a",
+      "parent": "I-04-05",
+      "title": "[RPC] Migration market_marks + RPC upsert_market_mark + pgTAP",
+      "labels": [
+        "type:rpc",
+        "area:E04",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Should",
+      "constraint": "HITL 目利き/符丁",
+      "role": "BE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-01-02-c"
+      ],
+      "spec_refs": [
+        "SC-12",
+        "GAP-07",
+        "D-26"
+      ],
+      "body": "**Mục tiêu:** Danh mục 符丁 có khóa mã khi đã dùng.\n\n**Spec:** SC-12 Ghi chú LAB-5; GAP-07; D-26\n\n**Phạm vi:**\n- Bảng `market_marks` + trigger khóa `code` khi đã dùng\n- RPC `upsert_market_mark` (W-FLR chỉ R theo D-26)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: W-FLR ghi → ERR_FORBIDDEN; trùng mã → ERR_DUPLICATE_CODE; đổi mã đã dùng → ERR_CODE_IMMUTABLE\n\n**Phụ thuộc:** T-01-02-c"
+    },
+    {
+      "key": "T-04-05-b",
+      "parent": "I-04-05",
+      "title": "[FE] Trang /master/marks dùng khung List+Form",
+      "labels": [
+        "type:fe",
+        "area:E04",
+        "constraint"
+      ],
+      "priority": "Should",
+      "constraint": "HITL 目利き/符丁",
+      "role": "FE-2",
+      "phase": 2,
+      "depends_on": [
+        "T-04-05-a",
+        "T-04-02-b"
+      ],
+      "spec_refs": [
+        "SC-12"
+      ],
+      "body": "**Mục tiêu:** Màn quản lý 符丁.\n\n**Spec:** SC-12 § 3–§ 7\n\n**Phạm vi:**\n- List + form dùng `MasterListForm`\n- Bật/tắt hiệu lực\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E (sau T-05-02-c): 符丁 無効 không hiện ở SC-15, lô cũ vẫn hiện nhãn\n\n**Phụ thuộc:** T-04-05-a, T-04-02-b"
+    },
+    {
+      "key": "T-05-01-a",
+      "parent": "I-05-01",
+      "title": "[DB] Migration arrivals / lots TO-BE + bộ đếm fn_next_lot_no + trigger 休市日",
+      "labels": [
+        "type:db",
+        "area:E05",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-04-03-a",
+        "T-04-02-a",
+        "T-04-01-a"
+      ],
+      "spec_refs": [
+        "SC-14",
+        "BR-10",
+        "BR-40",
+        "GAP-05",
+        "GAP-17",
+        "D-19"
+      ],
+      "body": "**Mục tiêu:** Mã lô sinh bằng bộ đếm có khóa hàng (sửa GAP-05), ngày nghiệp vụ JST (GAP-17).\n\n**Spec:** SC-14 Ghi chú LAB-5 [DB] + [DB_GAP] #1–#3; BR-10; BR-40; GAP-05; GAP-17; D-19\n\n**Phạm vi:**\n- `arrivals` (+shipper_id, business_date, trade_form, client_request_id, note)\n- `lots` TO-BE (+client_request_id UNIQUE, purchase_unit_price, bỏ cột thẩm định cũ)\n- Bảng bộ đếm (business_date, vessel) + `fn_next_lot_no` dạng `YYMMDD-<tàu>-NNN`\n- Trigger `fn_assert_market_open`; gắn `fn_audit`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: 2 transaction song song cùng tàu/ngày → 2 số liên tiếp, không lỗi unique\n- [ ] pgTAP: insert lô ngày 休市日 → ERR_MARKET_CLOSED\n\n**Phụ thuộc:** T-04-03-a, T-04-02-a, T-04-01-a"
+    },
+    {
+      "key": "T-05-01-b",
+      "parent": "I-05-01",
+      "title": "[RPC] register_arrival (idempotent) + pgTAP",
+      "labels": [
+        "type:rpc",
+        "area:E05"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-05-01-a"
+      ],
+      "spec_refs": [
+        "SC-14",
+        "ADR-010",
+        "BR-31",
+        "A-07"
+      ],
+      "body": "**Mục tiêu:** Một RPC ghi chuyến nhập + nhiều lô, an toàn khi gửi lại.\n\n**Spec:** SC-14 Implementation Mapping; ADR-010; BR-31 (giá mua 買付); A-07\n\n**Phạm vi:**\n- Kiểm W-FLR/W-MGR; `business_date` do server gán\n- 買付 bắt buộc `purchase_unit_price`\n- Cùng `client_request_id` → trả kết quả cũ\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: 休市日 → ERR_MARKET_CLOSED; 買付 thiếu giá → ERR_PURCHASE_PRICE_REQUIRED\n- [ ] pgTAP: gọi lại cùng id → cùng `lot_no`, không thêm dòng\n- [ ] pgTAP: NAK gọi → ERR_FORBIDDEN\n\n**Phụ thuộc:** T-05-01-a"
+    },
+    {
+      "key": "T-05-01-c",
+      "parent": "I-05-01",
+      "title": "[FE] SC-14 form tablet: lưới nút, bàn phím số, giữ nháp",
+      "labels": [
+        "type:fe",
+        "area:E05"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-05-01-b",
+        "T-01-03-b"
+      ],
+      "spec_refs": [
+        "SC-14",
+        "ADR-010"
+      ],
+      "body": "**Mục tiêu:** Form nhập lô tối ưu thao tác tay ướt trên tablet.\n\n**Spec:** SC-14 § 3–§ 7; screen-list \"Tablet\"; ADR-010\n\n**Phạm vi:**\n- Lưới nút tàu/品目/規格, bàn phím số, nút ≥ 48px\n- Điền sẵn 委託/買付 theo 荷主\n- `useDraftForm` + `useIdempotentSubmit` + NetworkBanner\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: mất mạng → gửi lại → 1 lô\n- [ ] E2E: SC-14 điền sẵn 委託 theo 荷主; 品目 無効 không hiện\n\n**Phụ thuộc:** T-05-01-b, T-01-03-b"
+    },
+    {
+      "key": "T-05-02-a",
+      "parent": "I-05-02",
+      "title": "[DB] Bảng lot_appraisals (append-only) + lot_marks + bucket ảnh + migrate market_mark cũ",
+      "labels": [
+        "type:db",
+        "area:E05",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "HITL 目利き/符丁",
+      "role": "BE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-05-01-a",
+        "T-04-05-a"
+      ],
+      "spec_refs": [
+        "ADR-007",
+        "SC-15",
+        "GAP-06",
+        "GAP-07",
+        "D-19",
+        "D-25"
+      ],
+      "body": "**Mục tiêu:** Lưu thẩm định dạng chỉ thêm, có ảnh (sửa GAP-06, GAP-07).\n\n**Spec:** ADR-007 Việc phải làm; SC-15 Ghi chú LAB-5 [DB] + [DB_GAP] #1; GAP-06; GAP-07; D-19; D-25\n\n**Phạm vi:**\n- `lot_appraisals` (+client_request_id UNIQUE), không UPDATE/DELETE\n- `lot_marks` (mark_id hoặc free_text + ảnh, client_request_id)\n- Bucket private ảnh + policy; script chuyển `lots.market_mark` → `lot_marks.free_text`\n- Bỏ CHECK cứng ≤ 3 ảnh (D-25)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: UPDATE `lot_appraisals` → lỗi\n- [ ] Dữ liệu `market_mark` LAB-2 chuyển đủ\n\n**Phụ thuộc:** T-05-01-a, T-04-05-a"
+    },
+    {
+      "key": "T-05-02-b",
+      "parent": "I-05-02",
+      "title": "[RPC] record_appraisal / record_lot_mark + pgTAP HITL",
+      "labels": [
+        "type:rpc",
+        "area:E05",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "HITL 目利き/符丁",
+      "role": "BE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-05-02-a"
+      ],
+      "spec_refs": [
+        "SC-15",
+        "BR-11",
+        "BR-12",
+        "D-25",
+        "D-26"
+      ],
+      "body": "**Mục tiêu:** Ghi thẩm định đúng BR-11/BR-12.\n\n**Spec:** SC-15 Ghi chú LAB-5 [RPC]; BR-11; BR-12; D-25; D-26\n\n**Phạm vi:**\n- Kiểm functions ∋ appraiser (W-MGR không có → chỉ xem)\n- Hạng thuộc `fn_rule('freshness_grades')`; số ảnh ≤ `fn_rule('appraisal_photo_max')`\n- Sau khi lô có giao dịch 成立 → bắt buộc lý do + audit reason\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: không phải 目利き → ERR_NOT_APPRAISER\n- [ ] pgTAP: sửa sau 成立 thiếu lý do → ERR_REASON_REQUIRED\n- [ ] pgTAP: hạng ngoài danh sách → ERR_GRADE_INVALID; quá ảnh → ERR_PHOTO_LIMIT\n\n**Phụ thuộc:** T-05-02-a"
+    },
+    {
+      "key": "T-05-02-c",
+      "parent": "I-05-02",
+      "title": "[FE] SC-15 form + timeline + PhotoCapture (nén ≤1MB, giữ IndexedDB)",
+      "labels": [
+        "type:fe",
+        "area:E05",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "HITL 目利き/符丁",
+      "role": "FE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-05-02-b",
+        "T-01-03-b"
+      ],
+      "spec_refs": [
+        "SC-15",
+        "ADR-007",
+        "ADR-010",
+        "US-03"
+      ],
+      "body": "**Mục tiêu:** Màn thẩm định tablet, chụp ảnh giữ được khi mất mạng.\n\n**Spec:** SC-15 § 3–§ 7; ADR-007; ADR-010; US-03\n\n**Phạm vi:**\n- Component `PhotoCapture` dùng chung (nén client, tối đa n ảnh, IndexedDB)\n- Form hạng + 符丁 (chọn từ danh mục hoặc ghi tự do + ảnh bảng ghi tay)\n- Timeline lịch sử thẩm định\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: mở lô đã thẩm định → hạng **không** chọn sẵn (US-03 tc1)\n- [ ] Ảnh > 1MB được nén trước khi upload\n\n**Phụ thuộc:** T-05-02-b, T-01-03-b"
+    },
+    {
+      "key": "T-05-03-a",
+      "parent": "I-05-03",
+      "title": "[DB] Migration lot_allocations + allocation_events + trigger Σ ≤ quantity + v_allocation_remaining",
+      "labels": [
+        "type:db",
+        "area:E05",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-05-01-a"
+      ],
+      "spec_refs": [
+        "ADR-006",
+        "SC-16",
+        "SC-18",
+        "BR-14",
+        "GAP-04"
+      ],
+      "body": "**Mục tiêu:** Cho phép tách lô ở nhiều kênh (sửa GAP-04).\n\n**Spec:** ADR-006 Việc phải làm; SC-16 Ghi chú LAB-5 [DB] + [DB_GAP] #2; SC-18 [DB_GAP] #1; BR-14; GAP-04\n\n**Phạm vi:**\n- `lot_allocations` (channel, quantity, status open/closed/carried_over/withdrawn)\n- `allocation_events` lịch sử chuyển kênh\n- Trigger Σ quantity (≠ withdrawn) ≤ lots.quantity\n- View `v_allocation_remaining(allocation_id, quantity, negotiating_qty, concluded_qty, remaining)`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: phân bổ vượt → ERR_ALLOCATION_EXCEEDS\n- [ ] pgTAP: view trừ đúng 交渉中 + 成立\n\n**Phụ thuộc:** T-05-01-a"
+    },
+    {
+      "key": "T-05-03-b",
+      "parent": "I-05-03",
+      "title": "[RPC] allocate_lot / move_allocation + pgTAP đồng thời",
+      "labels": [
+        "type:rpc",
+        "area:E05"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-05-03-a"
+      ],
+      "spec_refs": [
+        "SC-16",
+        "BR-14",
+        "BR-15",
+        "Q22"
+      ],
+      "body": "**Mục tiêu:** Tách/chuyển kênh có khóa hàng, không đụng phần đã bán.\n\n**Spec:** SC-16 Ghi chú LAB-5 [RPC]; BR-14; BR-15; Q22\n\n**Phạm vi:**\n- `allocate_lot`, `move_allocation` (khóa `lots` FOR UPDATE)\n- Khóa cả số lượng 交渉中 (theo I-00-03)\n- Lô đang trong phiên せり → ERR_IN_AUCTION\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: chuyển phần đã 成立 → ERR_ALLOCATION_LOCKED\n- [ ] pgTAP: move song song với create_negotiation không bán vượt\n\n**Phụ thuộc:** T-05-03-a"
+    },
+    {
+      "key": "T-05-03-c",
+      "parent": "I-05-03",
+      "title": "[RPC] Job đóng ngày: hủy 交渉中 còn lại + close_day_allocations (持越 / 取下げ)",
+      "labels": [
+        "type:rpc",
+        "area:E05"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-05-03-b",
+        "T-06-02-a",
+        "T-01-04-b"
+      ],
+      "spec_refs": [
+        "SC-16",
+        "SC-18",
+        "Q22",
+        "BR-15",
+        "FT-19"
+      ],
+      "body": "**Mục tiêu:** Cuối ngày nghiệp vụ trả số lượng 交渉中 về phân bổ rồi 持越 sang ngày mở kế tiếp.\n\n**Spec:** SC-16 Ghi chú LAB-5 [RPC] close_day_allocations; SC-18 NEEDS_DOMAIN_CONFIRMATION #1; Q22; BR-15; FT-19\n\n**Phạm vi:**\n- Cron 23:59 JST: giao dịch `negotiating` của ngày → `cancelled` + thông báo (Q22)\n- `close_day_allocations`: phần còn lại → `carried_over` sang ngày mở kế tiếp theo `market_calendar`, hoặc `withdrawn` có lý do\n- Không ghi đè `arrivals.business_date` (giữ ngày gốc)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: ngày kế tiếp là 休市日 → 持越 sang ngày mở sau đó\n- [ ] pgTAP: 取下げ thiếu lý do → ERR_REASON_REQUIRED\n- [ ] Chạy lại job không tạo phân bổ trùng\n\n**Phụ thuộc:** T-05-03-b, T-06-02-a, T-01-04-b"
+    },
+    {
+      "key": "T-05-03-d",
+      "parent": "I-05-03",
+      "title": "[FE] SC-16 board 4 cột: kéo-thả PC + nút tablet + SplitDialog + HistoryDrawer",
+      "labels": [
+        "type:fe",
+        "area:E05"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-05-03-b"
+      ],
+      "spec_refs": [
+        "SC-16",
+        "FT-13"
+      ],
+      "body": "**Mục tiêu:** Board phân bổ dùng được cả PC và tablet.\n\n**Spec:** SC-16 § 3–§ 7; PREMISE § 3 (FT-13 thu hẹp)\n\n**Phạm vi:**\n- 4 cột 未振分 / 相対 / せり / 保留; dnd có hỗ trợ bàn phím (PC)\n- Tablet: nút chọn kênh, không kéo-thả\n- SplitDialog tách số lượng; HistoryDrawer; làm mới 30 giây\n\n**Tiêu chí hoàn thành:**\n- [ ] Tablet viewport không bật dnd\n- [ ] Tách 30 → 20/10 cập nhật đúng cột\n\n**Phụ thuộc:** T-05-03-b"
+    },
+    {
+      "key": "T-05-03-e",
+      "parent": "I-05-03",
+      "title": "[TEST] E2E buổi sáng: nhập → thẩm định → tách lô → 相対 → chặn chuyển; đo thời gian tablet",
+      "labels": [
+        "type:test",
+        "area:E05"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "QA",
+      "phase": 3,
+      "depends_on": [
+        "T-05-03-d",
+        "T-05-02-c",
+        "T-05-01-c",
+        "T-06-02-c"
+      ],
+      "spec_refs": [
+        "SC-16",
+        "SC-14",
+        "US-02",
+        "US-03",
+        "US-04"
+      ],
+      "body": "**Mục tiêu:** Khóa luồng 3.1 của architecture bằng test và số đo thực tế.\n\n**Spec:** SC-16 Ghi chú LAB-5 [Test]; SC-14 Ghi chú LAB-5 [Test]; architecture § 3.1; US-02; US-03; US-04\n\n**Phạm vi:**\n- Tách 30 → 20/10, tạo 相対 8, chuyển 15 từ phần 相対 → bị chặn\n- Đo thao tác thực tế trên tablet với 3 người dùng thử\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E xanh trên CI\n- [ ] Số đo < 30 giây/lô ghi vào báo cáo (nếu vượt → mở bug)\n\n**Phụ thuộc:** T-05-03-d, T-05-02-c, T-05-01-c, T-06-02-c"
+    },
+    {
+      "key": "T-05-04-a",
+      "parent": "I-05-04",
+      "title": "[FE] SC-13 danh sách + view v_lot_overview + nhãn lô PDF (A7, QR)",
+      "labels": [
+        "type:fe",
+        "area:E05"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-05-03-a",
+        "T-05-02-a",
+        "T-01-04-a"
+      ],
+      "spec_refs": [
+        "SC-13",
+        "SC-14",
+        "FT-14",
+        "ADR-011",
+        "A-08"
+      ],
+      "body": "**Mục tiêu:** Danh sách lô một truy vấn và in nhãn dùng chung SC-14.\n\n**Spec:** SC-13 Ghi chú LAB-5 + [DB_GAP] #1; SC-14 Ghi chú LAB-5 (FT-14); ADR-011; A-08\n\n**Phạm vi:**\n- View `v_lot_overview` (security_invoker): lô + hạng hiện tại + tóm tắt kênh + số 成立\n- List + lọc qua URL + chip; làm mới 60 giây giờ cao điểm\n- Renderer nhãn lô PDF A7, QR = mã lô + URL SC-15 (Should)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: NAK `select * from lots` → 0 dòng\n- [ ] PDF nhãn mở được trên máy in A7 thử\n\n**Phụ thuộc:** T-05-03-a, T-05-02-a, T-01-04-a"
+    },
+    {
+      "key": "T-06-01-a",
+      "parent": "I-06-01",
+      "title": "[DB] Migration transactions TO-BE + transaction_corrections + eligibility_overrides + RLS select",
+      "labels": [
+        "type:db",
+        "area:E06",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "BE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-05-03-a",
+        "T-04-04-a"
+      ],
+      "spec_refs": [
+        "SC-18",
+        "SC-17",
+        "SC-19",
+        "ADR-006",
+        "D-22",
+        "D-23",
+        "GAP-10"
+      ],
+      "body": "**Mục tiêu:** Schema giao dịch gắn phần phân bổ, đủ cột cho xác nhận miệng, idempotency và khóa lạc quan.\n\n**Spec:** SC-18 Ghi chú LAB-5 [DB] + [DB_GAP] #3–#5; SC-17 Ghi chú LAB-5 [DB]; SC-19 [DB_GAP] #1–#3; ADR-006; D-22; D-23; GAP-10\n\n**Phạm vi:**\n- `transactions`: `allocation_id` (+lot_id suy ra), status draft/negotiating/concluded/cancelled, `confirm_method`, CHECK `confirmed_by_name` khi verbal/phone, `override_id`, `client_request_id` UNIQUE, `trade_no` S-YYMMDD-NNNN, `created_by`, `submitted_at`, `updated_at`, `delivery_note`\n- `transaction_corrections` + partial unique `WHERE status='requested'`; `eligibility_overrides`\n- RLS `transactions_select`: bên mua chỉ dòng của mình, không thấy draft; gắn `fn_audit`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: NAK-A không thấy giao dịch NAK-B, không thấy draft\n- [ ] pgTAP: verbal thiếu tên → lỗi CHECK\n- [ ] pgTAP: 2 yêu cầu sửa đang chờ → lỗi unique\n\n**Phụ thuộc:** T-05-03-a, T-04-04-a"
+    },
+    {
+      "key": "T-06-01-b",
+      "parent": "I-06-01",
+      "title": "[DB] fn_buyer_exposure + fn_check_buyer_eligibility(p_exclude_transaction_id) + 8 case pgTAP",
+      "labels": [
+        "type:db",
+        "area:E06",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "BE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-06-01-a",
+        "T-03-01-c",
+        "T-09-02-a"
+      ],
+      "spec_refs": [
+        "ADR-002",
+        "SC-10",
+        "SC-18",
+        "BR-04",
+        "BR-05",
+        "BR-06",
+        "GAP-08",
+        "D-21",
+        "Q25"
+      ],
+      "body": "**Mục tiêu:** Một hàm quyết định ai được làm bên mua, dùng chung SC-18/SC-19/SC-23.\n\n**Spec:** ADR-002 Việc phải làm; SC-10 Ghi chú LAB-5; SC-18 [DB_GAP] #2; BR-04; BR-05; BR-06; GAP-08; D-21; Q25\n\n**Phạm vi:**\n- `fn_buyer_exposure`: hóa đơn chưa trả đủ + 成立 chưa vào hóa đơn + 交渉中 (sửa GAP-08)\n- `fn_check_buyer_eligibility(buyer, seller, amount, business_date, p_exclude_transaction_id)` trả mã lỗi + thông điệp JP\n- `credit_limit = 0` = không cho nợ (Q25 mặc định)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP 8 case: cấp 2 → ERR_TIER; hết hạn → ERR_QUALIFICATION; đình chỉ → ERR_SUSPENDED; có ngoại lệ → OK; vượt hạn mức → ERR_CREDIT; đúng biên hạn mức → OK; 仲卸 bán cho 買出人 không bảo lãnh → ERR_NOT_SPONSORED; hợp lệ → OK\n- [ ] pgTAP biên: 交渉中 tính vào exposure; kiểm lại lúc chốt không đếm trùng chính giao dịch (D-21)\n\n**Phụ thuộc:** T-06-01-a, T-03-01-c, T-09-02-a"
+    },
+    {
+      "key": "T-06-01-c",
+      "parent": "I-06-01",
+      "title": "[DB] Trigger trg_enforce_buyer_tier + trigger chống bán vượt trên phần phân bổ",
+      "labels": [
+        "type:db",
+        "area:E06",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "BE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-06-01-b"
+      ],
+      "spec_refs": [
+        "ADR-002",
+        "BR-04",
+        "BR-19",
+        "GAP-09"
+      ],
+      "body": "**Mục tiêu:** Chặn cuối ở DB kể cả khi có đường ghi bỏ qua RPC (sửa GAP-09).\n\n**Spec:** ADR-002; BR-04; BR-19; GAP-09; X-2\n\n**Phạm vi:**\n- `trg_enforce_buyer_tier` BEFORE INSERT/UPDATE buyer_id/status trên `transactions`\n- Trigger Σ (negotiating + concluded) ≤ `lot_allocations.quantity` với khóa hàng\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: insert trực tiếp (role postgres giả lập bypass RPC) với KAI làm bên mua → lỗi ERR_TIER\n- [ ] pgTAP: insert vượt phần phân bổ → ERR_OVERSELL\n\n**Phụ thuộc:** T-06-01-b"
+    },
+    {
+      "key": "T-06-02-a",
+      "parent": "I-06-02",
+      "title": "[RPC] create / update / cancel_negotiation (khóa hàng + idempotency)",
+      "labels": [
+        "type:rpc",
+        "area:E06",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "BE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-06-01-c"
+      ],
+      "spec_refs": [
+        "SC-18",
+        "BR-17",
+        "BR-19",
+        "ADR-010"
+      ],
+      "body": "**Mục tiêu:** Ghi giao dịch an toàn đồng thời, kiểm quyền mua ngay từ draft.\n\n**Spec:** SC-18 Ghi chú LAB-5 [RPC]; BR-17; BR-19; ADR-010; SC-18 NEEDS_DOMAIN_CONFIRMATION #4\n\n**Phạm vi:**\n- Chỉ phần phân bổ kênh 相対 (ERR_CHANNEL); số lượng ≤ còn lại\n- Gọi `fn_check_buyer_eligibility` ở create/update (từ chối tuyệt đối từ draft)\n- Idempotent theo `client_request_id`; `updated_at` tăng mỗi lần sửa\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: 2 phiên gửi cùng phần phân bổ → không bán vượt (1 thành công, 1 ERR_OVERSELL)\n- [ ] pgTAP: ngày 休市日 → ERR_MARKET_CLOSED; kênh sai → ERR_CHANNEL\n\n**Phụ thuộc:** T-06-01-c"
+    },
+    {
+      "key": "T-06-02-b",
+      "parent": "I-06-02",
+      "title": "[RPC] conclude_negotiation: nhánh app (ERR_STALE) và nhánh 口頭/電話 + email 成立",
+      "labels": [
+        "type:rpc",
+        "area:E06",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "相対 xác nhận miệng",
+      "role": "BE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-06-02-a",
+        "T-01-04-b"
+      ],
+      "spec_refs": [
+        "SC-18",
+        "SC-19",
+        "BR-18",
+        "D-21",
+        "D-22",
+        "D-27"
+      ],
+      "body": "**Mục tiêu:** Chốt 成立 theo BR-18, kiểm lại quyền mua lúc chốt.\n\n**Spec:** SC-18 Implementation Mapping; SC-19 Ghi chú LAB-5 [RPC]; BR-18; D-21; D-22; D-27; X-4\n\n**Phạm vi:**\n- Nhánh `app`: chỉ bên mua của giao dịch; `p_expected_updated_at` khác → ERR_STALE\n- Nhánh `verbal`/`phone`: nhân viên + `confirmed_by_name` bắt buộc (ERR_CONFIRMER_REQUIRED)\n- Kiểm lại eligibility với `p_exclude_transaction_id`; enqueue email `negotiation_concluded` gửi ngay sau commit\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: bên mua khác chốt → ERR_NOT_FOUND\n- [ ] pgTAP: giá đổi sau khi bên mua mở → ERR_STALE\n- [ ] pgTAP: đình chỉ giữa lúc 交渉中 → chốt bị ERR_SUSPENDED\n\n**Phụ thuộc:** T-06-02-a, T-01-04-b"
+    },
+    {
+      "key": "T-06-02-c",
+      "parent": "I-06-02",
+      "title": "[FE] SC-18 form + EligibilityPanel (4 biến thể từ chối) + ConcludePanel",
+      "labels": [
+        "type:fe",
+        "area:E06",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "相対 xác nhận miệng",
+      "role": "FE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-06-02-b",
+        "T-01-03-b"
+      ],
+      "spec_refs": [
+        "SC-18"
+      ],
+      "body": "**Mục tiêu:** Form giao dịch hiển thị trước lý do bị từ chối và chốt bằng xác nhận miệng.\n\n**Spec:** SC-18 § 3–§ 7; SC-18 Ghi chú LAB-5 [FE]\n\n**Phạm vi:**\n- Form chọn phần phân bổ, bên mua, SL, giá, `delivery_note`\n- EligibilityPanel: cấp 2 / hết hạn / đình chỉ (nút xin ngoại lệ) / vượt hạn mức\n- ConcludePanel: 口頭 / 電話 + tên người xác nhận; `useDraftForm` + `useIdempotentSubmit`\n\n**Tiêu chí hoàn thành:**\n- [ ] Thông điệp từ chối hiển thị nguyên văn JP\n- [ ] Không có ô nhập tier\n\n**Phụ thuộc:** T-06-02-b, T-01-03-b"
+    },
+    {
+      "key": "T-06-02-d",
+      "parent": "I-06-02",
+      "title": "[TEST] E2E 相対: US-01 tc1/tc2, US-05 tc2, US-06 tc2, US-07 tc3, SC-19 mobile, mất mạng",
+      "labels": [
+        "type:test",
+        "area:E06",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "QA",
+      "phase": 3,
+      "depends_on": [
+        "T-06-02-c",
+        "T-06-03-c",
+        "T-06-04-b"
+      ],
+      "spec_refs": [
+        "SC-18",
+        "SC-19",
+        "SC-10",
+        "US-01",
+        "US-05",
+        "US-06",
+        "US-07"
+      ],
+      "body": "**Mục tiêu:** Khóa luồng lõi 3.2 bằng E2E.\n\n**Spec:** SC-18 Ghi chú LAB-5 [Test E2E]; SC-19 Ghi chú LAB-5 [Test]; SC-10 Ghi chú LAB-5 (Test); US-01; US-05; US-06; US-07\n\n**Phạm vi:**\n- KAI làm bên mua → từ chối; SBK-02 đình chỉ → từ chối → xin ngoại lệ → ADM duyệt → tạo được\n- Chốt bằng app trên viewport 390×844; nhân viên đổi giá giữa chừng → ERR_STALE; bên mua khác mở URL → 404\n- Sửa sau chốt → ADM duyệt → audit có before/after\n- Mất mạng gửi lại 2 lần → 1 giao dịch\n\n**Tiêu chí hoàn thành:**\n- [ ] Tất cả kịch bản xanh trên CI\n\n**Phụ thuộc:** T-06-02-c, T-06-03-c, T-06-04-b"
+    },
+    {
+      "key": "T-06-03-a",
+      "parent": "I-06-03",
+      "title": "[RPC] request / approve / reject_correction (kiểm kỳ khóa, tồn bán lẻ, hóa đơn đã phát hành)",
+      "labels": [
+        "type:rpc",
+        "area:E06",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Khóa kỳ 締め",
+      "role": "BE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-06-02-b",
+        "T-01-02-c",
+        "T-09-01-a"
+      ],
+      "spec_refs": [
+        "ADR-008",
+        "SC-18",
+        "SC-26",
+        "BR-20",
+        "BR-29",
+        "GAP-10",
+        "Q23",
+        "Q24"
+      ],
+      "body": "**Mục tiêu:** Luồng sửa có duyệt, audit trước/sau (sửa GAP-10).\n\n**Spec:** ADR-008 Việc phải làm; SC-18 Ghi chú LAB-5 [RPC]; SC-26 Ràng buộc chéo; BR-20; BR-29; GAP-10; Q23; Q24\n\n**Phạm vi:**\n- `request_correction` (lý do enum + ghi chú; ERR_CORRECTION_PENDING)\n- `approve_correction`: chỉ ADM; kiểm lại eligibility (exclude self); SL mới ≥ Σ đã bán lẻ; nếu đã vào hóa đơn kỳ mở → tạo nhắc void + phát hành lại (Q24)\n- Quantity = 0 = hủy giao dịch đã 成立 (Q23)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: kỳ `locked` → ERR_PERIOD_LOCKED\n- [ ] pgTAP: SL mới < đã bán lẻ → lỗi\n- [ ] pgTAP: duyệt sinh đúng 1 dòng audit có reason\n\n**Phụ thuộc:** T-06-02-b, T-01-02-c, T-09-01-a"
+    },
+    {
+      "key": "T-06-03-b",
+      "parent": "I-06-03",
+      "title": "[RPC] request / decide_eligibility_override (từng giao dịch, hết hạn cuối ngày)",
+      "labels": [
+        "type:rpc",
+        "area:E06",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "BE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-06-01-b"
+      ],
+      "spec_refs": [
+        "SC-18",
+        "BR-05"
+      ],
+      "body": "**Mục tiêu:** Ngoại lệ cho bên mua đang 取引停止 theo BR-05.\n\n**Spec:** SC-18 Implementation Mapping; BR-05; PREMISE § 2 #4\n\n**Phạm vi:**\n- `request_eligibility_override` (卸売業者), `decide_eligibility_override` (ADM)\n- Ngoại lệ gắn đúng một giao dịch, hết hạn cuối `business_date`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: ngoại lệ hôm qua không dùng được hôm nay\n- [ ] pgTAP: dùng ngoại lệ cho giao dịch khác → ERR_SUSPENDED\n- [ ] pgTAP: không phải ADM duyệt → ERR_FORBIDDEN\n\n**Phụ thuộc:** T-06-01-b"
+    },
+    {
+      "key": "T-06-03-c",
+      "parent": "I-06-03",
+      "title": "[FE] SC-18 CorrectionForm + ApprovalPanel (ADM) + yêu cầu/duyệt ngoại lệ",
+      "labels": [
+        "type:fe",
+        "area:E06",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Khóa kỳ 締め",
+      "role": "FE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-06-03-a",
+        "T-06-03-b",
+        "T-06-02-c"
+      ],
+      "spec_refs": [
+        "SC-18",
+        "ADR-008"
+      ],
+      "body": "**Mục tiêu:** Khu vực sửa sau chốt và duyệt trên SC-18.\n\n**Spec:** SC-18 § 3–§ 7 (khu vực sửa); ADR-008\n\n**Phạm vi:**\n- CorrectionForm: lý do (再計量/損傷/入力ミス/その他) + ghi chú, so sánh trước/sau\n- ApprovalPanel cho ADM; banner kỳ khóa\n- Nút xin ngoại lệ từ EligibilityPanel\n\n**Tiêu chí hoàn thành:**\n- [ ] ADM thấy panel duyệt, W-FLR không thấy\n- [ ] Kỳ khóa → form ẩn, hiển thị lý do\n\n**Phụ thuộc:** T-06-03-a, T-06-03-b, T-06-02-c"
+    },
+    {
+      "key": "T-06-04-a",
+      "parent": "I-06-04",
+      "title": "[FE] SC-17 hai chế độ (bảng nhân viên / thẻ bên mua) + lọc URL",
+      "labels": [
+        "type:fe",
+        "area:E06",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-06-01-a",
+        "T-01-03-a"
+      ],
+      "spec_refs": [
+        "SC-17",
+        "GAP-16"
+      ],
+      "body": "**Mục tiêu:** Danh sách 相対 theo người xem (sửa lọc client-side của LAB-2).\n\n**Spec:** SC-17 § 3–§ 7; GAP-16 (`app/(app)/negotiations/page.tsx:10`)\n\n**Phạm vi:**\n- Bảng nhân viên (trade_no, trạng thái, bên mua, SL, giá)\n- Thẻ bên mua (chỉ của mình); lọc qua URL\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: bên mua A không thấy giao dịch B\n- [ ] W-ACC thấy draft (NEEDS_DOMAIN_CONFIRMATION #1 mặc định)\n\n**Phụ thuộc:** T-06-01-a, T-01-03-a"
+    },
+    {
+      "key": "T-06-04-b",
+      "parent": "I-06-04",
+      "title": "[FE] SC-19 xác nhận mobile: thẻ, nút sticky, hộp xác nhận, banner ERR_STALE",
+      "labels": [
+        "type:fe",
+        "area:E06",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "相対 xác nhận miệng",
+      "role": "FE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-06-02-b",
+        "T-06-04-a"
+      ],
+      "spec_refs": [
+        "SC-19",
+        "BR-18",
+        "D-22"
+      ],
+      "body": "**Mục tiêu:** Bên mua chốt giao dịch trên điện thoại.\n\n**Spec:** SC-19 § 3–§ 7; BR-18; D-22\n\n**Phạm vi:**\n- Thẻ nội dung giao dịch, nút 承認 sticky, hộp xác nhận\n- Banner khi nội dung đã đổi (ERR_STALE) → tải lại\n- URL của bên mua khác → 404\n\n**Tiêu chí hoàn thành:**\n- [ ] Hiển thị đúng ở 390×844\n- [ ] Không có nút 辞退 (mặc định I-00-03)\n\n**Phụ thuộc:** T-06-02-b, T-06-04-a"
+    },
+    {
+      "key": "T-06-05-a",
+      "parent": "I-06-05",
+      "title": "[RPC] Bảng reservations + RPC create / cancel_reservation + khớp trong create/conclude",
+      "labels": [
+        "type:rpc",
+        "area:E06",
+        "constraint"
+      ],
+      "priority": "Should",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "BE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-06-02-b"
+      ],
+      "spec_refs": [
+        "SC-20"
+      ],
+      "body": "**Mục tiêu:** Đặt trước chỉ cho cấp 1, khớp khi 成立.\n\n**Spec:** SC-20 Ghi chú LAB-5 [DB] + [RPC] + [DB_GAP] #1\n\n**Phạm vi:**\n- `reservations` (+created_by, cancelled_reason) + RLS + CHECK tier 1\n- `create_reservation`, `cancel_reservation`; `p_reservation_id` trong create/conclude_negotiation\n- Giao dịch khớp bị hủy → đặt trước quay về 受付中; job 0:05 hủy đặt trước quá ngày\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: KAI tạo → ERR_TIER; ngày quá khứ → ERR_INVALID_DATE\n- [ ] pgTAP: 成立 → `matched`; hủy giao dịch → `open`\n\n**Phụ thuộc:** T-06-02-b"
+    },
+    {
+      "key": "T-06-05-b",
+      "parent": "I-06-05",
+      "title": "[FE] SC-20 danh sách + drawer (chế độ nhân viên / bên mua)",
+      "labels": [
+        "type:fe",
+        "area:E06"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 3,
+      "depends_on": [
+        "T-06-05-a"
+      ],
+      "spec_refs": [
+        "SC-20"
+      ],
+      "body": "**Mục tiêu:** Màn đặt trước.\n\n**Spec:** SC-20 § 3–§ 7\n\n**Phạm vi:**\n- List + drawer tạo/hủy\n- Nút \"tạo 相対 từ đặt trước\" sang SC-18\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: bên mua A không thấy đặt trước của B\n\n**Phụ thuộc:** T-06-05-a"
+    },
+    {
+      "key": "T-07-01-a",
+      "parent": "I-07-01",
+      "title": "[DB] Migration auction_sessions TO-BE + auction_entries (partial unique) + audit",
+      "labels": [
+        "type:db",
+        "area:E07",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 4,
+      "depends_on": [
+        "T-05-03-a"
+      ],
+      "spec_refs": [
+        "SC-21",
+        "ADR-009",
+        "GAP-18",
+        "D-24"
+      ],
+      "body": "**Mục tiêu:** Schema phiên せり đúng (sửa GAP-18).\n\n**Spec:** SC-21 Ghi chú LAB-5 DB; ADR-009 Việc phải làm; GAP-18; D-24\n\n**Phạm vi:**\n- `auction_sessions`: `auctioneer_profile_id`, `start_time`, `method`, trạng thái một chiều\n- `auction_entries` thay `auction_lots`; partial unique một phần phân bổ chỉ ở một phiên mở\n- Trigger BR-40; gắn `fn_audit`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: đổi trạng thái ngược → ERR_SESSION_STATE\n- [ ] pgTAP: phần phân bổ ở 2 phiên → lỗi unique\n\n**Phụ thuộc:** T-05-03-a"
+    },
+    {
+      "key": "T-07-01-b",
+      "parent": "I-07-01",
+      "title": "[RPC] create_auction_session / set_auction_entries / start_session + pgTAP",
+      "labels": [
+        "type:rpc",
+        "area:E07"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 4,
+      "depends_on": [
+        "T-07-01-a"
+      ],
+      "spec_refs": [
+        "SC-21",
+        "Q32"
+      ],
+      "body": "**Mục tiêu:** Thiết lập và bắt đầu phiên.\n\n**Spec:** SC-21 Implementation Mapping; Q32\n\n**Phạm vi:**\n- Kiểm 競り人 (ERR_NOT_AUCTIONEER), số phiên trùng (ERR_DUPLICATE_SESSION)\n- Chỉ phần phân bổ kênh せり (ERR_ALLOCATION_CHANNEL / ERR_ALLOCATION_TAKEN)\n- Thêm lô vào phiên đang chạy → cuối hàng chờ (Q32)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: 休市日, trùng số phiên, lô đã ở phiên khác, không có lô (ERR_NO_ENTRIES)\n\n**Phụ thuộc:** T-07-01-a"
+    },
+    {
+      "key": "T-07-01-c",
+      "parent": "I-07-01",
+      "title": "[FE] SC-21 trang setup: SessionTabs, chọn nhiều 候補, sắp thứ tự ↑/↓ (kéo-thả PC)",
+      "labels": [
+        "type:fe",
+        "area:E07"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 4,
+      "depends_on": [
+        "T-07-01-b",
+        "T-01-03-a"
+      ],
+      "spec_refs": [
+        "SC-21"
+      ],
+      "body": "**Mục tiêu:** Màn thiết lập phiên.\n\n**Spec:** SC-21 § 3–§ 7\n\n**Phạm vi:**\n- Tab phiên trong ngày (giờ từ `auction_start_times`)\n- Bảng 候補 chọn nhiều; danh sách thứ tự ↑/↓; dnd chỉ PC\n- Ẩn menu せり với NAK/SBK/KAI\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: tạo phiên → thêm 3 lô → đổi thứ tự → bắt đầu → sang SC-22\n\n**Phụ thuộc:** T-07-01-b, T-01-03-a"
+    },
+    {
+      "key": "T-07-02-a",
+      "parent": "I-07-02",
+      "title": "[RPC] record_auction_result + check_auction_buyer (dùng fn_check_buyer_eligibility, chia lô)",
+      "labels": [
+        "type:rpc",
+        "area:E07",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "BE-1",
+      "phase": 4,
+      "depends_on": [
+        "T-07-01-b",
+        "T-06-01-c"
+      ],
+      "spec_refs": [
+        "SC-23",
+        "ADR-002",
+        "ADR-009",
+        "BR-04",
+        "BR-16",
+        "GAP-09"
+      ],
+      "body": "**Mục tiêu:** Ghi kết quả せり với cùng kiểm quyền mua như 相対 (sửa GAP-09 phần せり).\n\n**Spec:** SC-23 Ghi chú LAB-5 DB/RPC; ADR-002; ADR-009; BR-04; BR-16; GAP-09\n\n**Phạm vi:**\n- `check_auction_buyer(short_no)` trả tên + kết quả kiểm để hiển thị trước\n- `record_auction_result`: tạo `transactions` concluded, người nhập thật (GAP-18), chia lô nhiều bên mua, idempotent\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP 9 case: 8 case ADR-002 + chia lô vượt 残数 → ERR_OVERSELL\n- [ ] pgTAP: mã ngắn không tồn tại → ERR_BUYER_NOT_FOUND\n\n**Phụ thuộc:** T-07-01-b, T-06-01-c"
+    },
+    {
+      "key": "T-07-02-b",
+      "parent": "I-07-02",
+      "title": "[RPC] mark_unsold (tách phần dư sang kênh khác) + close_session (chặn khi còn pending)",
+      "labels": [
+        "type:rpc",
+        "area:E07",
+        "gap"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 4,
+      "depends_on": [
+        "T-07-02-a",
+        "T-05-03-b"
+      ],
+      "spec_refs": [
+        "SC-23",
+        "SC-22",
+        "FT-23",
+        "GAP-18"
+      ],
+      "body": "**Mục tiêu:** Xử lý 不落 và đóng phiên một chiều.\n\n**Spec:** SC-23 Ghi chú LAB-5 (mark_unsold); SC-22 Ghi chú LAB-5 (close_session); FT-23; GAP-18; X-3\n\n**Phạm vi:**\n- `mark_unsold`: tách allocation phần dư → 相対/保留, ghi `allocation_events`\n- `close_session`: còn entry `pending` → ERR_ENTRIES_PENDING\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: lô đã bán một phần → phần dư đúng số\n- [ ] pgTAP: mở lại phiên đã đóng → ERR_SESSION_STATE\n\n**Phụ thuộc:** T-07-02-a, T-05-03-b"
+    },
+    {
+      "key": "T-07-02-c",
+      "parent": "I-07-02",
+      "title": "[FE] SC-22 board tablet + Realtime useAuctionChannel + hàng nháp cấp phiên",
+      "labels": [
+        "type:fe",
+        "area:E07"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 4,
+      "depends_on": [
+        "T-07-02-b",
+        "T-01-03-b"
+      ],
+      "spec_refs": [
+        "SC-22",
+        "ADR-009",
+        "ADR-010"
+      ],
+      "body": "**Mục tiêu:** Bảng điều khiển phiên trên tablet, đồng bộ giữa các máy.\n\n**Spec:** SC-22 Ghi chú LAB-5; ADR-009 (kênh Realtime `auction:{id}`); ADR-010\n\n**Phạm vi:**\n- E05 lô hiện tại cỡ lớn, E08 hàng chờ, E09 log, phím tắt\n- Hook `useAuctionChannel` (dùng chung SC-24), phát sự kiện sau RPC\n- Hàng nháp cấp phiên (E11) dùng `useIdempotentSubmit`\n\n**Tiêu chí hoàn thành:**\n- [ ] Vitest: mô phỏng mất mạng giữa 3 lô liên tiếp → gửi lại đúng thứ tự, không trùng\n\n**Phụ thuộc:** T-07-02-b, T-01-03-b"
+    },
+    {
+      "key": "T-07-02-d",
+      "parent": "I-07-02",
+      "title": "[FE] SC-23 modal 落札: 3 ô số, kiểm hai nhịp, chia lô, chọn đích 不落",
+      "labels": [
+        "type:fe",
+        "area:E07",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "FE-1",
+      "phase": 4,
+      "depends_on": [
+        "T-07-02-c"
+      ],
+      "spec_refs": [
+        "SC-23"
+      ],
+      "body": "**Mục tiêu:** Nhập kết quả nhanh, hiện quyền mua trước khi ghi.\n\n**Spec:** SC-23 § 3–§ 7\n\n**Phạm vi:**\n- 3 ô số (mã ngắn, đơn giá, SL) + bàn phím số\n- Nhịp 1: `check_auction_buyer`; nhịp 2: ghi\n- Chia lô cho nhiều bên mua; chọn đích 不落\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: gửi trùng cùng `client_request_id` → 1 transaction\n- [ ] KAI nhập mã → thông điệp từ chối JP\n\n**Phụ thuộc:** T-07-02-c"
+    },
+    {
+      "key": "T-07-02-e",
+      "parent": "I-07-02",
+      "title": "[TEST] E2E phiên 5 lô (3 bán, 1 chia, 1 不落) + đo hiệu năng tablet/Tokyo",
+      "labels": [
+        "type:test",
+        "area:E07"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "QA",
+      "phase": 4,
+      "depends_on": [
+        "T-07-02-d",
+        "T-07-01-c"
+      ],
+      "spec_refs": [
+        "SC-22",
+        "SC-23",
+        "US-08"
+      ],
+      "body": "**Mục tiêu:** Khóa luồng せり và chứng minh mục tiêu thời gian.\n\n**Spec:** SC-22 Ghi chú LAB-5 (Test E2E); SC-23 Ghi chú LAB-5 (Test hiệu năng); US-08\n\n**Phạm vi:**\n- Phiên 5 lô: 3 bán, 1 chia 2 bên mua, 1 不落 → đóng phiên → phần 不落 hiện ở SC-16\n- Đo ≤ 5 giây/lô trên tablet thật; RPC p95 ≤ 300ms trên staging Tokyo\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E xanh\n- [ ] Số đo ghi vào báo cáo, vượt ngưỡng → mở bug\n\n**Phụ thuộc:** T-07-02-d, T-07-01-c"
+    },
+    {
+      "key": "T-07-03-a",
+      "parent": "I-07-03",
+      "title": "[RPC] display_tokens + RPC issue_display_token / get_display_snapshot + broadcast",
+      "labels": [
+        "type:rpc",
+        "area:E07"
+      ],
+      "priority": "Could",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 6,
+      "depends_on": [
+        "T-07-02-a"
+      ],
+      "spec_refs": [
+        "SC-24",
+        "D-17",
+        "Q33"
+      ],
+      "body": "**Mục tiêu:** Truy cập chỉ đọc cho TV không cần tài khoản.\n\n**Spec:** SC-24 Ghi chú LAB-5 DB/BE; D-17; Q33\n\n**Phạm vi:**\n- Bảng `display_tokens` (session, hết hạn cuối ngày, revoked)\n- `issue_display_token`, `get_display_snapshot` (ẩn giá loại nhạy cảm theo Q33)\n- Broadcast sau RPC せり\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP 4 case: token hợp lệ; hết hạn; bị thu hồi; sai phiên → ERR_DISPLAY_TOKEN\n\n**Phụ thuộc:** T-07-02-a"
+    },
+    {
+      "key": "T-07-03-b",
+      "parent": "I-07-03",
+      "title": "[FE] Trang TV toàn màn: font lớn, reconnect + poll fallback, Wake Lock",
+      "labels": [
+        "type:fe",
+        "area:E07"
+      ],
+      "priority": "Could",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 6,
+      "depends_on": [
+        "T-07-03-a",
+        "T-07-02-c"
+      ],
+      "spec_refs": [
+        "SC-24",
+        "FT-24"
+      ],
+      "body": "**Mục tiêu:** Màn hình sàn chạy cả ngày không cần thao tác.\n\n**Spec:** SC-24 § 3–§ 7; PREMISE § 3 (FT-24 thu hẹp)\n\n**Phạm vi:**\n- Route `/display/[sessionId]?t=token` ngoài layout (app)\n- Reconnect + poll fallback 10 giây; Wake Lock; overlay trạng thái\n\n**Tiêu chí hoàn thành:**\n- [ ] Ngắt mạng 60 giây → tự hồi phục\n- [ ] Đổi ngày → E10 thông báo hết phiên\n\n**Phụ thuộc:** T-07-03-a, T-07-02-c"
+    },
+    {
+      "key": "T-08-01-a",
+      "parent": "I-08-01",
+      "title": "[DB] Migration retail_slips + retail_sales + số phiếu + trigger bảo lãnh/tồn + RLS",
+      "labels": [
+        "type:db",
+        "area:E08",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "BE-1",
+      "phase": 4,
+      "depends_on": [
+        "T-06-01-a"
+      ],
+      "spec_refs": [
+        "SC-25",
+        "D-20",
+        "D-19",
+        "GAP-21"
+      ],
+      "body": "**Mục tiêu:** Mô hình phiếu bán (đầu phiếu + dòng) theo D-20 (sửa GAP-21).\n\n**Spec:** SC-25 Ghi chú LAB-5 DB; D-20; D-19; X-8; GAP-21\n\n**Phạm vi:**\n- `retail_slips` (slip_no seq, 仲卸, 買出人, thanh toán, hủy) + `retail_sales` (dòng, client_request_id)\n- Trigger: 買出人 phải được 仲卸 này bảo lãnh với 登録 hiệu lực; tồn không âm\n- RLS: 仲卸 thấy phiếu của mình, KAI thấy phiếu mua của mình\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: KAI khác đăng nhập không thấy phiếu (hồi quy kiểu GAP-16)\n- [ ] pgTAP: insert trực tiếp cho KAI không bảo lãnh → ERR_NOT_SPONSORED\n\n**Phụ thuộc:** T-06-01-a"
+    },
+    {
+      "key": "T-08-01-b",
+      "parent": "I-08-01",
+      "title": "[RPC] create_retail_sale (FIFO, khóa nguồn) + cancel_retail_slip + pgTAP",
+      "labels": [
+        "type:rpc",
+        "area:E08",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Quyền mua 2 cấp",
+      "role": "BE-2",
+      "phase": 4,
+      "depends_on": [
+        "T-08-01-a"
+      ],
+      "spec_refs": [
+        "SC-25",
+        "D-20",
+        "Q34"
+      ],
+      "body": "**Mục tiêu:** Ghi phiếu bán an toàn đồng thời.\n\n**Spec:** SC-25 Ghi chú LAB-5 RPC; D-20; Q34\n\n**Phạm vi:**\n- `create_retail_sale`: chọn nguồn mua FIFO, khóa hàng nguồn, idempotent\n- `cancel_retail_slip` có lý do (D-20 — RPC chưa có trong index)\n- Thuế 8% theo Q34 mặc định\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: khách không bảo lãnh → ERR_NOT_SPONSORED; vượt tồn → ERR_INVENTORY_EXCEEDED\n- [ ] pgTAP: 2 phiên bán đồng thời không âm tồn; gửi trùng id → 1 phiếu\n\n**Phụ thuộc:** T-08-01-a"
+    },
+    {
+      "key": "T-08-01-c",
+      "parent": "I-08-01",
+      "title": "[FE] SC-25 danh sách + form phiếu + in A5 + biến thể KAI chỉ xem",
+      "labels": [
+        "type:fe",
+        "area:E08"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 4,
+      "depends_on": [
+        "T-08-01-b"
+      ],
+      "spec_refs": [
+        "SC-25"
+      ],
+      "body": "**Mục tiêu:** Màn phiếu bán trên tablet và biến thể xem cho 買出人.\n\n**Spec:** SC-25 § 3–§ 7\n\n**Phạm vi:**\n- Danh sách + ngăn kéo; form 1 dòng (nhiều dòng khi D4 chốt)\n- CSS in A5\n- KAI: chỉ xem trên điện thoại\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: NAK tạo phiếu → in; KAI khác không thấy phiếu\n\n**Phụ thuộc:** T-08-01-b"
+    },
+    {
+      "key": "T-08-02-a",
+      "parent": "I-08-02",
+      "title": "[DB] View v_intermediate_inventory (security_invoker) + pgTAP",
+      "labels": [
+        "type:db",
+        "area:E08"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 4,
+      "depends_on": [
+        "T-08-01-a"
+      ],
+      "spec_refs": [
+        "SC-26"
+      ],
+      "body": "**Mục tiêu:** Một nguồn tính tồn dùng chung cho SC-25/SC-26.\n\n**Spec:** SC-26 Ghi chú LAB-5 DB\n\n**Phạm vi:**\n- View tồn = mua (せり + 相対 成立) − bán lẻ (không hủy), theo nguồn\n- Tồn qua ngày theo NEEDS_DOMAIN_CONFIRMATION D8 (mặc định cho bán tiếp)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: mua せり chia lô, mua 相対, bán lẻ → tồn đúng\n- [ ] pgTAP: RLS hai 仲卸 không thấy tồn của nhau\n\n**Phụ thuộc:** T-08-01-a"
+    },
+    {
+      "key": "T-08-02-b",
+      "parent": "I-08-02",
+      "title": "[FE] SC-26 hai tab + dòng mở rộng nguồn mua + nút bán nhanh sang SC-25",
+      "labels": [
+        "type:fe",
+        "area:E08"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 4,
+      "depends_on": [
+        "T-08-02-a",
+        "T-08-01-c"
+      ],
+      "spec_refs": [
+        "SC-26"
+      ],
+      "body": "**Mục tiêu:** Màn tồn hàng cho 仲卸.\n\n**Spec:** SC-26 § 3–§ 7\n\n**Phạm vi:**\n- Tab tồn theo 品目; dòng mở rộng nguồn mua\n- Nút bán nhanh → SC-25 điền sẵn\n- Tab 売掛残 (FT-27 Could) chỉ khung, ẩn khi D10 chưa chốt\n\n**Tiêu chí hoàn thành:**\n- [ ] Số tồn trên màn = view\n\n**Phụ thuộc:** T-08-02-a, T-08-01-c"
+    },
+    {
+      "key": "T-09-01-a",
+      "parent": "I-09-01",
+      "title": "[DB] billing_periods + cron tạo kỳ + trg_block_locked_period (ngoại lệ D-09)",
+      "labels": [
+        "type:db",
+        "area:E09",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Khóa kỳ 締め",
+      "role": "BE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-04-01-a",
+        "T-01-02-c"
+      ],
+      "spec_refs": [
+        "ADR-012",
+        "SC-33",
+        "D-09",
+        "D-14",
+        "GAP-12",
+        "BR-29"
+      ],
+      "body": "**Mục tiêu:** Nền kỳ chốt cho hóa đơn, 仕切書, thưởng (sửa GAP-12).\n\n**Spec:** ADR-012 Việc phải làm; SC-33 Ghi chú LAB-5 DB; D-09; D-14; GAP-12; BR-29\n\n**Phạm vi:**\n- `billing_periods` (period_start/end, status open/closing/locked, closed_at/by, incentives_calculated_at, locked/reopened_*)\n- Cron tạo kỳ theo `closing_cycle` của 業務規程\n- Hàm trigger `trg_block_locked_period` gắn `transactions`, `invoices` (settlements gắn ở T-11-01-a); ngoại lệ ghi `payments`, `payment_allocations`, `invoices.status`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: kỳ locked → update `transactions` của kỳ → ERR_PERIOD_LOCKED\n- [ ] pgTAP: kỳ locked → đổi `invoices.status` sang paid vẫn được, đổi `total` bị chặn\n\n**Phụ thuộc:** T-04-01-a, T-01-02-c"
+    },
+    {
+      "key": "T-09-01-b",
+      "parent": "I-09-01",
+      "title": "[RPC] check_period_lock / lock_period / reopen_period + pgTAP",
+      "labels": [
+        "type:rpc",
+        "area:E09",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Khóa kỳ 締め",
+      "role": "BE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-09-01-a",
+        "T-09-02-b",
+        "T-11-01-c",
+        "T-10-03-a"
+      ],
+      "spec_refs": [
+        "SC-33",
+        "BR-29",
+        "D-03",
+        "Q36"
+      ],
+      "body": "**Mục tiêu:** Khóa kỳ theo checklist BR-29, mở lại có lý do.\n\n**Spec:** SC-33 Implementation Mapping; SC-33 Ghi chú LAB-5 RPC; BR-29; D-03; Q36\n\n**Phạm vi:**\n- `check_period_lock` trả blocking: UNINVOICED_TX, VOID_NOT_REISSUED, SETTLEMENT_PENDING, INCENTIVE_PENDING, INCENTIVE_NOT_CALCULATED, PENDING_CORRECTION + info\n- Info thêm: tiền về có `received_on` ≤ hạn nhưng chưa 消込 (ảnh hưởng 完納)\n- `lock_period` (ADM), `reopen_period` (ADM, lý do, ERR_LATER_PERIOD_LOCKED)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: còn thưởng `calculated` → ERR_LOCK_PRECONDITION\n- [ ] pgTAP: `incentives_calculated_at` null → chặn (INCENTIVE_NOT_CALCULATED)\n- [ ] pgTAP: mở lại ghi audit có reason; W-ACC gọi → ERR_FORBIDDEN\n\n**Phụ thuộc:** T-09-01-a, T-09-02-b, T-11-01-c, T-10-03-a"
+    },
+    {
+      "key": "T-09-01-c",
+      "parent": "I-09-01",
+      "title": "[FE] SC-33 danh sách kỳ + checklist + modal khóa / mở lại",
+      "labels": [
+        "type:fe",
+        "area:E09",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Khóa kỳ 締め",
+      "role": "FE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-09-01-b"
+      ],
+      "spec_refs": [
+        "SC-33"
+      ],
+      "body": "**Mục tiêu:** ADM thấy vì sao chưa khóa được và khóa/mở kỳ.\n\n**Spec:** SC-33 § 3–§ 7\n\n**Phạm vi:**\n- Danh sách kỳ + trạng thái\n- Checklist C1–C5 có link sang SC-27/28/31/32\n- Modal khóa; modal mở lại bắt buộc lý do\n\n**Tiêu chí hoàn thành:**\n- [ ] Checklist khớp `check_period_lock`\n- [ ] W-ACC/W-MGR chỉ xem\n\n**Phụ thuộc:** T-09-01-b"
+    },
+    {
+      "key": "T-09-01-d",
+      "parent": "I-09-01",
+      "title": "[TEST] Hồi quy chéo khóa kỳ + GAP-11 (phí chỉ ở 仕切書)",
+      "labels": [
+        "type:test",
+        "area:E09",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Khóa kỳ 締め",
+      "role": "QA",
+      "phase": 5,
+      "depends_on": [
+        "T-09-01-c",
+        "T-09-03-b",
+        "T-11-01-e",
+        "T-06-03-c",
+        "T-09-04-d"
+      ],
+      "spec_refs": [
+        "SC-33",
+        "SC-31",
+        "GAP-11",
+        "D-09"
+      ],
+      "body": "**Mục tiêu:** Chứng minh khóa kỳ chặn đúng chỗ và phí hoa hồng đã chuyển phía chủ hàng.\n\n**Spec:** SC-33 Ghi chú LAB-5 (Hồi quy chéo); SC-31 Ghi chú LAB-5 (Gỡ GAP-11); GAP-11; D-09; X-6\n\n**Phạm vi:**\n- Kỳ khóa: SC-18 sửa sau chốt, SC-28 void, SC-31 phát hành đều bị chặn; SC-29 vẫn 消込 được\n- Cùng một kỳ: hóa đơn bên mua không có 手数料; 仕切書 có trừ 委託手数料 5.5%\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E + pgTAP xanh trên staging\n\n**Phụ thuộc:** T-09-01-c, T-09-03-b, T-11-01-e, T-06-03-c, T-09-04-d"
+    },
+    {
+      "key": "T-09-02-a",
+      "parent": "I-09-02",
+      "title": "[DB] Migration invoices TO-BE + invoice_no_seq theo kỳ + unique partial + v_invoice_status + RLS",
+      "labels": [
+        "type:db",
+        "area:E09",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 3,
+      "depends_on": [
+        "T-09-01-a"
+      ],
+      "spec_refs": [
+        "SC-27",
+        "BR-21",
+        "BR-22",
+        "BR-24",
+        "BR-25",
+        "GAP-05",
+        "GAP-12",
+        "GAP-13"
+      ],
+      "body": "**Mục tiêu:** Bảng hóa đơn đúng ràng buộc tiền (sửa GAP-12, GAP-13).\n\n**Spec:** SC-27 Ghi chú LAB-5 DB; BR-21; BR-22; BR-24; BR-25; GAP-05; GAP-12; GAP-13\n\n**Phạm vi:**\n- `invoices` (goods_amount, tax_rate, tax_amount, incentive_deduction, total, due_date, status, rule_set_id, pdf_path, void_reason, replaced_by)\n- UNIQUE (buyer_id, period_id) WHERE status ≠ void; CHECK total ≥ 0; CHECK incentive_deduction ≤ goods_amount\n- Sequence số `INV-YYYYMM-NNNN` theo kỳ\n- View `v_invoice_status` (is_overdue theo JST, remaining) + RLS bên mua\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: hai hóa đơn không void cùng buyer×kỳ → lỗi\n- [ ] pgTAP: total âm → lỗi CHECK\n- [ ] pgTAP: NAK-A không đọc hóa đơn NAK-B\n\n**Phụ thuộc:** T-09-01-a"
+    },
+    {
+      "key": "T-09-02-b",
+      "parent": "I-09-02",
+      "title": "[RPC] preview_close_period + close_period (gom giao dịch, thuế, hạn theo 業務規程 ngày chốt)",
+      "labels": [
+        "type:rpc",
+        "area:E09",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "業務規程 có phiên bản",
+      "role": "BE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-09-02-a",
+        "T-06-02-b",
+        "T-07-02-a"
+      ],
+      "spec_refs": [
+        "SC-27",
+        "BR-21",
+        "BR-22",
+        "BR-24",
+        "GAP-05",
+        "GAP-11",
+        "GAP-13",
+        "A-04",
+        "A-05",
+        "Q18"
+      ],
+      "body": "**Mục tiêu:** Chốt kỳ đúng BR-21/BR-24, không còn phí bên mua (sửa GAP-11 phía hóa đơn).\n\n**Spec:** SC-27 Implementation Mapping; SC-27 Ghi chú LAB-5 RPC; BR-21; BR-22; BR-24; GAP-05; GAP-11; GAP-13; A-04; A-05; Q18\n\n**Phạm vi:**\n- Gom `transactions` concluded, `invoice_id` null, `business_date` ∈ kỳ, theo bên mua\n- `rule_set_id` = phiên bản hiệu lực ngày chốt; `tax = floor(goods × rate / 100)` (chờ I-00-01); `due = period_end + payment_due_days`\n- Chặn khi còn 交渉中 / yêu cầu sửa chờ (ERR_PERIOD_HAS_PENDING); thiếu số T → ERR_ISSUER_NOT_REGISTERED; kỳ chưa hết → ERR_PERIOD_NOT_ENDED\n- Gọi hook khấu trừ thưởng `fn_apply_incentives` (T-10-04-a); status kỳ → `closing`; enqueue email `invoice_issued`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: chạy close_period 2 lần → không hóa đơn trùng\n- [ ] pgTAP: không có 手数料 trên hóa đơn (GAP-11); tổng ≥ 0 (GAP-13)\n- [ ] pgTAP: 2 phiên song song → số không trùng (GAP-05)\n- [ ] pgTAP: phiên bản 業務規程 v4 duyệt hôm nay hiệu lực mai → hóa đơn chốt hôm nay lưu v3\n\n**Phụ thuộc:** T-09-02-a, T-06-02-b, T-07-02-a"
+    },
+    {
+      "key": "T-09-02-c",
+      "parent": "I-09-02",
+      "title": "[INFRA] PDF 請求書 適格請求書 + attach_invoice_pdf + email invoice_issued",
+      "labels": [
+        "type:infra",
+        "area:E09"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-09-02-b",
+        "T-01-04-a",
+        "T-01-04-b"
+      ],
+      "spec_refs": [
+        "SC-28",
+        "SC-27",
+        "ADR-011",
+        "A-04",
+        "Q10"
+      ],
+      "body": "**Mục tiêu:** Phát hành chứng từ bất biến đủ mục bắt buộc インボイス.\n\n**Spec:** SC-28 PDF mapping; SC-27 Ghi chú LAB-5 (PDF + email); ADR-011; A-04; Q10\n\n**Phạm vi:**\n- Template: tên + số T người phát hành, ngày giao dịch, ※ 軽減税率対象, tổng/thuế theo thuế suất, khấu trừ 完納奨励金, kỳ, hạn, phiên bản 業務規程\n- `attach_invoice_pdf` lưu `pdf_path` một lần (không ghi đè)\n- Email `invoice_issued` kèm link signed URL\n\n**Tiêu chí hoàn thành:**\n- [ ] Snapshot test với ví dụ SC-28 (¥1,338,200)\n- [ ] Gọi attach lần 2 → lỗi (bất biến)\n\n**Phụ thuộc:** T-09-02-b, T-01-04-a, T-01-04-b"
+    },
+    {
+      "key": "T-09-02-d",
+      "parent": "I-09-02",
+      "title": "[FE] SC-27 danh sách hóa đơn + lọc URL + hộp thoại xem trước chốt kỳ + cờ 期限超過",
+      "labels": [
+        "type:fe",
+        "area:E09"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-09-02-b"
+      ],
+      "spec_refs": [
+        "SC-27",
+        "BR-25"
+      ],
+      "body": "**Mục tiêu:** Kế toán xem và chốt kỳ; bên mua xem hóa đơn của mình.\n\n**Spec:** SC-27 § 3–§ 7; BR-25\n\n**Phạm vi:**\n- Chọn kỳ từ `billing_periods` (bỏ tính kỳ theo đồng hồ client LAB-2)\n- Hộp thoại `preview_close_period` (số bên mua, tiền hàng, thuế, khấu trừ, hạn, phiên bản)\n- Cờ 期限超過 từ `v_invoice_status`; bỏ cột 手数料\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: W-ACC chốt kỳ → danh sách hiện hóa đơn mới\n- [ ] NAK chỉ thấy hóa đơn của mình\n\n**Phụ thuộc:** T-09-02-b"
+    },
+    {
+      "key": "T-09-02-e",
+      "parent": "I-09-02",
+      "title": "[RPC] Job nhắc hạn thanh toán (payment_reminder_days) + thông báo quá hạn cho ADM",
+      "labels": [
+        "type:rpc",
+        "area:E09"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-09-02-a",
+        "T-01-04-b"
+      ],
+      "spec_refs": [
+        "BR-25",
+        "FT-30",
+        "FT-41",
+        "SC-27",
+        "SC-10"
+      ],
+      "body": "**Mục tiêu:** Nhắc hạn bằng email; quá hạn chỉ gắn cờ, đình chỉ là quyết định thủ công.\n\n**Spec:** BR-25; FT-30; FT-41; SC-27; SC-10\n\n**Phạm vi:**\n- Cron 0:05 JST enqueue nhắc trước `payment_reminder_days` cho hóa đơn chưa trả đủ\n- Danh sách quá hạn cho ADM trên SC-03 (link SC-10 đình chỉ)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: không nhắc hóa đơn đã `paid`/`void`; không nhắc trùng khi cron chạy lại\n\n**Phụ thuộc:** T-09-02-a, T-01-04-b"
+    },
+    {
+      "key": "T-09-03-a",
+      "parent": "I-09-03",
+      "title": "[RPC] preview_reissue_invoice + void_and_reissue_invoice + pgTAP",
+      "labels": [
+        "type:rpc",
+        "area:E09",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "Khóa kỳ 締め",
+      "role": "BE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-09-02-b",
+        "T-09-04-b"
+      ],
+      "spec_refs": [
+        "SC-28",
+        "BR-23"
+      ],
+      "body": "**Mục tiêu:** Sửa hóa đơn bằng hủy + phát hành lại trong một transaction (BR-23).\n\n**Spec:** SC-28 Implementation Mapping E20/E21; SC-28 Ghi chú LAB-5 RPC; BR-23\n\n**Phạm vi:**\n- Kiểm quyền → kỳ chưa locked → cũ `void` + `replaced_by` → gỡ `transactions.invoice_id` → tạo mới cùng `rule_set_id` → chuyển `payment_allocations`\n- Gọi hook relink thưởng (T-10-04-b)\n- Audit có reason; enqueue email\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: số mới khác số cũ; allocations chuyển đủ\n- [ ] pgTAP: kỳ locked → ERR_PERIOD_LOCKED; mới < đã 消込 → ERR_REISSUE_BELOW_ALLOCATED\n\n**Phụ thuộc:** T-09-02-b, T-09-04-b"
+    },
+    {
+      "key": "T-09-03-b",
+      "parent": "I-09-03",
+      "title": "[FE] SC-28 trang chi tiết + modal void + watermark 取消 + tải PDF",
+      "labels": [
+        "type:fe",
+        "area:E09"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-09-03-a",
+        "T-09-02-c"
+      ],
+      "spec_refs": [
+        "SC-28"
+      ],
+      "body": "**Mục tiêu:** Màn chi tiết hóa đơn cho kế toán và bên mua.\n\n**Spec:** SC-28 § 3–§ 7\n\n**Phạm vi:**\n- Từng giao dịch, thuế, khấu trừ thưởng (E11), tiền đã về\n- Modal void + xem trước số mới (`preview_reissue_invoice`)\n- PDF qua signed URL 300 giây\n\n**Tiêu chí hoàn thành:**\n- [ ] Bên mua không thấy nút void\n- [ ] Hóa đơn void hiển thị link sang hóa đơn thay thế\n\n**Phụ thuộc:** T-09-03-a, T-09-02-c"
+    },
+    {
+      "key": "T-09-04-a",
+      "parent": "I-09-04",
+      "title": "[DB] Migration payments / payment_imports / payment_allocations + trigger Σ không trả vượt",
+      "labels": [
+        "type:db",
+        "area:E09",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-09-02-a"
+      ],
+      "spec_refs": [
+        "SC-29",
+        "BR-26",
+        "GAP-14"
+      ],
+      "body": "**Mục tiêu:** Mô hình tiền về và 消込 đúng (sửa GAP-14).\n\n**Spec:** SC-29 Ghi chú LAB-5 DB; BR-26; GAP-14; decision-log § 2 (source_row_hash, column_mapping)\n\n**Phạm vi:**\n- `payments` (received_on, payer_name, amount, method, match_status), `payment_imports` (+column_mapping)\n- `payment_allocations` + trigger Σ theo payment ≤ amount và Σ theo invoice ≤ total; cập nhật `invoices.status`\n- `source_row_hash` UNIQUE chống import trùng\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: phân bổ vượt hóa đơn → ERR_OVER_ALLOCATION\n- [ ] pgTAP: import cùng dòng 2 lần → bỏ qua dòng trùng\n\n**Phụ thuộc:** T-09-02-a"
+    },
+    {
+      "key": "T-09-04-b",
+      "parent": "I-09-04",
+      "title": "[RPC] record_payment / allocate_payment / unallocate_payment / suggest_payment_matches",
+      "labels": [
+        "type:rpc",
+        "area:E09",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "BE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-09-04-a"
+      ],
+      "spec_refs": [
+        "SC-29",
+        "BR-26",
+        "BR-27",
+        "D-09",
+        "GAP-14"
+      ],
+      "body": "**Mục tiêu:** Ghi và đối chiếu tiền về, chặn hủy 消込 mà thưởng đã duyệt dựa vào.\n\n**Spec:** SC-29 Implementation Mapping; SC-29 Ghi chú LAB-5 RPC; BR-26; BR-27; D-09; GAP-14\n\n**Phạm vi:**\n- `record_payment`, `allocate_payment` (một khoản chia nhiều hóa đơn), `unallocate_payment` (lý do)\n- `unallocate_payment` → ERR_INCENTIVE_DEPENDS nếu thưởng kỳ đó đã approved/applied\n- `suggest_payment_matches` theo số tiền + tên người chuyển (kana)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: một khoản chia hai hóa đơn; trả vượt bị chặn; hai phiên song song (GAP-14)\n- [ ] pgTAP: kỳ locked vẫn allocate được (D-09)\n- [ ] pgTAP: unallocate khi thưởng approved → ERR_INCENTIVE_DEPENDS\n\n**Phụ thuộc:** T-09-04-a"
+    },
+    {
+      "key": "T-09-04-c",
+      "parent": "I-09-04",
+      "title": "[RPC] import_bank_statement + parser 全銀 / CSV chung có mapping",
+      "labels": [
+        "type:rpc",
+        "area:E09"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-09-04-b",
+        "I-00-07"
+      ],
+      "spec_refs": [
+        "SC-29",
+        "Q13"
+      ],
+      "body": "**Mục tiêu:** Nhập sao kê ngân hàng thay vì gõ tay.\n\n**Spec:** SC-29 Ghi chú LAB-5 Parser; architecture § 5 I-1; Q13\n\n**Phạm vi:**\n- Parser 全銀 (fixed-length, Shift_JIS) + CSV chung với `column_mapping` lưu lại\n- `import_bank_statement` ghi `payment_imports` + `payments`\n\n**Tiêu chí hoàn thành:**\n- [ ] Vitest với file mẫu ngân hàng khách (fixture từ I-00-07)\n- [ ] Sai encoding / thiếu cột → báo dòng lỗi, không ghi nửa chừng\n\n**Phụ thuộc:** T-09-04-b, I-00-07"
+    },
+    {
+      "key": "T-09-04-d",
+      "parent": "I-09-04",
+      "title": "[FE] SC-29 ba tab (nhập tay / import / 消込) + bảng phân bổ tính trực tiếp",
+      "labels": [
+        "type:fe",
+        "area:E09"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-09-04-b"
+      ],
+      "spec_refs": [
+        "SC-29"
+      ],
+      "body": "**Mục tiêu:** Màn tiền về và đối chiếu cho kế toán.\n\n**Spec:** SC-29 § 3–§ 7\n\n**Phạm vi:**\n- Tab nhập tay, tab import (chọn mapping), tab 消込 với gợi ý\n- Bảng phân bổ cập nhật số còn lại ngay khi gõ\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: một khoản ¥ chia 2 hóa đơn → cả hai `入金済`\n- [ ] Hiển thị ERR_INCENTIVE_DEPENDS nguyên văn\n\n**Phụ thuộc:** T-09-04-b"
+    },
+    {
+      "key": "T-10-01-a",
+      "parent": "I-10-01",
+      "title": "[DB] Migration incentives TO-BE + incentive_applications (trigger Σ ≤ amount) + RLS",
+      "labels": [
+        "type:db",
+        "area:E10",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "BE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-09-02-a",
+        "T-01-05-b"
+      ],
+      "spec_refs": [
+        "D-11",
+        "D-14",
+        "GAP-22",
+        "BR-27",
+        "SC-32"
+      ],
+      "body": "**Mục tiêu:** Lưu thưởng và từng lần khấu trừ (sửa GAP-22 theo D-11).\n\n**Spec:** database-diagram incentives + incentive_applications; D-11; D-14; GAP-22; BR-27; SC-32 Security Surface; SC-32 Lock check\n\n**Phạm vi:**\n- `incentives`: kind, participant_id/shipper_id, period_id, rule_set_id, base_amount, rate, amount, evidence jsonb, status calculated/approved/rejected/applied, decided_by/at, decision_note; bỏ `applied_invoice_id`; UNIQUE (kind, participant/shipper, period)\n- `incentive_applications(incentive_id, invoice_id?, settlement_id?, amount > 0, applied_at)` + CHECK đúng một đích; **trigger** Σ amount ≤ incentives.amount (không làm được bằng CHECK)\n- RLS: W-ACC/W-MGR/ADM đọc tất cả; NAK/SBK chỉ của mình và status ∈ approved/applied/rejected\n- `trg_block_locked_period` **không** chặn `incentives` / `incentive_applications` (thưởng kỳ N chuyển applied khi chốt N+1)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: Σ applications vượt amount → lỗi\n- [ ] pgTAP: application có cả invoice_id và settlement_id → lỗi CHECK\n- [ ] pgTAP: SBK thấy dòng approved của mình, không thấy calculated, không thấy của người khác\n\n**Phụ thuộc:** T-09-02-a, T-01-05-b"
+    },
+    {
+      "key": "T-10-01-b",
+      "parent": "I-10-01",
+      "title": "[RPC] Bằng chứng 完納 theo bên mua × kỳ: fn_incentive_evidence + RPC incentive_evidence",
+      "labels": [
+        "type:rpc",
+        "area:E10",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "BE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-10-01-a",
+        "T-09-04-a"
+      ],
+      "spec_refs": [
+        "SC-32",
+        "BR-26",
+        "BR-27",
+        "ADR-005"
+      ],
+      "body": "**Mục tiêu:** Tính một lần các biến đầu vào: tổng hóa đơn, tổng đã khớp, ngày tiền về cuối, hạn, doanh số chưa thuế.\n\n**Spec:** SC-32 Implementation Mapping R4/E04; SC-32 E07–E12, E20; BR-26; BR-27; ADR-005\n\n**Phạm vi:**\n- `fn_incentive_evidence(period_id)` trả mỗi bên mua có hóa đơn kỳ: invoiced = Σ total (≠ void), paid = Σ payment_allocations, last_received_on = max(payments.received_on), due_date (của hóa đơn hiệu lực), goods = Σ goods_amount, rule_set_id (của hóa đơn)\n- RPC đọc `incentive_evidence(p_period_id, p_kind)` = evidence ⋈ incentives (nếu có), gồm cả người không đạt\n- Danh sách hóa đơn + tiền về cho panel R5\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP với 3 bên mua ví dụ SC-32: NAK-001 (¥1,274,400 / ¥1,274,400 / 10/14), SBK-018 (10/17), NAK-007 (¥2,000,000 / ¥2,160,000)\n- [ ] pgTAP: hóa đơn void không tính vào invoiced; hóa đơn thay thế được tính\n- [ ] pgTAP: NAK gọi cho kỳ → chỉ dòng của mình\n\n**Phụ thuộc:** T-10-01-a, T-09-04-a"
+    },
+    {
+      "key": "T-10-02-a",
+      "parent": "I-10-02",
+      "title": "[RPC] Hàm fn_is_kannou + pgTAP trường hợp biên (một phần, đúng hạn, trễ 1 ngày, void, D-09)",
+      "labels": [
+        "type:rpc",
+        "area:E10",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "BE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-10-01-b"
+      ],
+      "spec_refs": [
+        "BR-27",
+        "BR-26",
+        "D-09",
+        "SC-32",
+        "SC-29",
+        "A-06"
+      ],
+      "body": "**Mục tiêu:** Phán định 完納 = paid ≥ invoiced **và** last_received_on ≤ due_date, kèm mã lý do không đạt.\n\n**Spec:** BR-27; BR-26; D-09; X-7; SC-32 E11; SC-29 Interaction Notes (\"ngày tiền về là ngày sao kê\"); A-06\n\n**Phạm vi:**\n- `fn_is_kannou(evidence) → (ok bool, reason)` với reason: 完納 / 一部入金 / 期限後入金 / 未入金\n- So sánh ngày theo JST; không có hóa đơn → không thuộc đối tượng\n- Dùng `received_on` (ngày sao kê), không dùng ngày bấm 消込\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: trả đủ đúng hạn → 完納\n- [ ] pgTAP: trả thiếu ¥1 → 一部入金; chưa trả → 未入金\n- [ ] pgTAP: tiền về **đúng ngày hạn** → 完納; trễ 1 ngày → 期限後入金\n- [ ] pgTAP: trả vượt không thể xảy ra (trigger T-09-04-a) → test khẳng định insert vượt bị lỗi\n- [ ] pgTAP: hóa đơn void + phát hành lại → chỉ tính hóa đơn mới, hạn của hóa đơn mới\n- [ ] pgTAP: tiền về ≤ hạn nhưng 消込 sau khi kỳ khóa (D-09) → 完納 nếu tính lại; nhiều hóa đơn một bên mua → gộp\n\n**Phụ thuộc:** T-10-01-b"
+    },
+    {
+      "key": "T-10-02-b",
+      "parent": "I-10-02",
+      "title": "[RPC] Hàm fn_incentive_rate: bậc incentive_tiers theo phiên bản 業務規程 tại ngày chốt",
+      "labels": [
+        "type:rpc",
+        "area:E10",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "業務規程 có phiên bản",
+      "role": "BE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-04-01-a",
+        "T-10-01-b"
+      ],
+      "spec_refs": [
+        "BR-27",
+        "BR-21",
+        "ADR-004",
+        "SC-32",
+        "Q20"
+      ],
+      "body": "**Mục tiêu:** Lấy tỷ lệ từ `incentive_tiers` của đúng phiên bản đã áp cho hóa đơn kỳ (BR-27, ADR-004).\n\n**Spec:** BR-27; BR-21; ADR-004; SC-32 E03; SC-32 Implementation Mapping (Bậc); Q20; business-rules § 1 incentive_tiers\n\n**Phạm vi:**\n- `fn_incentive_rate(base, rule_set_id)`: bậc cao nhất có `min ≤ base` (một tỷ lệ cho toàn bộ — Q20 mặc định)\n- rule_set_id = `invoices.rule_set_id` (phiên bản tại ngày chốt), **không** dùng `fn_rule(..., period_end)` như SC-32 E03 đang ghi\n- `amount = floor(base × rate / 100)`; validate JSON (min tăng dần, rate 0–100)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: base đúng bằng ngưỡng bậc → lấy bậc đó; dưới ngưỡng 1 yên → bậc dưới\n- [ ] pgTAP: v3 (1%) hiệu lực khi chốt, v4 (2%) hiệu lực sau → dùng 1%\n- [ ] pgTAP: tiers rỗng → rate 0, không tạo dòng thưởng\n- [ ] pgTAP: ví dụ ¥1,180,000 × 1% = ¥11,800\n\n**Phụ thuộc:** T-04-01-a, T-10-01-b"
+    },
+    {
+      "key": "T-10-03-a",
+      "parent": "I-10-03",
+      "title": "[RPC] calculate_incentives(completion): chặn trước hạn, idempotent, snapshot bằng chứng",
+      "labels": [
+        "type:rpc",
+        "area:E10",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "BE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-10-02-a",
+        "T-10-02-b"
+      ],
+      "spec_refs": [
+        "SC-32",
+        "SC-33",
+        "BR-27",
+        "D-14",
+        "ADR-005"
+      ],
+      "body": "**Mục tiêu:** Ghi dòng `calculated` cho bên mua đạt 完納 kèm bằng chứng tại thời điểm tính.\n\n**Spec:** SC-32 Implementation Mapping E04; SC-32 § 4 Branches; SC-33 DB_GAP E07; BR-27; D-14; ADR-005\n\n**Phạm vi:**\n- Kiểm W-ACC/W-MGR; kỳ `closing`; JST hôm nay > max(due_date) → ngược lại ERR_BEFORE_DUE; kỳ chưa chốt → ERR_PERIOD_NOT_CLOSED; locked → ERR_PERIOD_LOCKED\n- Upsert theo (kind, participant, period), chỉ đụng dòng `calculated`; dòng `calculated` không còn đạt → xóa; dòng approved/rejected giữ nguyên\n- Ghi `evidence` jsonb + `rule_set_id`; set `billing_periods.incentives_calculated_at`\n- Idempotent theo `p_client_request_id`; trả `{evaluated, qualified, total_amount}`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: 3 ví dụ SC-32 → 1 dòng NAK-001 ¥11,800; SBK-018, NAK-007 không có dòng\n- [ ] pgTAP: gọi trước hạn → ERR_BEFORE_DUE; ADM gọi → ERR_FORBIDDEN\n- [ ] pgTAP: tính lại sau khi duyệt NAK-001 → amount NAK-001 không đổi\n- [ ] pgTAP: kỳ không ai đạt → `incentives_calculated_at` vẫn được set\n\n**Phụ thuộc:** T-10-02-a, T-10-02-b"
+    },
+    {
+      "key": "T-10-03-b",
+      "parent": "I-10-03",
+      "title": "[RPC] approve_incentives / reject_incentives (ADM, decision_note)",
+      "labels": [
+        "type:rpc",
+        "area:E10",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "BE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-10-03-a"
+      ],
+      "spec_refs": [
+        "SC-32",
+        "BR-27",
+        "BR-43",
+        "D-02",
+        "PERM-07"
+      ],
+      "body": "**Mục tiêu:** Người duyệt khác người tính; từ chối phải có lý do.\n\n**Spec:** SC-32 Implementation Mapping E18/E19/E22; BR-27; BR-43; D-02; PERM-07\n\n**Phạm vi:**\n- `approve_incentives(p_ids)`: chỉ ADM; `calculated → approved`; ghi decided_by/at\n- `reject_incentives(p_ids, p_reason)`: lý do ≥ 5 ký tự → `rejected` + decision_note\n- Audit với reason; batch nguyên tử (một dòng sai trạng thái → cả lô lỗi)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: W-ACC/W-MGR gọi → ERR_FORBIDDEN\n- [ ] pgTAP: duyệt dòng đã approved → ERR_INVALID_STATE, không dòng nào đổi\n- [ ] pgTAP: reject thiếu lý do → ERR_REASON_REQUIRED; kỳ locked → ERR_PERIOD_LOCKED\n\n**Phụ thuộc:** T-10-03-a"
+    },
+    {
+      "key": "T-10-04-a",
+      "parent": "I-10-04",
+      "title": "[RPC] fn_apply_incentives trong close_period: cap ≤ tiền hàng, FIFO, chuyển tiếp phần dư",
+      "labels": [
+        "type:rpc",
+        "area:E10",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "BE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-10-03-b",
+        "T-09-02-b"
+      ],
+      "spec_refs": [
+        "BR-24",
+        "BR-27",
+        "D-11",
+        "D-12",
+        "GAP-13",
+        "GAP-22",
+        "SC-28",
+        "SC-27",
+        "Q19"
+      ],
+      "body": "**Mục tiêu:** Ghi `incentive_applications` khi chốt kỳ sau (BR-24, D-11, D-12).\n\n**Spec:** BR-24; BR-27; D-11; D-12; GAP-13; GAP-22; SC-28 Implementation Mapping E11/E12; SC-27 Data Flow; Q19\n\n**Phạm vi:**\n- Với mỗi hóa đơn mới: remaining = Σ (amount − Σ applied) của thưởng completion `approved` của bên mua, FIFO theo kỳ cũ nhất\n- deduction = min(remaining, goods_amount); thuế tính trên goods **trước** khấu trừ (D-12)\n- Ghi từng dòng application; thưởng đủ → `applied`; còn dư giữ `approved`\n- `preview_close_period` hiển thị cùng số khấu trừ\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: thưởng ¥11,800, tiền hàng kỳ sau ¥1,240,000 → trừ ¥11,800, `applied` (ví dụ SC-28)\n- [ ] pgTAP: thưởng ¥15,800, tiền hàng ¥11,800 → trừ ¥11,800, dư ¥4,000 giữ `approved`; kỳ kế tiếp trừ ¥4,000 → `applied`\n- [ ] pgTAP: bên mua không có hóa đơn kỳ sau → thưởng giữ `approved`, không lỗi\n- [ ] pgTAP: hai thưởng từ 2 kỳ → trừ kỳ cũ trước; total ≥ tax_amount\n\n**Phụ thuộc:** T-10-03-b, T-09-02-b"
+    },
+    {
+      "key": "T-10-04-b",
+      "parent": "I-10-04",
+      "title": "[RPC] Đồng bộ thưởng khi void/phát hành lại hóa đơn và khi hủy 消込",
+      "labels": [
+        "type:rpc",
+        "area:E10",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "BE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-10-04-a",
+        "T-09-03-a"
+      ],
+      "spec_refs": [
+        "SC-28",
+        "SC-29",
+        "BR-23",
+        "BR-27",
+        "D-11"
+      ],
+      "body": "**Mục tiêu:** Thưởng không bị mất hoặc trừ hai lần khi chứng từ thay đổi.\n\n**Spec:** SC-28 Implementation Mapping E21 (\"gắn lại thưởng\"); SC-29 E20 (ERR_INCENTIVE_DEPENDS); BR-23; BR-27; D-11\n\n**Phạm vi:**\n- `void_and_reissue_invoice` của hóa đơn có khấu trừ: chuyển application sang hóa đơn mới với cùng số (cap lại theo goods mới, phần dư trả về `approved`)\n- Void hóa đơn kỳ N của bên mua đã có thưởng approved → ERR_INCENTIVE_DEPENDS (đề xuất, ghi trong backlog-coverage § c)\n- `check_period_lock` trả INCENTIVE_* đúng\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: void hóa đơn kỳ 10 có khấu trừ ¥11,800 → hóa đơn mới vẫn khấu trừ ¥11,800, Σ applications không đổi\n- [ ] pgTAP: goods hóa đơn mới < khấu trừ cũ → cap, phần dư quay về approved\n- [ ] pgTAP: unallocate 消込 kỳ 9 khi thưởng approved → ERR_INCENTIVE_DEPENDS\n\n**Phụ thuộc:** T-10-04-a, T-09-03-a"
+    },
+    {
+      "key": "T-10-05-a",
+      "parent": "I-10-05",
+      "title": "[FE] SC-32 bảng đối chiếu + thẻ tổng hợp + panel bằng chứng + nút 計算実行",
+      "labels": [
+        "type:fe",
+        "area:E10",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "FE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-10-03-a",
+        "T-01-03-a"
+      ],
+      "spec_refs": [
+        "SC-32"
+      ],
+      "body": "**Mục tiêu:** Bảng đối chiếu mọi bên mua (cả người không đạt) kèm bằng chứng.\n\n**Spec:** SC-32 § 2–§ 7 (R2–R5, E01–E16, E20); SC-32 Component Variants\n\n**Phạm vi:**\n- Chọn kỳ (mặc định kỳ gần nhất đã qua hạn), E03 phiên bản + bậc\n- IncentiveEvidenceTable cột E06–E15; ○/× kèm chữ (a11y)\n- Panel R5: hóa đơn + tiền về, link SC-28/SC-29\n- E04 chỉ W-ACC/W-MGR; disabled trước hạn với tooltip `支払期限（10/15）経過後に計算できます`\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: trước hạn E04 disabled; sau hạn bấm → toast số người đạt và tổng\n- [ ] Bảng hiện 3 dòng ví dụ với đúng nhãn ○ 完納 / × 期限後入金 / × 一部入金\n\n**Phụ thuộc:** T-10-03-a, T-01-03-a"
+    },
+    {
+      "key": "T-10-05-b",
+      "parent": "I-10-05",
+      "title": "[FE] SC-32 thanh duyệt ADM + hộp thoại 却下 + chế độ bên mua + hiển thị khấu trừ ở SC-28",
+      "labels": [
+        "type:fe",
+        "area:E10",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "FE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-10-05-a",
+        "T-10-03-b",
+        "T-10-04-a",
+        "T-09-03-b"
+      ],
+      "spec_refs": [
+        "SC-32",
+        "SC-28",
+        "PERM-07",
+        "PERM-09"
+      ],
+      "body": "**Mục tiêu:** ADM duyệt/từ chối hàng loạt; bên mua và kế toán thấy thưởng đã trừ ở đâu.\n\n**Spec:** SC-32 E16–E19, E22, R6; SC-28 E11/E12; PERM-07; PERM-09\n\n**Phạm vi:**\n- Checkbox chọn dòng `calculated`, Shift+click chọn dải; 承認（n件）; 却下 + lý do (bẫy focus)\n- Bên mua: chỉ dòng của mình từ 承認済; ẩn E02/E04/E05\n- E16 từ `incentive_applications`: `INV-… で控除` / `次回請求で控除予定`; SC-28 E11 `−¥11,800（2026年9月分）`, E12 `¥4,000 を次期に繰越`\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: ADM duyệt 3 dòng → toast `3件を承認しました`\n- [ ] E2E: W-ACC không thấy thanh duyệt; SBK chỉ thấy dòng của mình\n\n**Phụ thuộc:** T-10-05-a, T-10-03-b, T-10-04-a, T-09-03-b"
+    },
+    {
+      "key": "T-10-05-c",
+      "parent": "I-10-05",
+      "title": "[RPC] 完納率 KPI: report_monthly + dữ liệu tiến độ 完納 cho SC-03",
+      "labels": [
+        "type:rpc",
+        "area:E10",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "BE-2",
+      "phase": 6,
+      "depends_on": [
+        "T-10-02-a",
+        "T-12-02-a"
+      ],
+      "spec_refs": [
+        "SC-35",
+        "SC-03",
+        "BR-27"
+      ],
+      "body": "**Mục tiêu:** Báo cáo tháng và dashboard dùng cùng định nghĩa 完納 với SC-32.\n\n**Spec:** SC-35 E07 Implementation Mapping; SC-03 E21; BR-27; I-00-02 (đơn vị đếm)\n\n**Phạm vi:**\n- `report_monthly` thêm 完納率 = số bên mua đạt / số bên mua có hóa đơn, cho kỳ có `period_end` trong tháng, gọi `fn_is_kannou` (không viết lại công thức per-invoice như SC-35 đang ghi)\n- Cảnh báo `支払期限前` khi kỳ chưa qua hạn\n- Truy vấn tiến độ cho bên mua (SC-03 E21): tổng HĐ, đã trả, hạn, còn n ngày, thưởng approved/applied\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: 完納率 với 3 bên mua ví dụ = 1/3\n- [ ] pgTAP: kỳ chưa qua hạn → cờ `支払期限前`\n\n**Phụ thuộc:** T-10-02-a, T-12-02-a"
+    },
+    {
+      "key": "T-10-05-d",
+      "parent": "I-10-05",
+      "title": "[FE] Widget 完納率 (SC-35 E07) và 完納奨励金の進捗 (SC-03 E21)",
+      "labels": [
+        "type:fe",
+        "area:E10",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "FE-2",
+      "phase": 6,
+      "depends_on": [
+        "T-10-05-c",
+        "T-12-02-b",
+        "T-12-03-b"
+      ],
+      "spec_refs": [
+        "SC-35",
+        "SC-03",
+        "SC-32"
+      ],
+      "body": "**Mục tiêu:** Hiển thị KPI 完納 cho văn phòng và tiến độ cho bên mua.\n\n**Spec:** SC-35 E07; SC-03 E21; screen-flow (SC-03 → SC-32)\n\n**Phạm vi:**\n- SC-35 tab 月報: `n / n（%）` + cảnh báo trước hạn\n- SC-03 vùng R7: progress bar `¥ / ¥`, `あと n 日`, link SC-32\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: NAK thấy tiến độ của mình, không thấy của người khác\n- [ ] Số trên widget = số trên SC-32\n\n**Phụ thuộc:** T-10-05-c, T-12-02-b, T-12-03-b"
+    },
+    {
+      "key": "T-10-05-e",
+      "parent": "I-10-05",
+      "title": "[TEST] E2E hồi quy 完納奨励金 trọn 2 kỳ (tính → duyệt → khấu trừ → chuyển tiếp → void → khóa)",
+      "labels": [
+        "type:test",
+        "area:E10",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "完納奨励金",
+      "role": "QA",
+      "phase": 6,
+      "depends_on": [
+        "T-10-05-b",
+        "T-10-04-b",
+        "T-09-01-c",
+        "T-10-05-d"
+      ],
+      "spec_refs": [
+        "SC-32",
+        "SC-28",
+        "BR-24",
+        "BR-27",
+        "BR-29",
+        "D-09",
+        "US-14"
+      ],
+      "body": "**Mục tiêu:** Chứng minh toàn bộ chuỗi biến của 完納奨励金 đúng qua 2 kỳ liên tiếp.\n\n**Spec:** architecture § 3.4; SC-32 Happy Path; SC-28 ví dụ; BR-24; BR-27; BR-29; D-09; US-14\n\n**Phạm vi:**\n- Kỳ 9: 3 bên mua (đúng hạn / trễ 10/17 / thiếu) → 消込 → 10/16 tính → ADM duyệt NAK-001, từ chối một dòng có lý do\n- Kỳ 10: chốt → khấu trừ ¥11,800 (applied); bên mua có thưởng > tiền hàng → chuyển tiếp ¥4,000\n- Void + phát hành lại hóa đơn kỳ 10 → khấu trừ giữ nguyên; khóa kỳ 9 rồi 10; 消込 tiền trễ vào kỳ 9 đã khóa vẫn được (D-09) nhưng thưởng không đổi\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E xanh trên CI với fixture riêng (seed kỳ 9/10)\n- [ ] Số liệu khớp ví dụ SC-32/SC-28 đến từng yên\n\n**Phụ thuộc:** T-10-05-b, T-10-04-b, T-09-01-c, T-10-05-d"
+    },
+    {
+      "key": "T-11-01-a",
+      "parent": "I-11-01",
+      "title": "[DB] Migration settlements / settlement_lines / settlement_costs + số 仕切書 + khóa kỳ",
+      "labels": [
+        "type:db",
+        "area:E11",
+        "gap"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-04-03-a",
+        "T-05-01-a",
+        "T-09-01-a"
+      ],
+      "spec_refs": [
+        "SC-31",
+        "D-13",
+        "GAP-19",
+        "BR-32"
+      ],
+      "body": "**Mục tiêu:** Schema quyết toán chủ hàng (sửa GAP-19, D-13).\n\n**Spec:** SC-31 Ghi chú LAB-5 DB; D-13; GAP-19; BR-32\n\n**Phạm vi:**\n- `settlements` (+issued_at, void_reason, replaced_by, paid_on, arrival_id, rule_set_id), `settlement_lines`, `settlement_costs`\n- `settlement_no_seq`; gắn `trg_block_locked_period` và `fn_audit`; RLS (chỉ W-ACC/W-MGR/ADM)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: kỳ locked → sửa settlement → ERR_PERIOD_LOCKED\n- [ ] pgTAP: KAI/NAK không đọc được\n\n**Phụ thuộc:** T-04-03-a, T-05-01-a, T-09-01-a"
+    },
+    {
+      "key": "T-11-01-b",
+      "parent": "I-11-01",
+      "title": "[RPC] draft_settlement (委託 / 買付 / lô bán dở) + update_settlement_costs + pgTAP ¥686,175",
+      "labels": [
+        "type:rpc",
+        "area:E11",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "業務規程 có phiên bản",
+      "role": "BE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-11-01-a",
+        "T-06-02-b",
+        "T-07-02-a"
+      ],
+      "spec_refs": [
+        "SC-31",
+        "BR-30",
+        "BR-31",
+        "BR-32",
+        "D-10",
+        "GAP-11",
+        "A-03",
+        "A-07",
+        "Q18"
+      ],
+      "body": "**Mục tiêu:** Tính tiền trả chủ hàng theo BR-30/BR-31/BR-32 (chuyển 手数料 sang đây — GAP-11).\n\n**Spec:** SC-31 Ghi chú LAB-5 RPC; BR-30; BR-31; BR-32; D-10; GAP-11; A-03; A-07; Q18\n\n**Phạm vi:**\n- 委託: Σ 成立 − `commission_rate_consignment` × Σ − chi phí (lý do bắt buộc); chỉ phần đã bán\n- 買付: `purchase_unit_price` × SL nhập, không phụ thuộc đã bán\n- Phiên bản 業務規程 tại ngày lập; thuế theo I-00-01\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP ví dụ ¥686,175 (委託 + 買付 + lô bán dở)\n- [ ] pgTAP: chi phí thiếu lý do → ERR_REASON_REQUIRED; số âm → ERR_NEGATIVE_PAYABLE\n\n**Phụ thuộc:** T-11-01-a, T-06-02-b, T-07-02-a"
+    },
+    {
+      "key": "T-11-01-c",
+      "parent": "I-11-01",
+      "title": "[RPC] issue_settlement / void_settlement (bất biến, kiểm 振込先)",
+      "labels": [
+        "type:rpc",
+        "area:E11"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-11-01-b"
+      ],
+      "spec_refs": [
+        "SC-31",
+        "BR-32",
+        "BR-23",
+        "D-13"
+      ],
+      "body": "**Mục tiêu:** Phát hành và hủy 仕切書 giống quy tắc 請求書.\n\n**Spec:** SC-31 Implementation Mapping; BR-32; BR-23 (tương tự); D-13\n\n**Phạm vi:**\n- `issue_settlement`: 荷主 thiếu tài khoản → ERR_SHIPPER_NO_BANK\n- `void_settlement` có lý do, `replaced_by`\n- Kỳ locked → ERR_PERIOD_LOCKED\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: phát hành 2 lần → ERR_INVALID_STATE\n- [ ] pgTAP: sửa dòng sau phát hành → lỗi\n\n**Phụ thuộc:** T-11-01-b"
+    },
+    {
+      "key": "T-11-01-d",
+      "parent": "I-11-01",
+      "title": "[INFRA] PDF 仕切書 dùng module ADR-011",
+      "labels": [
+        "type:infra",
+        "area:E11"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-11-01-c",
+        "T-01-04-a"
+      ],
+      "spec_refs": [
+        "SC-31",
+        "ADR-011",
+        "Q10",
+        "Q18"
+      ],
+      "body": "**Mục tiêu:** Chứng từ 仕切書 gửi chủ hàng.\n\n**Spec:** SC-31 Ghi chú LAB-5 (PDF 仕切書); ADR-011; Q10; Q18\n\n**Phạm vi:**\n- Template: 荷主, kỳ, từng lô (bán / còn lại), 手数料, chi phí, thuế, tiền trả, phiên bản 業務規程\n\n**Tiêu chí hoàn thành:**\n- [ ] Snapshot test với ví dụ ¥686,175\n- [ ] Dòng thuế theo thuế suất hiển thị đúng quyết định Q18 (I-00-01)\n\n**Phụ thuộc:** T-11-01-c, T-01-04-a"
+    },
+    {
+      "key": "T-11-01-e",
+      "parent": "I-11-01",
+      "title": "[FE] SC-31 danh sách + chi tiết + nhập chi phí + phát hành / hủy",
+      "labels": [
+        "type:fe",
+        "area:E11"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-11-01-c"
+      ],
+      "spec_refs": [
+        "SC-31"
+      ],
+      "body": "**Mục tiêu:** Màn 仕切 cho kế toán.\n\n**Spec:** SC-31 § 3–§ 7\n\n**Phạm vi:**\n- Danh sách theo kỳ/荷主; chi tiết dòng lô (phần còn lại của 委託 hiển thị riêng)\n- Editor chi phí có lý do; nút phát hành / hủy\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: lập → thêm chi phí → phát hành → PDF\n- [ ] W-FLR không truy cập được (404)\n\n**Phụ thuộc:** T-11-01-c"
+    },
+    {
+      "key": "T-11-02-a",
+      "parent": "I-11-02",
+      "title": "[RPC] calculate_incentives(kind=shipping) + ERR_TIERS_EMPTY + pgTAP",
+      "labels": [
+        "type:rpc",
+        "area:E11",
+        "constraint"
+      ],
+      "priority": "Should",
+      "constraint": "業務規程 có phiên bản",
+      "role": "BE-2",
+      "phase": 5,
+      "depends_on": [
+        "T-10-03-a",
+        "T-11-01-b"
+      ],
+      "spec_refs": [
+        "SC-32",
+        "BR-33",
+        "FT-34"
+      ],
+      "body": "**Mục tiêu:** Mở rộng RPC tính cho chủ hàng.\n\n**Spec:** SC-32 Implementation Mapping (E04 shipping); BR-33; FT-34\n\n**Phạm vi:**\n- Base = doanh số của 荷主 trong kỳ (委託 hoặc cả 買付 theo I-00-06)\n- Rate từ `shipping_incentive_tiers` của phiên bản tại ngày chốt; unique theo shipper\n- Duyệt dùng chung `approve_incentives`/`reject_incentives`\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: tiers `[]` → ERR_TIERS_EMPTY\n- [ ] pgTAP: tính shipping không đụng dòng completion\n\n**Phụ thuộc:** T-10-03-a, T-11-01-b"
+    },
+    {
+      "key": "T-11-02-b",
+      "parent": "I-11-02",
+      "title": "[RPC] Áp 出荷奨励金 vào 仕切書 kỳ sau qua incentive_applications.settlement_id",
+      "labels": [
+        "type:rpc",
+        "area:E11"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-11-02-a",
+        "I-00-06"
+      ],
+      "spec_refs": [
+        "SC-32",
+        "D-11",
+        "BR-33"
+      ],
+      "body": "**Mục tiêu:** Trả thưởng cho chủ hàng theo kênh khách xác nhận.\n\n**Spec:** SC-32 Implementation Mapping (出荷 áp dụng); D-11; BR-33\n\n**Phạm vi:**\n- `draft_settlement` cộng thưởng approved vào 仕切書 kỳ sau, ghi application `settlement_id`\n- Nếu khách chọn trả riêng → chỉ đánh dấu `applied` khi ghi nhận chi trả\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: thưởng 出荷 approved → 仕切書 kỳ sau có dòng cộng; status applied\n\n**Phụ thuộc:** T-11-02-a, I-00-06"
+    },
+    {
+      "key": "T-11-02-c",
+      "parent": "I-11-02",
+      "title": "[FE] SC-32 tab 出荷奨励金 (trạng thái 無効, cột không có 完納)",
+      "labels": [
+        "type:fe",
+        "area:E11"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 5,
+      "depends_on": [
+        "T-11-02-a",
+        "T-10-05-b"
+      ],
+      "spec_refs": [
+        "SC-32"
+      ],
+      "body": "**Mục tiêu:** Hiển thị tab 出荷 theo biến thể bảng `shipping`.\n\n**Spec:** SC-32 E02, E21; SC-32 Component Variants\n\n**Phạm vi:**\n- Tab 出荷: cột 荷主, base, rate, amount, trạng thái; không có cột E07–E11\n- Bậc rỗng → E21 `…（無効）`, ẩn E04/E17–E19\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: tiers rỗng → tab mờ có nhãn 無効\n\n**Phụ thuộc:** T-11-02-a, T-10-05-b"
+    },
+    {
+      "key": "T-12-01-a",
+      "parent": "I-12-01",
+      "title": "[DB] publications / publication_rows + view public_publications (không security_invoker) + grant anon",
+      "labels": [
+        "type:db",
+        "area:E12",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "公表 theo 卸売市場法",
+      "role": "BE-1",
+      "phase": 6,
+      "depends_on": [
+        "T-06-01-a",
+        "T-04-02-a"
+      ],
+      "spec_refs": [
+        "SC-34",
+        "ADR-011",
+        "D-15",
+        "D-16",
+        "BR-50",
+        "BR-51",
+        "BR-52",
+        "GAP-20"
+      ],
+      "body": "**Mục tiêu:** Lưu bản chụp công bố và mở đúng một cửa cho anon (sửa GAP-20).\n\n**Spec:** SC-34 Ghi chú LAB-5 DB; ADR-011; D-15; D-16; BR-50; BR-51; BR-52; GAP-20\n\n**Phạm vi:**\n- `publications` (+revision, partial unique `WHERE status='published'`, withdrawn_*)\n- `publication_rows` (+species_name_ja; price_high/low/avg cùng NULL với loại ẩn giá)\n- View `public_publications` owner là role hạn chế, không security_invoker; GRANT SELECT view cho anon\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: anon select `transactions`, `publications`, `publication_rows` → lỗi quyền\n- [ ] pgTAP: bản draft/withdrawn không có trong view; loại ẩn có cả 3 giá NULL\n\n**Phụ thuộc:** T-06-01-a, T-04-02-a"
+    },
+    {
+      "key": "T-12-01-b",
+      "parent": "I-12-01",
+      "title": "[RPC] build_publication / publish (preview_hash) / withdraw_publication + pgTAP",
+      "labels": [
+        "type:rpc",
+        "area:E12",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "公表 theo 卸売市場法",
+      "role": "BE-2",
+      "phase": 6,
+      "depends_on": [
+        "T-12-01-a"
+      ],
+      "spec_refs": [
+        "SC-35",
+        "BR-50",
+        "BR-51",
+        "D-01"
+      ],
+      "body": "**Mục tiêu:** Công bố đúng số đã xem trước; chặn khi dữ liệu đổi giữa chừng.\n\n**Spec:** SC-35 Ghi chú LAB-5 DB/RPC; BR-50; BR-51; D-01; X-9\n\n**Phạm vi:**\n- `build_publication(date)`: gộp せり + 相対 theo 品目, giá cao/thấp/bình quân gia quyền, ẩn giá theo `publication_hidden_species`\n- `publish(p_pub_id, p_preview_hash)`: hash khác → ERR_PUB_STALE (RPC chưa có trong index)\n- `withdraw_publication` có lý do; công bố lại tăng revision\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: W-ACC gọi publish → ERR_FORBIDDEN\n- [ ] pgTAP: sửa giao dịch giữa build và publish → ERR_PUB_STALE\n- [ ] pgTAP: 休市日 → ERR_PUB_HOLIDAY; không có dữ liệu → ERR_PUB_NO_DATA\n\n**Phụ thuộc:** T-12-01-a"
+    },
+    {
+      "key": "T-12-01-c",
+      "parent": "I-12-01",
+      "title": "[FE] SC-34 trang công khai /public/results (PC bảng, mobile thẻ, in) + revalidateTag",
+      "labels": [
+        "type:fe",
+        "area:E12",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "公表 theo 卸売市場法",
+      "role": "FE-1",
+      "phase": 6,
+      "depends_on": [
+        "T-12-01-b"
+      ],
+      "spec_refs": [
+        "SC-34",
+        "Q35"
+      ],
+      "body": "**Mục tiêu:** Trang công bố không cần đăng nhập (LAB-2 đang bắt đăng nhập).\n\n**Spec:** SC-34 § 3–§ 7; SC-34 Ghi chú LAB-5 FE/Cache; Q35\n\n**Phạm vi:**\n- Route `app/public/results/[[...date]]` ngoài `(app)`\n- Bảng PC + thẻ mobile + CSS in; ngày bị rút → \"データなし\"\n- Cache theo tag, `revalidateTag` khi publish/withdraw\n\n**Tiêu chí hoàn thành:**\n- [ ] Lighthouse mobile ≥ 90 performance\n- [ ] Không có request nào tới bảng gốc (kiểm network)\n\n**Phụ thuộc:** T-12-01-b"
+    },
+    {
+      "key": "T-12-01-d",
+      "parent": "I-12-01",
+      "title": "[FE] SC-35 panel 公表: xem trước, công bố, rút, lịch sử",
+      "labels": [
+        "type:fe",
+        "area:E12",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "公表 theo 卸売市場法",
+      "role": "FE-2",
+      "phase": 6,
+      "depends_on": [
+        "T-12-01-b",
+        "T-12-02-b"
+      ],
+      "spec_refs": [
+        "SC-35",
+        "D-01"
+      ],
+      "body": "**Mục tiêu:** W-MGR công bố từ màn báo cáo ngày.\n\n**Spec:** SC-35 § 3 (E18–E22), § 4; D-01\n\n**Phạm vi:**\n- Panel xem trước số liệu sẽ công bố + hash\n- Nút 公表する / 取り下げ (lý do) chỉ W-MGR\n- Lịch sử revision\n\n**Tiêu chí hoàn thành:**\n- [ ] W-ACC/ADM không thấy nút\n\n**Phụ thuộc:** T-12-01-b, T-12-02-b"
+    },
+    {
+      "key": "T-12-01-e",
+      "parent": "I-12-01",
+      "title": "[TEST] E2E 公表: xem không đăng nhập; sửa giao dịch sau công bố → số không đổi (GAP-20)",
+      "labels": [
+        "type:test",
+        "area:E12",
+        "gap",
+        "constraint"
+      ],
+      "priority": "Must",
+      "constraint": "公表 theo 卸売市場法",
+      "role": "QA",
+      "phase": 6,
+      "depends_on": [
+        "T-12-01-c",
+        "T-12-01-d",
+        "T-06-03-c"
+      ],
+      "spec_refs": [
+        "SC-34",
+        "GAP-20",
+        "BR-50",
+        "BR-52"
+      ],
+      "body": "**Mục tiêu:** Hồi quy GAP-20 và BR-52.\n\n**Spec:** SC-34 Ghi chú LAB-5 Test (E2E); GAP-20; BR-50; BR-52\n\n**Phạm vi:**\n- Mở trang khi chưa đăng nhập\n- Công bố → sửa giá một giao dịch (duyệt sửa) → trang công khai giữ số cũ\n- Rút công bố → \"データなし\"\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E xanh\n\n**Phụ thuộc:** T-12-01-c, T-12-01-d, T-06-03-c"
+    },
+    {
+      "key": "T-12-02-a",
+      "parent": "I-12-02",
+      "title": "[RPC] report_daily / report_monthly (theo kênh, 品目, bên mua)",
+      "labels": [
+        "type:rpc",
+        "area:E12"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 6,
+      "depends_on": [
+        "T-09-02-b",
+        "T-07-02-a"
+      ],
+      "spec_refs": [
+        "SC-35"
+      ],
+      "body": "**Mục tiêu:** Số liệu báo cáo tính ở DB, kiểm quyền theo vai trò.\n\n**Spec:** SC-35 Implementation Mapping; SC-35 Ghi chú LAB-5 DB/RPC\n\n**Phạm vi:**\n- `report_daily(date)`, `report_monthly(month)`: tổng SL/tiền theo kênh, 品目, bên mua\n- Chỉ W-ACC/W-MGR/ADM\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: số ngày khớp tổng `transactions` concluded của ngày\n- [ ] pgTAP: NAK gọi → ERR_FORBIDDEN\n\n**Phụ thuộc:** T-09-02-b, T-07-02-a"
+    },
+    {
+      "key": "T-12-02-b",
+      "parent": "I-12-02",
+      "title": "[FE] SC-35 trang /reports hai tab + xuất CSV (chống injection, UTF-8 BOM) + PDF báo cáo",
+      "labels": [
+        "type:fe",
+        "area:E12"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 6,
+      "depends_on": [
+        "T-12-02-a",
+        "T-01-04-a",
+        "I-00-07"
+      ],
+      "spec_refs": [
+        "SC-35",
+        "Q40"
+      ],
+      "body": "**Mục tiêu:** Màn báo cáo và Route Handler xuất file.\n\n**Spec:** SC-35 § 3–§ 7; SC-35 Implementation Mapping E21/E22; Q40\n\n**Phạm vi:**\n- Tab 日報 / 月報 + bộ chọn ngày/tháng; bảng theo 品目, bên mua\n- `GET /reports/accounting-csv?kind=invoices|payments|settlements&period_id=`; escape `= + - @`\n- PDF báo cáo qua module chung\n\n**Tiêu chí hoàn thành:**\n- [ ] Vitest: CSV escape ô bắt đầu bằng `=`\n- [ ] CSV mở trong Excel JP không lỗi font (BOM)\n\n**Phụ thuộc:** T-12-02-a, T-01-04-a, I-00-07"
+    },
+    {
+      "key": "T-12-03-a",
+      "parent": "I-12-03",
+      "title": "[RPC] rpc_dashboard_kpi / rpc_dashboard_approvals + kiểm \"chỉ chính mình\" ở fn_buyer_exposure",
+      "labels": [
+        "type:rpc",
+        "area:E12",
+        "gap"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 6,
+      "depends_on": [
+        "T-06-01-b",
+        "T-10-01-a",
+        "T-03-01-a"
+      ],
+      "spec_refs": [
+        "SC-03",
+        "GAP-16"
+      ],
+      "body": "**Mục tiêu:** Số liệu dashboard tính ở DB, đúng vai trò (hồi quy GAP-16).\n\n**Spec:** SC-03 Ghi chú LAB-5 DB/RPC + Test pgTAP; SC-03 Implementation Mapping E08–E09; GAP-16\n\n**Phạm vi:**\n- `rpc_dashboard_kpi` (nhân viên), `rpc_dashboard_approvals` (ADM: hồ sơ, sửa, ngoại lệ, thưởng `calculated`, 業務規程 draft)\n- `fn_buyer_exposure` chỉ trả cho chính mình với bên mua\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: NAK-A không thấy giao dịch/hóa đơn NAK-B; W-FLR không đọc `invoices`; KAI gọi kpi → ERR_FORBIDDEN\n\n**Phụ thuộc:** T-06-01-b, T-10-01-a, T-03-01-a"
+    },
+    {
+      "key": "T-12-03-b",
+      "parent": "I-12-03",
+      "title": "[FE] resolveDashboardRegions + 10 vùng (Suspense / error boundary riêng)",
+      "labels": [
+        "type:fe",
+        "area:E12"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 6,
+      "depends_on": [
+        "T-12-03-a",
+        "T-01-03-a"
+      ],
+      "spec_refs": [
+        "SC-03"
+      ],
+      "body": "**Mục tiêu:** Dashboard ghép vùng theo vai trò.\n\n**Spec:** SC-03 § 2–§ 7; SC-03 Ghi chú LAB-5 FE\n\n**Phạm vi:**\n- Hàm `resolveDashboardRegions(kind, functions)` theo ma trận SC-03 § 7\n- 10 component vùng, mỗi vùng Suspense + error boundary\n- Link sang màn hình duyệt (SC-07, SC-18, SC-32, SC-11)\n\n**Tiêu chí hoàn thành:**\n- [ ] Vitest: ma trận vùng cho 10 vai trò\n- [ ] Một vùng lỗi không làm hỏng vùng khác\n\n**Phụ thuộc:** T-12-03-a, T-01-03-a"
+    },
+    {
+      "key": "T-12-03-c",
+      "parent": "I-12-03",
+      "title": "[TEST] E2E dashboard 4 vai trò (ADM / W-FLR / NAK / KAI)",
+      "labels": [
+        "type:test",
+        "area:E12"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "QA",
+      "phase": 6,
+      "depends_on": [
+        "T-12-03-b",
+        "T-10-05-d"
+      ],
+      "spec_refs": [
+        "SC-03"
+      ],
+      "body": "**Mục tiêu:** Khóa nội dung dashboard theo vai trò.\n\n**Spec:** SC-03 Ghi chú LAB-5 Test (E2E); SC-03 § 7\n\n**Phạm vi:**\n- Đăng nhập lần lượt 4 vai trò, kiểm tập vùng\n- NAK thấy 完納 tiến độ của mình\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E xanh\n\n**Phụ thuộc:** T-12-03-b, T-10-05-d"
+    },
+    {
+      "key": "T-13-01-a",
+      "parent": "I-13-01",
+      "title": "[DB] Gắn fn_audit cho mọi bảng nhóm A–F + kiểm audit_reason trong RPC + index + RLS audit_logs",
+      "labels": [
+        "type:db",
+        "area:E13"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "BE-1",
+      "phase": 6,
+      "depends_on": [
+        "T-01-02-c",
+        "T-11-01-a",
+        "T-10-01-a",
+        "T-12-01-a",
+        "T-08-01-a"
+      ],
+      "spec_refs": [
+        "SC-36",
+        "ADR-008",
+        "BR-43",
+        "D-18",
+        "BR-12",
+        "BR-20",
+        "BR-29",
+        "BR-42",
+        "Q41"
+      ],
+      "body": "**Mục tiêu:** Đủ phạm vi BR-43 (D-18).\n\n**Spec:** SC-36 Ghi chú LAB-5 DB; ADR-008; BR-43; D-18; BR-12; BR-20; BR-29; BR-42; Q41\n\n**Phạm vi:**\n- Script kiểm: mọi bảng schema nghiệp vụ có trigger `fn_audit`\n- RPC bắt buộc lý do (BR-12, BR-20, BR-29, BR-42) đều set `app.audit_reason`\n- Index (table, row_id), (actor, at); RLS: ADM tất cả, W-MGR bảng nghiệp vụ 卸売業者 (Q41)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: sửa giá giao dịch qua RPC → 1 dòng có before/after/reason\n- [ ] pgTAP: W-MGR không đọc dòng `participants`\n- [ ] Script kiểm bảng thiếu trigger chạy trong CI\n\n**Phụ thuộc:** T-01-02-c, T-11-01-a, T-10-01-a, T-12-01-a, T-08-01-a"
+    },
+    {
+      "key": "T-13-01-b",
+      "parent": "I-13-01",
+      "title": "[FE] SC-36 trang lọc + bảng keyset + ngăn kéo diff + từ điển nhãn cột tiếng Nhật",
+      "labels": [
+        "type:fe",
+        "area:E13"
+      ],
+      "priority": "Must",
+      "constraint": "",
+      "role": "FE-2",
+      "phase": 6,
+      "depends_on": [
+        "T-13-01-a"
+      ],
+      "spec_refs": [
+        "SC-36"
+      ],
+      "body": "**Mục tiêu:** Màn tra cứu audit log.\n\n**Spec:** SC-36 § 3–§ 7\n\n**Phạm vi:**\n- Bộ lọc bảng / người / khoảng thời gian / row_id qua URL\n- Phân trang keyset; ngăn kéo diff before/after\n- Từ điển nhãn cột JP\n\n**Tiêu chí hoàn thành:**\n- [ ] Trang 10k dòng tải < 1 giây (staging)\n\n**Phụ thuộc:** T-13-01-a"
+    },
+    {
+      "key": "T-13-02-a",
+      "parent": "I-13-02",
+      "title": "[RPC] update_notification_template / enqueue_test_notification / requeue_notification / revoke_display_token",
+      "labels": [
+        "type:rpc",
+        "area:E13"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "BE-2",
+      "phase": 6,
+      "depends_on": [
+        "T-01-04-b"
+      ],
+      "spec_refs": [
+        "SC-37",
+        "D-17"
+      ],
+      "body": "**Mục tiêu:** Cấu hình thông báo qua RPC có kiểm quyền.\n\n**Spec:** SC-37 Ghi chú LAB-5 DB/BE + Test; D-17\n\n**Phạm vi:**\n- 4 RPC; validate biến template (ERR_TEMPLATE_VARIABLE)\n- `requeue_notification` chỉ dòng lỗi (ERR_NOT_RETRYABLE)\n- `revoke_display_token` (nếu SC-24 làm)\n\n**Tiêu chí hoàn thành:**\n- [ ] pgTAP: vai trò khác ADM → ERR_FORBIDDEN\n- [ ] pgTAP: requeue dòng `sent` → ERR_NOT_RETRYABLE\n\n**Phụ thuộc:** T-01-04-b"
+    },
+    {
+      "key": "T-13-02-b",
+      "parent": "I-13-02",
+      "title": "[FE] SC-37 trang 5 tab: mẫu email (chèn biến), lịch sử gửi, token, sao lưu",
+      "labels": [
+        "type:fe",
+        "area:E13"
+      ],
+      "priority": "Should",
+      "constraint": "",
+      "role": "FE-1",
+      "phase": 6,
+      "depends_on": [
+        "T-13-02-a",
+        "I-00-07"
+      ],
+      "spec_refs": [
+        "SC-37",
+        "D-28"
+      ],
+      "body": "**Mục tiêu:** Màn cài đặt cho ADM.\n\n**Spec:** SC-37 § 3–§ 7; D-28\n\n**Phạm vi:**\n- Editor mẫu có chèn biến + xem trước\n- Bảng lịch sử gửi + nút gửi lại\n- Bảng display token; tab sao lưu chỉ hiển thị chính sách (không gọi Management API)\n\n**Tiêu chí hoàn thành:**\n- [ ] E2E: sửa mẫu → gửi thử → nhận trên Inbucket\n\n**Phụ thuộc:** T-13-02-a, I-00-07"
+    }
+  ]
+}

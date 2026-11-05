@@ -1,0 +1,23 @@
+{
+  "iteration": "Sprint 1",
+  "period": { "start": "2026-11-09", "end": "2026-11-20", "workingDays": ["11/09", "11/10", "11/11", "11/12", "11/13", "11/16", "11/17", "11/18", "11/19", "11/20"] },
+  "note": "Giả lập. Mỗi dòng: trạng thái cuối sprint, giờ thực tế đã dùng, ngày làm việc (1–10) hoàn thành nếu Done.",
+  "items": {
+    "I-00-04": { "status": "Done", "actual": 8, "doneDay": 2 },
+    "I-00-03": { "status": "Done", "actual": 10, "doneDay": 3 },
+    "T-01-01-a": { "status": "Done", "actual": 38, "doneDay": 4, "why": "Vượt 8h: Supabase Tokyo cần tạo project mới + chuyển dữ liệu seed, Vercel hnd1 phải đổi gói" },
+    "T-01-02-a": { "status": "Done", "actual": 32, "doneDay": 5 },
+    "T-01-01-b": { "status": "Done", "actual": 14, "doneDay": 6 },
+    "T-01-05-a": { "status": "Done", "actual": 8, "doneDay": 6 },
+    "T-01-02-b": { "status": "Done", "actual": 20, "doneDay": 7 },
+    "T-01-02-c": { "status": "Done", "actual": 15, "doneDay": 8 },
+    "T-01-02-d": { "status": "Done", "actual": 11, "doneDay": 8 },
+    "T-01-04-a": { "status": "Done", "actual": 13, "doneDay": 9 },
+    "T-01-01-c": { "status": "In Review", "actual": 34, "why": "Nâng Next 15/React 19 gây lỗi hydration ở 3 trang LAB-2; PR đang review" },
+    "T-01-03-b": { "status": "In Review", "actual": 16 },
+    "T-01-03-a": { "status": "In Progress", "actual": 12, "why": "Bắt đầu muộn vì chờ T-01-01-c (Next 15) và T-01-02-b" },
+    "I-00-05": { "status": "In Progress", "actual": 10, "why": "Đã gửi câu hỏi, họp với ban quản lý chợ dời sang 11/24" },
+    "I-00-01": { "status": "Blocked", "actual": 5, "why": "Chờ kế toán thuế của khách trả lời về 適格請求書 / làm tròn thuế" },
+    "I-00-02": { "status": "Blocked", "actual": 6, "why": "Định nghĩa 完納 và bậc thưởng phụ thuộc câu trả lời thuế (I-00-01)" }
+  }
+}

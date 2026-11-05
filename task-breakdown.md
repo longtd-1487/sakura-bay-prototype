@@ -25,7 +25,7 @@ GitHub Project: https://github.com/users/longtd-1487/projects/1 · Nguồn dữ 
 Một sub-issue chuyển **Done** khi:
 1. Đạt mọi tiêu chí trong mục "Tiêu chí hoàn thành" của issue (đã viết sẵn dạng checklist, có test case cụ thể).
 2. Migration chạy được trên Supabase local và staging; pgTAP / Vitest / E2E liên quan xanh trên CI.
-3. Thông điệp lỗi tiếng Nhật đúng danh mục `ERR_*`; quyền và RLS đúng [permissions-matrix](specs/docs/02-requirements/permissions-matrix.md) (trường hợp có).
+3. Thông điệp lỗi tiếng Nhật đúng danh mục `ERR_*`; quyền và RLS đúng permissions-matrix của bộ spec LAB-4 (trường hợp có).
 4. Được review (PR approve) và nếu chạm spec thì cập nhật spec cùng PR.
 5. Giờ thực tế được ghi vào field "Giờ thực tế" trên Project.
 

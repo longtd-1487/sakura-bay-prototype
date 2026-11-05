@@ -29,7 +29,7 @@ Giả định chỉ lấp chỗ spec/RFP để ngỏ; mọi giả định có c�
 | A-17 | Tiền về trước hạn nhưng 消込 sau khi đã tính thưởng: không tự tính lại. `check_period_lock` cảnh báo để kế toán xử lý | D-09 cho 消込 vào kỳ khóa, nhưng BR-27 / BR-29 không nói tính lại | #151, #167. Hỏi ở #16 |
 | A-18 | `credit_limit = 0` nghĩa là **không cho nợ**. Script migrate dữ liệu LAB-2 đặt hạn mức mặc định = 保証金 × hệ số | LAB-2 hiểu 0 = không giới hạn (`lib/rules.ts:26`); spec chưa nói | #122, #105. Hỏi ở #17 |
 | A-19 | Giao dịch 交渉中 còn lại cuối ngày tự hủy lúc đóng ngày (job 0:05 JST) | Q22 chưa trả lời | #117 |
-| A-20 | Team giả định 6 người: PM, BE-1, BE-2, FE-1, FE-2, QA; mỗi người 60 giờ tập trung / sprint 2 tuần | Spec không nói về nguồn lực | Lịch 14 sprint ([estimate.md § 3](estimate.md#3-cách-quy-ra-giờ)) |
+| A-20 | Team giả định 6 người: PM, BE-1, BE-2, FE-1, FE-2, QA; mỗi người 60 giờ tập trung / sprint 2 tuần | Spec không nói về nguồn lực | Lịch 14 sprint ([estimate.md § 2](estimate.md#2-cách-quy-ra-giờ)) |
 
 ## 3. Hướng đã chốt
 

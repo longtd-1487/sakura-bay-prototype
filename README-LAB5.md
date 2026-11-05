@@ -25,7 +25,7 @@
 | Repo (public) | https://github.com/longtd-1487/sakura-bay-prototype |
 | GitHub Project (public) | https://github.com/users/longtd-1487/projects/1 |
 | Báo cáo HTML của skill chấm SWP | [`reports/swp-estimate-sakura-bay-lab5.html`](reports/swp-estimate-sakura-bay-lab5.html) · xem trực tiếp: https://htmlpreview.github.io/?https://github.com/longtd-1487/sakura-bay-prototype/blob/main/reports/swp-estimate-sakura-bay-lab5.html |
-| Kiểm tra truy cập công khai | Đã mở thử repo, Project và trang HTML bằng **cửa sổ ẩn danh** (không đăng nhập GitHub): cả ba xem được |
+| Kiểm tra truy cập công khai | Ngày 05/11/2026 đã mở thử repo, Project (#1), issue epic #11, file HTML (raw và bản htmlpreview) **ở chế độ ẩn danh, không đăng nhập GitHub**: tất cả trả về trang hợp lệ (HTTP 200), Project hiển thị tên "Sakura Bay — LAB-5 Backlog" |
 
 ## 3. Cấu trúc repo
 
